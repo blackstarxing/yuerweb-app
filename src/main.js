@@ -5,6 +5,8 @@ import lives from './views/lives.vue'
 import videos from './views/videos.vue'
 import search from './views/search.vue'
 import searchresult from './views/searchresult.vue'
+import liveDetail from './views/liveDetail.vue'
+import videoDetail from './views/videoDetail.vue'
 
 import VueRouter from 'vue-router' 
 import VueResource from 'vue-resource' 
@@ -36,6 +38,14 @@ const router = new VueRouter({
     {
       path: '/searchresult',
       component: searchresult
+    },
+    {
+      path: '/liveDetail',
+      component: liveDetail
+    },
+    {
+      path: '/videoDetail',
+      component: videoDetail
     }
   ]
 })
