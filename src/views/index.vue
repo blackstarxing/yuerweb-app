@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<top-head></top-head>
+        <download></download>
 		<div class="g-bd">
 			<div class="m-banner">
                 <div class="swiper-container">
@@ -14,24 +15,89 @@
                 </div>   
             </div>
             <div class="g-list">
-                <div class="m-recommend-live f-cb">
-                    <div class="m-lst" v-for="recommendLive in index">
-                        <a href="" class="m-livelink">
+                <div class="m-live f-cb" v-if="index.recommend_live!=''">
+                    <h3>推荐直播<router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                    <div class="m-lst" v-for="live in index.recommend_live">
+                        <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
-                                <img v-bind:src="recommendLive.icon" alt="">
-                                <span><i>·</i>{{recommendLive.game_name}}</span>
+                                <img v-bind:src="live.icon" alt="">
+                                <span><i>·</i>{{live.game_name}}</span>
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
-                                    <img v-bind:src="'http://img.wangyuhudong.com/'+recommendLive.icon" alt="" class="anchor-head">
-                                    <img src="../../static/images/male.png" alt="" class="sex" v-if="recommendLive.sex">
+                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head">
+                                    <img src="../../static/images/male.png" alt="" class="sex" v-if="live.sex">
                                     <img src="../../static/images/female.png" alt="" class="sex" v-else>
                                 </div>
-                                <div class="m-nickname f-fl">{{recommendLive.nickname}}</div>
-                                <span>{{recommendLive.online_num}}</span>
+                                <div class="m-nickname f-fl">{{live.nickname}}</div>
+                                <span>{{live.online_num}}</span>
                             </div>
-                            <div class="m-title">{{recommendLive.title}}</div>
-                        </a>
+                            <div class="m-title">{{live.title}}</div>
+                        </router-link>
+                    </div>
+                </div>
+                <div class="m-live f-cb" v-if="index.hot_live!=''">
+                    <h3>热门直播<router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                    <div class="m-lst" v-for="live in index.hot_live">
+                        <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
+                            <div class="m-cover">
+                                <img v-bind:src="live.icon" alt="">
+                                <span><i>·</i>{{live.game_name}}</span>
+                            </div>
+                            <div class="m-info f-cb">
+                                <div class="m-head f-fl">
+                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head">
+                                    <img src="../../static/images/male.png" alt="" class="sex" v-if="live.sex">
+                                    <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                                </div>
+                                <div class="m-nickname f-fl">{{live.nickname}}</div>
+                                <span>{{live.online_num}}</span>
+                            </div>
+                            <div class="m-title">{{live.title}}</div>
+                        </router-link>
+                    </div>
+                </div>
+                <div class="m-live f-cb" v-for="game in index.game_live">
+                    <h3>{{game.game_name}}</h3>
+                    <div class="m-lst" v-for="live in game.lives">
+                        <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
+                            <div class="m-cover">
+                                <img v-bind:src="live.icon" alt="">
+                                <span><i>·</i>{{live.game_name}}</span>
+                            </div>
+                            <div class="m-info f-cb">
+                                <div class="m-head f-fl">
+                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head">
+                                    <img src="../../static/images/male.png" alt="" class="sex" v-if="live.sex">
+                                    <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                                </div>
+                                <div class="m-nickname f-fl">{{live.nickname}}</div>
+                                <span>{{live.online_num}}</span>
+                            </div>
+                            <div class="m-title">{{live.title}}</div>
+                        </router-link>
+                    </div>
+                </div>
+                <div class="m-video">
+                    <h3>精彩视频<router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
+                    <div class="m-vd f-cb" v-for="video in index.video">
+                        <router-link :to="{path:'videoDetail',query: {id:video.id}}">
+                            <div class="m-vd-icon f-fl">
+                                <img v-bind:src="video.icon" alt="">
+                            </div>
+                            <div class="m-vd-info f-fl">
+                                <div class="m-title">{{video.title}}</div>
+                                <div class="m-nickname">
+                                    <span>{{video.nickname}}</span>
+                                    <img src="../../static/images/rank_male.png" alt="" class="sex" v-if="video.sex">
+                                    <img src="../../static/images/rank_female.png" alt="" class="sex" v-else>
+                                </div>
+                                <div class="m-count">
+                                    <label for=""><img src="../../static/images/video.png" alt="">{{video.play_times}}</label>
+                                    <label for=""><img src="../../static/images/comment.png" alt="">{{video.comment_num}}</label>
+                                </div>
+                            </div>
+                        </router-link>
                     </div>
                 </div>
             </div>           
@@ -40,6 +106,7 @@
 </template>
 <script type="text/javascript">
 	import topHead from '../components/topHead.vue'
+    import download from '../components/download.vue'
     import swiper from '../../static/js/swiper.min.js'
     export default {
         data () {
@@ -48,44 +115,42 @@
                 index:'',
             }
         },
-        beforeCreate: function () {
-            
-        },
-        updated:function () {
-            //banner 
-            let mySwiper = new Swiper ('.swiper-container', {
-                direction: 'horizontal',
-                loop: true,
-                autoplay:2500,
-                autoplayDisableOnInteraction:false,
-                // 如果需要分页器
-                pagination: '.swiper-pagination',
-                observer:true,
-            })   
-        },
         mounted: function () {
             this.$nextTick(function () {
                 let _this = this;
 
-                // 获取轮播图数据
+                // 获取banner数据
                 _this.$http.get('/mobile/banner').then(function(response) {
-                    _this.banner = response.data.object;
-                    
+                    _this.banner = response.data.object;                   
                 },function(response) {
                     console.log(response);
                 });
-                
+
                 // 获取首页数据
                 _this.$http.get('/mobile/index').then(function(response) {
                     _this.index = response.data.object;
-                    
+                    console.log($('.swiper-slide').length);
+                    let mySwiper = new Swiper ('.swiper-container', {
+                        direction: 'horizontal',
+                        loop: true,
+                        autoplay : 2500,
+                        autoplayDisableOnInteraction : false,
+                        // 如果需要分页器
+                        pagination: '.swiper-pagination',
+                        observer:true,
+                        observeParents:true,
+                    }); 
                 },function(response) {
                     console.log(response);
                 });
             })
         },
+        methods:{
+            
+        },
         components: {
-            topHead
+            topHead,
+            download
         },   
     }
 </script>
