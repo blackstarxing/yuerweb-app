@@ -15,7 +15,7 @@
             <div class="g-list" v-if="totalshow!=''">
                 <div class="m-live f-cb"  v-show="index=='0' || index=='1'">
                     <div v-if="totalshow.live.total!=0">
-                        <h3><span>{{totalshow.live.total}}</span><span>个相关直播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{totalshow.live.total}}</span><span>个相关直播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
                         <div class="m-lst" v-for="live in totalshow.live.list">
                             <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                                 <div class="m-cover">
@@ -42,18 +42,22 @@
                 </div>
                 <div class="f-cb"  v-show="index=='0' || index=='2'">
                     <div v-if="totalshow.up.total!=0">
-                        <h3><span>{{totalshow.up.total}}</span><span>个相关主播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{totalshow.up.total}}</span><span>个相关主播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
                         <div class="m-result-host" v-for="(up,index) in totalshow.up.list">
                             <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
                                 <div class="m-sh-label">
                                   <img v-bind:src="up.user_icon" alt="" class="u-shl-img">
                                   <div class="u-shl-tar">
-                                    <p><span class="u-shlt-sx">{{up.nickname}}</span><img src="../../static/images/male.png" alt="" class="sex" v-if="up.sex">
-                                    <img src="../../static/images/female.png" alt="" class="sex" v-else><img src="../../static/images/auth.png" alt=""></p>
-                                    <p class="u-shlt-fs"><span>房间</span><span class="u-s-fs">{{up.id}}</span><span>粉丝</span><span u-s-fs u-s-fspec>{{up.fans}}</span></p>
+                                    <p>
+                                        <span class="u-shlt-sx">{{up.nickname}}</span>
+                                        <i class="icon iconfont icon-male" v-if="up.sex"></i>
+                                        <i class="icon iconfont icon-female" v-else></i>
+                                        <i class="icon iconfont icon-vip"></i>
+                                    </p>
+                                    <p class="u-shlt-fs"><span>房间</span><span class="u-s-fs">{{up.id}}</span><span class="u-s-fspec">粉丝</span><span class="u-s-fs">{{up.fans}}</span></p>
                                   </div>
                                   <div class="u-shl-focus">
-                                    <button>关注</button>
+                                    <button><i class="icon iconfont icon-focus"></i>关注</button>
                                   </div>
                                 </div>
                             </router-link>
@@ -66,7 +70,7 @@
                 </div>
                 <div class="m-video" v-show="index=='0' || index=='3'">
                     <div v-if="totalshow.video.total!=0">
-                        <h3><span>{{totalshow.video.total}}</span><span>个相关视频</span><router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{totalshow.video.total}}</span><span>个相关视频</span><router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
                         <div class="m-vd f-cb" v-for="(video,index) in totalshow.video.list">
                             <router-link :to="{path:'videoDetail',query: {id:video.id}}">
                                 <div class="m-vd-icon f-fl">
@@ -76,12 +80,12 @@
                                     <div class="m-title">{{video.title}}</div>
                                     <div class="m-nickname">
                                         <span>{{video.nickname}}</span>
-                                        <img src="../../static/images/rank_male.png" alt="" class="sex" v-if="video.sex">
-                                        <img src="../../static/images/rank_female.png" alt="" class="sex" v-else>
+                                        <i class="icon iconfont icon-male" v-if="video.sex"></i>
+                                        <i class="icon iconfont icon-female" v-else></i>
                                     </div>
                                     <div class="m-count">
-                                        <label for=""><img src="../../static/images/video.png" alt="">{{video.play_times}}</label>
-                                        <label for=""><img src="../../static/images/comment.png" alt="">{{video.comment_num}}</label>
+                                        <label for=""><i class="icon iconfont icon-playtimes"></i>{{video.play_times}}</label>
+                                        <label for=""><i class="icon iconfont icon-comment"></i>{{video.comment_num}}</label>
                                     </div>
                                 </div>
                             </router-link>
@@ -154,6 +158,7 @@
   	}
 </script>
 <style>
+
   .g-s-result{
     width:100%;
   }
@@ -215,6 +220,9 @@
     color:#9da4ad;
     margin:6% 0% 0% 4%;
   }
+  .u-h3-spec{
+    color:#f36;
+  }
   /*综合直播主播视频*/
   .g-s-list{
     height:3rem;
@@ -239,6 +247,7 @@
     
   .m-result-host{
     width:100%;
+    height:6rem;
     background:#242d3c;
     margin-top:2%;
     overflow:hidden;
@@ -249,10 +258,15 @@
     height:50px;
     border-radius:50%;
     float:left;
+    margin:3%;
   }
   .u-shl-tar{
     float:left;
-    width:70%;
+    width:58%;
+    margin:2% 0%;
+  }
+  .u-shl-tar p{
+    margin:3% 0;
   }
   .u-shlt-sx{
     font-size:1.3rem;
@@ -267,18 +281,23 @@
   }
   .u-s-fs{
     color:#3cc;
+    margin-left:2%;
   }
   .u-s-fspec{
     margin-left:10%;
   }
   .u-shl-focus{
+    width:15%;
     float:left;
+    margin:6% 2%;
+    /*margin:3%;*/
   }
   .u-shl-focus button{
     border:0px;
-    width:10%;
+    width:100%;
     height:2rem;
-    border-radius:10%;
+    color:#fff;
+    border-radius:2rem;
     background:#f36;
   }
 </style>
