@@ -16,7 +16,7 @@
             </div>
             <div class="g-list">
                 <div class="m-live f-cb" v-if="index.recommend_live!=''">
-                    <h3>推荐直播<router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                    <h3><i class="icon iconfont icon-recommend"></i>推荐直播<router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
                     <div class="m-lst" v-for="live in index.recommend_live">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="m-live f-cb" v-if="index.hot_live!=''">
-                    <h3>热门直播<router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                    <h3><i class="icon iconfont icon-hot"></i>热门直播<router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
                     <div class="m-lst" v-for="live in index.hot_live">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="m-live f-cb" v-for="game in index.game_live">
-                    <h3>{{game.game_name}}</h3>
+                    <h3><i class="icon iconfont icon-game"></i>{{game.game_name}}</h3>
                     <div class="m-lst" v-for="live in game.lives">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="m-video">
-                    <h3>精彩视频<router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
+                    <h3><i class="icon iconfont icon-video"></i>精彩视频<router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
                     <div class="m-vd f-cb" v-for="video in index.video">
                         <router-link :to="{path:'videoDetail',query: {id:video.id}}">
                             <div class="m-vd-icon f-fl">
@@ -89,12 +89,12 @@
                                 <div class="m-title">{{video.title}}</div>
                                 <div class="m-nickname">
                                     <span>{{video.nickname}}</span>
-                                    <img src="../../static/images/rank_male.png" alt="" class="sex" v-if="video.sex">
-                                    <img src="../../static/images/rank_female.png" alt="" class="sex" v-else>
+                                    <i class="icon iconfont icon-male" v-if="video.sex"></i>
+                                    <i class="icon iconfont icon-female" v-else></i>
                                 </div>
                                 <div class="m-count">
-                                    <label for=""><img src="../../static/images/video.png" alt="">{{video.play_times}}</label>
-                                    <label for=""><img src="../../static/images/comment.png" alt="">{{video.comment_num}}</label>
+                                    <label for=""><i class="icon iconfont icon-playtimes"></i>{{video.play_times}}</label>
+                                    <label for=""><i class="icon iconfont icon-comment"></i>{{video.comment_num}}</label>
                                 </div>
                             </div>
                         </router-link>
