@@ -2,15 +2,37 @@
 	<div>
 		<top-head></top-head>
 		<div class="g-bd">
-            <div class="g-true">
+            <div class="g-true" v-if="liveshow.list!=null ">
                 <div class="m-top">
-                     <p class="u-tcon">当前在线：<span class="u-tspec">28</span>位主播</p>        
+                     <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
                 </div>
+                <div class="g-list">
+                    <div class="m-recommend-live f-cb">
+                        <div class="m-lst" v-for="(item,index) in liveshow.list">
+                            <a href="" class="m-livelink">
+                                <div class="m-cover">
+                                    <img v-bind:src="item.icon" alt="">
+                                    <span><i>·</i>{{item.game_name}}</span>
+                                </div>
+                                <div class="m-info f-cb">
+                                    <div class="m-head f-fl">
+                                        <img v-bind:src="'http://img.wangyuhudong.com/'+item.icon" alt="" class="anchor-head">
+                                        <img src="../../static/images/male.png" alt="" class="sex" v-if="item.sex">
+                                        <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                                    </div>
+                                    <div class="m-nickname f-fl">{{item.nickname}}</div>
+                                    <span>{{item.online_num}}</span>
+                                </div>
+                                <div class="m-title">{{item.title}}</div>
+                            </a>
+                        </div>
+                    </div>
+                </div> 
             </div>
-            <!-- <div class="g-false">
+            <div class="g-false" v-else>
                 <p class="u-desc">当前没有主播开播，查看更多主播精彩视频</p>
                 <router-link  to="/" class="u-switch">查看更多精彩视频</router-link>
-            </div> -->
+            </div>
 		</div>
 	</div>
 </template>
@@ -20,58 +42,44 @@
         data () {
             return {
                 liveshow:'',
-                cur_page:'',
-                cur_pageSize:'',
+                page : '1',
+                pageSize : '20',
             }
         },
         mounted: function () {
             this.$nextTick(function () {
-                // 代码保证 this.$el 在 document 中
-                this.download();
+                var _this = this;
+                _this.vediodown();
             })
         },
         components: {
             topHead
         }, 
         methods: {
-            // downloads:function(){
-            //     var _this = this;
-            //     $.ajax({
-            //         method: "GET",
-            //         url: " http://172.16.10.134:8777/mobile/liveList",
-            //         dataType: 'json',
-            //         data: {
-            //             page: _this.cur_page,
-            //             pageSize: _this.pageSize,
-            //         }, 
-            //         success: function(data) {
-            //             if (data.code == 0) { 
-            //                 _this.liveshow = data.object; 
-            //                 if(data.code.isLast==1)
-            //                 // 是最后一页
-            //                 else{
-                                //不是最后一页
-            //                 }        
-            //             } else {
-            //                 console.log(data.result);
-            //             }
-            //         },
-            //         error: function(a, b, c) {
-            //             console.log("接口出问题啦");
-            //         }
-            //     })
-            // },
-        }, 
+            vediodown:function() {
+                var _this = this;
+                var parm = {};
+                parm.page = this.page;
+                parm.pageSize = this.pageSize;
+                    this.$http.get('/mobile/liveList', parm).then(function(response) {
+                    if (response.data.code) {
+                        var liveshow = response.data.object;
+                    }
+                }, function(response) {
+                    console.log(response);
+                });
+            }
+        }
     }
 </script>
 <style>
     .g-bd{
         width:96%;
         height:49.3rem;
-        margin:0 2%;
         background:#141a20;
     }
     .m-top{
+        margin:0 2%;
         height:3rem;
         line-height:3rem;
     }
@@ -82,5 +90,27 @@
     .u-tspec{
         color:#f36;
         margin-right:2%;
+    }
+    .g-false{
+        background:#141a20;
+        padding:0 2%;
+    }
+    .u-desc{
+        height:1.5rem;
+        width:96%;
+        margin-top:2%;
+        font-size:1.5rem;
+        color:#d0d1d2;
+        margin-bottom:55%;
+    }
+    .u-switch{
+        width:45%;
+        height:2.4rem;
+        line-height:2.4rem;
+        text-align:center;
+        border:1px solid #f36;
+        font-size:1.5rem;
+        color:#f36;
+        margin:0 29.5%;
     }
 </style>
