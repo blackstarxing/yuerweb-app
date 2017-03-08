@@ -2,10 +2,13 @@
 	<div>
 		<top-head></top-head>
 	    <download></download>
-	    <div class="">
-			<video width="100%" height="203" id="player1" poster="" controls="controls" autoplay="" webkit-playsinline playsinline>
+	    <div class="m-player">
+			<video width="100%" id="player" v-bind:poster="details.icon" controls="controls" autoplay="" webkit-playsinline playsinline v-if="details.state">
 			    <source type="application/x-mpegURL" v-bind:src="liveAddress" />
 			</video>
+			<div class="m-outline" v-else>
+				
+			</div>
 		</div>	
 		<div class="tab">
 			<ul class="f-fl">
@@ -17,7 +20,7 @@
 			<div class="comment anchor">
 				<div class="subscribe clearfix">
 					<div class="head f-fl">
-						<img v-bind:src="'http://img.wangyuhudong.com/'+details.user_icon" alt="">
+						<img v-bind:src="details.user_icon" alt="">
                         <img src="../../static/images/male.png" alt="" class="sex" v-if="details.sex">
                         <img src="../../static/images/female.png" alt="" class="sex" v-else>
 					</div>
@@ -38,22 +41,37 @@
 			</div>
 		</div>
 		<div class="m-comments" v-show="index=='2'">
-			<ul class="contribute-tab clearfix">
-				<li class="current">周贡献榜</li>
-				<li>总贡献榜</li>
+			<ul class="contribute-tab f-cb">
+				<li v-for='(item,index) in contributionTab' v-text="item.name" v-bind:class="{current:item.isCur}" @click="setContributionCur(index)"></li>
 			</ul>
-			<div class="rank">
-				
+			<div class="empty" v-if="contributionRank == ''">
+				<img src="../../static/images/empty.png" alt="">
 			</div>
-			<div class="rank">
-				
+			<div class="rank" v-else>
+				<div class="contributionRank f-cb" v-for="(contribution,index) in contributionRank">
+					<div class="bank-left f-fl">
+						<span class="rank-index">{{index+1}}</span>
+						<div class="bank-head">
+							<img v-bind:src="contribution.icon" alt="">
+						</div>
+						<span class="rank-name">{{contribution.nickname}}</span> 
+						<i class="icon iconfont icon-female rank-sex" v-if="contribution.sex"></i>
+                        <i class="icon iconfont icon-male rank-sex" v-else></i>
+					</div>
+					<div class="bank-right f-fr">
+						<div class="rank-detail">
+							<p v-if="contribution.yuer_coin"><span class="yuer-coin">{{contribution.yuer_coin}}</span>鱼币</p>
+							<p v-if="contribution.bait"><span>{{contribution.bait}}</span>鱼饵</p>
+						</div>
+					</div>
+				</div>
 			</div>
+
 		</div>
 		<div class="m-comments" v-show="index=='3'">
 			<div class="comment overlook">
                 <div class="empty" v-if="historyVideo.list == ''">
 					<img src="../../static/images/empty.png" alt="">
-					<p>这里还没有任何内容哦~</p>
 				</div>
     			<div v-else>
     				<div class="videolist" v-for="video in historyVideo.list">
@@ -104,7 +122,17 @@
         			name:'往期',
         			isCur:false
         		}],
+        		// tab索引
         		index:1,
+        		// 贡献榜
+        		contributionTab:[{
+        			name:'周贡献榜',
+        			isCur:true
+        		},{
+        			name:'总贡献榜',
+        			isCur:false
+        		}],
+        		contributionRank:'',
       		}
   		},
   		mounted: function () {
@@ -114,13 +142,13 @@
                 // 获取直播间详情数据
                 _this.$http.get('/mobile/liveDetail',{params:{id:_this.$route.query.id,page:1,pageSize:5}}).then(function(response) {
                     _this.details = response.data.object.info;
-                    _this.liveAddress = _this.details.rtmp.replace(/rtmp:/, "http:").replace(/rtmp/, "hls")+'.m3u8';       
+                    _this.liveAddress = _this.details.rtmp ? _this.details.rtmp.replace(/rtmp:/, "http:").replace(/rtmp/, "hls")+'.m3u8':'';       
                     _this.roomid = _this.details.chat_room_id;   
                     _this.accid = _this.details.up_user_id; 
                     _this.historyVideo = response.data.object.historyVideo; 
 
                     // 获取聊天室游客id
-                    _this.$http.get('http://172.16.10.144:8777/visitor').then(function(response) {
+                    _this.$http.get('/mobile/visitor').then(function(response) {
 	                    _this.live_account = response.data.object.accid;
 			            _this.live_token = response.data.object.token;
 			            // 云信聊天室初始化
@@ -133,20 +161,41 @@
                     console.log(response);
                 });
 
-                // 礼物排行
-
                 // 动态设置聊天区域高度
 				let height=$(window).height()-366;
 				$('#chat').css('height',height+'px');
             })
         },
         methods:{
+        	// tab切换
             setCur : function(index){
             	this.tab.map(function (v,i) {
 			        i==index? v.isCur=true: v.isCur=false;
 			    });
 			    this.index = index ;
+			    if (this.index=='2') {
+			    	this.getContribution(0);
+			    }
             },
+            // 贡献榜切换
+            setContributionCur : function(index){
+            	this.contributionTab.map(function (v,i) {
+			        i==index? v.isCur=true: v.isCur=false;
+			    });
+			    this.getContribution(index);
+            },
+            // 获取贡献榜
+            getContribution : function(index){
+            	var _this = this;
+            	index = parseInt(index+1);
+            	// 礼物排行
+                _this.$http.get('/mobile/contributionRank',{params:{type:index,upUserId:_this.accid}}).then(function(response) {
+                    _this.contributionRank = response.data.object;                   
+                },function(response) {
+                    console.log(response);
+                });
+            },
+            // 进入聊天室
             enterLiveroom : function(){
             	let _this = this;
             	// 聊天室服务器地址
@@ -270,7 +319,10 @@
   	}
 </script>
 <style>
-	/*@import '../../static/build/mediaelementplayer.min.css';*/
+	.m-player video,
+	.m-outline{
+		height: 18rem;
+	}
 	.tab{
 		height: 39px;
 		line-height: 39px;
@@ -313,7 +365,7 @@
 		margin-right: 3px;
 	}
 	/*评论区域*/
-	.m-comments,.rank{padding:0 0 70px;color:#9da4ad;}
+	.m-comments{padding:0 0 70px;color:#9da4ad;}
 	.m-comments .comment{padding:12px 12px 0;}
 	.showItem,.showRank{display: block;}
 	.m-comments .comment .head{width:30px;}
@@ -402,7 +454,7 @@
 	/*聊天室*/
 	#chat{
 		overflow: auto;
-		padding:10px;
+		padding:10px 10px 0;
 		box-sizing: border-box;
 		line-height: 20px;
 		font-size: 13px;
@@ -419,7 +471,7 @@
 	}
 	#chat .combo i{
 		display: inline-block;
-		background: url(/images/combo.png) center center no-repeat;
+		background: url(../../static/images/combo.png) center center no-repeat;
 		background-size: 100%;
 		width:42.5px;
 		height: 20px;
@@ -498,21 +550,21 @@
 		float: left;
 	}
 	.contributionRank:first-child .bank-head{
-		background: url('/images/first2.png') top left no-repeat;
+		background: url('../../static/images/first.png') top left no-repeat;
 		background-size: 20px 20px;
 	}
 	.contributionRank:first-child img{
 		border:1px solid #ff0;
 	}
 	.contributionRank:nth-child(2) .bank-head{
-		background: url('/images/second.png') top left no-repeat;
+		background: url('../../static/images/second.png') top left no-repeat;
 		background-size: 20px 20px;
 	}
 	.contributionRank:nth-child(2) img{
 		border:1px solid #c6e3f0;
 	}
 	.contributionRank:nth-child(3) .bank-head{
-		background: url('/images/third.png') top left no-repeat;
+		background: url('../../static/images/third.png') top left no-repeat;
 		background-size: 20px 20px;
 	}
 	.contributionRank:nth-child(3) img{
@@ -527,16 +579,8 @@
 	}
 	.bank-left .rank-sex{
 		display: inline-block;
-		width: 16px;
-		height: 16px;
-		background: url(/images/rank_female.png) center center no-repeat;
-		background-size: contain;
 		vertical-align: middle;
 		margin-left: 10px;
-	}
-	.bank-left .rank-male{
-		background: url(/images/rank_male.png) center center no-repeat;
-		background-size: contain;
 	}
 	.bank-right{
 		position: relative;

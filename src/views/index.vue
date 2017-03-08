@@ -129,7 +129,6 @@
                 // 获取首页数据
                 _this.$http.get('/mobile/index').then(function(response) {
                     _this.index = response.data.object;
-                    console.log($('.swiper-slide').length);
                     let mySwiper = new Swiper ('.swiper-container', {
                         direction: 'horizontal',
                         loop: true,
