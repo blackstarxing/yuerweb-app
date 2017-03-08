@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<top-head></top-head>
-		<div class="g-bd">
+		<div class="g-bd g-live-bd">
             <div class="g-true" v-if="liveshow.list!='' ">
                 <div class="m-top">
                      <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
@@ -70,7 +70,7 @@
     }
 </script>
 <style>
-    .g-bd{
+    .g-live-bd{
         width:96%;
         height:49.3rem;
         background:#141a20;

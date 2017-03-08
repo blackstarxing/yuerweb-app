@@ -20,8 +20,8 @@
                             <img src="../../static/images/rank_female.png" alt="" class="sex" v-else>
                         </div>
                         <div class="m-count">
-                            <label for=""><img src="../../static/images/video.png" alt="">{{video.play_times}}</label>
-                            <label for=""><img src="../../static/images/comment.png" alt="">{{video.comment_num}}</label>
+                            <label for=""><i class="icon iconfont icon-playtimes"></i>{{video.play_times}}</label>
+                            <label for=""><i class="icon iconfont icon-comment"></i>{{video.comment_num}}</label>
                         </div>
                     </div>
                 </router-link>

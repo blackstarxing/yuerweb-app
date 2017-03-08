@@ -5,20 +5,13 @@
 				<div class="g-s-nav">
 					<div class="m-s-nav">
 						<img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
-						<input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search">
+						<input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-bind="keyword" @click="searchs()">
 					</div>
 					<router-link  to="/" class="u-s-cancel">取消</router-link>
 				</div>
 				<div class="g-s-main">
 					<div class="u-hs">热门搜索</div>
-					<div class="u-hc">王者荣耀</div>
-					<div class="u-hc">穿越火线</div>
-					<div class="u-hc">球球大作战</div>
-					<div class="u-hc">街篮</div>
-					<div class="u-hc">炉石传说</div>
-					<div class="u-hc">阴阳师</div>
-					<div class="u-hc">欢乐斗地主</div>
-					<div class="u-hc">蛇蛇大作战</div>
+					<div v-for="(item,index) in hotsearch" @click="searchs()"  class="u-hc">{{item.content}}</div>
 				</div>
 			</div>
 
@@ -29,12 +22,35 @@
 	export default {
         data () {
     		return {
-      
+    			searchs:'',
+    			keyword:'',
+    			type:0,
+    			hotsearch:'',
     		}
 		},
+		mounted:function(){
+        	// this.searchs();
+        	this.$http.get('/mobile/hotSearchTag').then(function(response) {
+                    this.hotsearch = response.data.object;                   
+                },function(response) {
+                    console.log(response);
+                });
+      	},
 		components: {
-      
-		},   
+      		
+		},  
+		methods:{
+			searchs:function() {
+				var _this = this;
+                var parm = {};
+                _this.$http.get('/mobile/search', {params:{keyword:_this.keyword,type:0}}).then(function(response) {
+                        // this.searchshow = response.data.object;
+                        // console.log(this.searchshow);
+                }, function(response) {
+                    console.log(response);
+                });
+            },
+		} 
 	}
 </script>
 <style>
