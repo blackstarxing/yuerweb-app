@@ -1,7 +1,7 @@
 <template>
 	<div class="g-hd">
     <img src="../../static/images/logo.png" alt="" class="logo">
-    <router-link to="/search" class="u-search f-fr"><img src="../../static/images/search.png" alt=""></router-link>
+    <router-link to="/search" class="u-search f-fr"><i class="icon iconfont icon-index-search"></i></router-link>
 		<ul class="m-nav f-fr">
             <router-link tag="li" to="/" exact>首页</router-link>
             <router-link tag="li" to="/lives">直播</router-link>

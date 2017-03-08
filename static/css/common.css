@@ -41,6 +41,68 @@ a,a:hover{color:#fff;}
 .f-prz{position:relative;zoom:1;}
 .f-oh{overflow:hidden;}
 
+/*字体图标*/
+@font-face {font-family: "iconfont";
+  src: url('../font/iconfont.eot?t=1488938568505'); /* IE9*/
+  src: url('../font/iconfont.eot?t=1488938568505#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../font/iconfont.woff?t=1488938568505') format('woff'), /* chrome, firefox */
+  url('../font/iconfont.ttf?t=1488938568505') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../font/iconfont.svg?t=1488938568505#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:1.6rem;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-playtimes:before { content: "\e65e"; }
+
+.icon-male:before { content: "\e65f"; }
+
+.icon-focus:before { content: "\e660"; }
+
+.icon-female:before { content: "\e661"; }
+
+.icon-video:before { content: "\e662"; }
+
+.icon-hot:before { content: "\e663"; }
+
+.icon-comment:before { content: "\e664"; }
+
+.icon-recommend:before { content: "\e665"; }
+
+.icon-search:before { content: "\e666"; }
+
+.icon-index-search:before { content: "\e667"; }
+
+.icon-game:before { content: "\e668"; }
+
+.icon-index-search{
+	display: inline-block;
+	margin-top: 0.75rem;
+}
+.icon-recommend,
+.icon-hot,
+.icon-game,
+.icon-video{
+	color:#f36;
+	vertical-align: bottom;
+	margin-right: 5px;
+}
+.icon-male{
+	color:#3cc;
+}
+.icon-female{
+	color:#f36;
+}
+.icon-focus{
+	font-size: 1.2rem;
+	margin-right: 3px;
+}
+
 .g-doc{
 	background: #151a20;
 	max-width: 800px;
@@ -167,9 +229,15 @@ a,a:hover{color:#fff;}
 .m-vd-info{
 	width: 60%;
 }
+.m-vd-info .m-title{
+	font-size: 1.3rem;
+}
+.m-vd-info .iconfont{
+	font-size: 1.2rem;
+}
 .m-vd-info .m-nickname{
 	width: 60%;
-	margin-top: 0;
+	margin-top: 5px;
 }
 .m-vd-info img{
 
@@ -196,4 +264,16 @@ a,a:hover{color:#fff;}
     font-size:1.5rem;
     color:#f36;
     margin:0 29.5%;
+.m-count{
+	margin-top: 10px;
+	color:#626f7e;
+}
+.m-count .iconfont{
+	font-size: 1.4rem;
+	margin-right: 5px;
+}
+.m-count label{
+	display: inline-block;
+	width: 20%;
+	margin-right: 15px;
 }
