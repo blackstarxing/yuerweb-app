@@ -7,7 +7,12 @@
 			    <source type="application/x-mpegURL" v-bind:src="liveAddress" />
 			</video>
 			<div class="m-outline" v-else>
-				
+				<p>主播当前不在线，查看更多直播</p>
+				<div class="other-wrap f-cb">
+					<router-link :to="{path:'liveDetail',query: {id:live.id}}" class="otherlive f-fl" v-for="live in otherlive">
+						<img v-bind:src="live.icon" alt="">
+					</router-link>
+				</div>				
 			</div>
 		</div>	
 		<div class="tab">
@@ -101,6 +106,7 @@
       		return {
         		details:'',
         		historyVideo:'',
+        		otherlive:'',
         		liveAddress:'',
         		roomid:'',
         		accid:'',
@@ -146,6 +152,7 @@
                     _this.roomid = _this.details.chat_room_id;   
                     _this.accid = _this.details.up_user_id; 
                     _this.historyVideo = response.data.object.historyVideo; 
+                    _this.otherlive = response.data.object.otherLive ? response.data.object.otherLive : '';
 
                     // 获取聊天室游客id
                     _this.$http.get('/mobile/visitor').then(function(response) {
@@ -322,6 +329,29 @@
 	.m-player video,
 	.m-outline{
 		height: 18rem;
+	}
+	.m-outline{
+		background: #000;
+		color:#cecfd2;
+		font-size: 1.3rem;
+	}
+	.m-outline p{
+		padding-top: 5rem;
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	.other-wrap{
+		width: 60%;
+		margin:0 auto;
+	}
+	.otherlive{
+		width: 44%;
+		margin:0 3%;
+		border:1px solid #fff;
+		box-sizing: border-box;
+	}
+	.otherlive img{
+		width: 100%;
 	}
 	.tab{
 		height: 39px;

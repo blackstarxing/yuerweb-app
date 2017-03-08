@@ -26,8 +26,8 @@
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
                                     <img v-bind:src="live.user_icon" alt="" class="anchor-head">
-                                    <img src="../../static/images/male.png" alt="" class="sex" v-if="live.sex">
-                                    <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                                    <img src="../../static/images/female.png" alt="" class="sex" v-if="live.sex">
+                                    <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
                                 <span>{{live.online_num}}</span>
@@ -47,8 +47,8 @@
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
                                     <img v-bind:src="live.user_icon" alt="" class="anchor-head">
-                                    <img src="../../static/images/male.png" alt="" class="sex" v-if="live.sex">
-                                    <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                                    <img src="../../static/images/female.png" alt="" class="sex" v-if="live.sex">
+                                    <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
                                 <span>{{live.online_num}}</span>
@@ -68,8 +68,8 @@
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
                                     <img v-bind:src="live.user_icon" alt="" class="anchor-head">
-                                    <img src="../../static/images/male.png" alt="" class="sex" v-if="live.sex">
-                                    <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                                    <img src="../../static/images/female.png" alt="" class="sex" v-if="live.sex">
+                                    <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
                                 <span>{{live.online_num}}</span>
@@ -89,8 +89,8 @@
                                 <div class="m-title">{{video.title}}</div>
                                 <div class="m-nickname">
                                     <span>{{video.nickname}}</span>
-                                    <i class="icon iconfont icon-male" v-if="video.sex"></i>
-                                    <i class="icon iconfont icon-female" v-else></i>
+                                    <i class="icon iconfont icon-female" v-if="video.sex"></i>
+                                    <i class="icon iconfont icon-male" v-else></i>
                                 </div>
                                 <div class="m-count">
                                     <label for=""><i class="icon iconfont icon-playtimes"></i>{{video.play_times}}</label>

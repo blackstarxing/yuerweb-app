@@ -58,10 +58,10 @@
         methods: {
             vedios:function() {
                 var parm = {};
-                    this.$http.get('/mobile/liveList', {params:{page:1,pageSize:20}}).then(function(response) {
-                    // if (response.data.code) {
-                        this.liveshow = response.data.object;
-                    // }
+                this.$http.get('/mobile/liveList', {params:{page:1,pageSize:20}}).then(function(response) {
+                // if (response.data.code) {
+                    this.liveshow = response.data.object;
+                // }
                 }, function(response) {
                     console.log(response);
                 });
