@@ -6,14 +6,14 @@
 		<div class="subscribe clearfix" style="background:#141a20;-webkit-box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);-moz-box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);">
 			<div class="head f-fl">
 				<img v-bind:src="details.user_icon" alt="">
-				<img src="../../static/images/male.png" alt="" class="sex" v-if="details.sex">
-                <img src="../../static/images/female.png" alt="" class="sex" v-else>
+				<img src="../../static/images/female.png" alt="" class="sex" v-if="details.sex">
+                <img src="../../static/images/male.png" alt="" class="sex" v-else>
 			</div>
 			<div class="name f-fl">
 				<h4>{{details.nickname}}</h4>
 				<div>粉丝 <span>{{details.fans}}</span></div>
 			</div>
-			<a href="https://yuertvfile.wangyuhudong.com" class="sub f-fr">+ 关注</a>
+			<a href="https://yuertvfile.wangyuhudong.com" class="follow f-fr"><i class="icon iconfont icon-focus"></i>关注</a>
 		</div>
 
 	</div>
