@@ -239,6 +239,31 @@ a,a:hover{color:#fff;}
 	width: 60%;
 	margin-top: 5px;
 }
+.m-vd-info img{
+
+}
+/*全部直播，搜索结果页为空状态*/
+.g-false{
+        background:#141a20;
+        padding:0 2%;
+}
+.u-desc{
+    height:1.5rem;
+    width:96%;
+    margin-top:2%;
+    font-size:1.5rem;
+    color:#d0d1d2;
+    margin-bottom:55%;
+}
+.u-switch{
+    width:45%;
+    height:2.4rem;
+    line-height:2.4rem;
+    text-align:center;
+    border:1px solid #f36;
+    font-size:1.5rem;
+    color:#f36;
+    margin:0 29.5%;
 .m-count{
 	margin-top: 10px;
 	color:#626f7e;
