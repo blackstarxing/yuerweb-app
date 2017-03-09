@@ -30,7 +30,7 @@
                                     <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
-                                <span>{{live.online_num}}</span>
+                                <span>{{watchPeople(live.online_num)}}</span>
                             </div>
                             <div class="m-title">{{live.title}}</div>
                         </router-link>
@@ -51,7 +51,7 @@
                                     <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
-                                <span>{{live.online_num}}</span>
+                                <span>{{watchPeople(live.online_num)}}</span>
                             </div>
                             <div class="m-title">{{live.title}}</div>
                         </router-link>
@@ -72,7 +72,7 @@
                                     <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
-                                <span>{{live.online_num}}</span>
+                                <span>{{watchPeople(live.online_num)}}</span>
                             </div>
                             <div class="m-title">{{live.title}}</div>
                         </router-link>
@@ -93,7 +93,7 @@
                                     <i class="icon iconfont icon-male" v-else></i>
                                 </div>
                                 <div class="m-count">
-                                    <label for=""><i class="icon iconfont icon-playtimes"></i>{{video.play_times}}</label>
+                                    <label for=""><i class="icon iconfont icon-playtimes"></i>{{watchPeople(video.play_times)}}</label>
                                     <label for=""><i class="icon iconfont icon-comment"></i>{{video.comment_num}}</label>
                                 </div>
                             </div>
@@ -145,7 +145,13 @@
             })
         },
         methods:{
-            
+            watchPeople: function (num) {
+              // `this` points to the vm instance
+              return num>10000 ? (num/10000).toFixed(1)+'万' : num;
+            }
+        },
+        computed: {
+
         },
         components: {
             topHead,

@@ -80,16 +80,16 @@
 				</div>
     			<div v-else>
     				<div class="videolist" v-for="video in historyVideo.list">
-						<a href="https://yuertvfile.wangyuhudong.com" class="f-cb">
-							<img v-bind:src="'http://img.wangyuhudong.com/'+video.icon" alt="" class="f-fl">
+						<router-link :to="{path:'videoDetail',query: {id:video.id}}" class="f-cb">
+							<img v-bind:src="video.icon" alt="" class="f-fl">
 							<div class="title f-fl">
 								<h3>{{video.title}}</h3>
 								<div class="count">
-									<label for=""><i class="play"></i>{{video.play_times}}</label>
-									<label for=""><i class="discuss"></i>{{video.comment_num}}</label>
+									<label for=""><i class="icon iconfont icon-playtimes"></i>{{video.play_times}}</label>
+									<label for=""><i class="icon iconfont icon-comment"></i>{{video.comment_num}}</label>
 								</div>
 							</div>
-						</a>
+						</router-link>
 					</div>   
     			</div>                   
 			</div>
@@ -646,7 +646,7 @@
 	.videolist a{
 		display: block;
 		padding:12px;
-		background: #141a20;
+		background: #242d3c;
 		/*border-bottom: 1px solid #e4e4e4;*/
 	}
 	.videolist img{
