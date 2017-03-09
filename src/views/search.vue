@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<download></download>
 		<div class="g-bd g-bdsearch">
 			<div class="m-s-main">
 				<div class="g-s-nav">
@@ -11,7 +12,7 @@
 				</div>
 				<div class="g-s-main">
 					<div class="u-hs">热门搜索</div>
-					<div v-for="(item,index) in hotsearch" @click="searchs(item.contents,0)"  class="u-hc">{{item.content}}</div>
+					<div v-for="(item,index) in hotsearch" @click="searchs(item.content,0)"  class="u-hc">{{item.content}}</div>
 				</div>
 			</div>
 
@@ -19,6 +20,7 @@
 	</div>
 </template>
 <script type="text/javascript">
+	import download from '../components/download.vue'
 	export default {
         data () {
     		return {
@@ -37,19 +39,14 @@
                 });
       	},
 		components: {
-      		
+      		download
 		},  
 		methods:{
-			searchs:function() {
+			searchs:function(keyword,type) {
 				var _this = this;
-                var parm = {};
-                _this.$http.get('/mobile/search', {params:{keyword:_this.keyword,type:0}}).then(function(response) {
                 	_this.$router.push({
-		                path: '/searchresult'
+		                path: '/searchresult?keyword='+keyword
 		            });
-                }, function(response) {
-                    console.log(response);
-                });
             },
 		} 
 	}
