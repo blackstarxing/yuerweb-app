@@ -5,13 +5,13 @@
 				<div class="g-s-nav">
 					<div class="m-s-nav">
 						<img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
-						<input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-bind="keyword" @click="searchs()">
+						<input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="searchs(keyword)">
 					</div>
 					<router-link  to="/" class="u-s-cancel">取消</router-link>
 				</div>
 				<div class="g-s-main">
 					<div class="u-hs">热门搜索</div>
-					<div v-for="(item,index) in hotsearch" @click="searchs()"  class="u-hc">{{item.content}}</div>
+					<div v-for="(item,index) in hotsearch" @click="searchs(item.contents,0)"  class="u-hc">{{item.content}}</div>
 				</div>
 			</div>
 
@@ -22,16 +22,16 @@
 	export default {
         data () {
     		return {
-    			searchs:'',
     			keyword:'',
     			type:0,
     			hotsearch:'',
+    			contents:''
     		}
 		},
 		mounted:function(){
-        	// this.searchs();
         	this.$http.get('/mobile/hotSearchTag').then(function(response) {
-                    this.hotsearch = response.data.object;                   
+                    this.hotsearch = response.data.object;  
+                    this.contents = this.hotsearch.content;
                 },function(response) {
                     console.log(response);
                 });
@@ -44,8 +44,9 @@
 				var _this = this;
                 var parm = {};
                 _this.$http.get('/mobile/search', {params:{keyword:_this.keyword,type:0}}).then(function(response) {
-                        // this.searchshow = response.data.object;
-                        // console.log(this.searchshow);
+                	_this.$router.push({
+		                path: '/searchresult'
+		            });
                 }, function(response) {
                     console.log(response);
                 });
@@ -81,6 +82,7 @@
 		background:#161d24;
 		border:0px;
 		border-radius:2%;
+		color:#8e8e9a;
 	}
 	input::-webkit-input-placeholder { /* WebKit browsers */ 
 		font-size:1.2rem;

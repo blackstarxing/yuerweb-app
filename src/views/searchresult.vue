@@ -5,7 +5,7 @@
             <div class="g-s-nav">
                 <div class="m-s-nav">
                     <img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
-                    <input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword">
+                    <input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="totals(keyword)">
                 </div>
                 <router-link  to="/" class="u-s-cancel">取消</router-link>
             </div>  
@@ -16,27 +16,27 @@
                 <div class="m-live f-cb"  v-show="index=='0' || index=='1'">
                     <div v-if="totalshow.live.total!=0">
                         <h3><span class="u-h3-spec">{{totalshow.live.total}}</span><span>个相关直播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
-                        <div class="m-lst" v-for="live in totalshow.live.list">
-                            <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
+                        <div class="m-lst" v-for="lives in totalshow.live.list">
+                            <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
                                 <div class="m-cover">
-                                    <img v-bind:src="live.icon" alt="">
-                                    <span><i>·</i>{{live.game_name}}</span>
+                                    <img v-bind:src="lives.icon" alt="">
+                                    <span><i>·</i>{{lives.game_name}}</span>
                                 </div>
                                 <div class="m-info f-cb">
                                     <div class="m-head f-fl">
-                                        <img v-bind:src="live.user_icon" alt="" class="anchor-head">
-                                        <img src="../../static/images/male.png" alt="" class="sex" v-if="live.sex">
+                                        <img v-bind:src="lives.user_icon" alt="" class="anchor-head">
+                                        <img src="../../static/images/male.png" alt="" class="sex" v-if="lives.sex">
                                         <img src="../../static/images/female.png" alt="" class="sex" v-else>
                                     </div>
-                                    <div class="m-nickname f-fl">{{live.nickname}}</div>
-                                    <span>{{live.online_num}}</span>
+                                    <div class="m-nickname f-fl">{{lives.nickname}}</div>
+                                    <span>{{lives.online_num}}</span>
                                 </div>
-                                <div class="m-title">{{live.title}}</div>
+                                <div class="m-title">{{lives.title}}</div>
                             </router-link>
                         </div>
                     </div>
                     <div class="g-false" v-else v-show="index=='0' || index=='1'">
-                        <p class="u-desc">没有搜索到任何与“英雄联盟”相关的直播间哟！</p>
+                        <p class="u-desc">没有搜索到任何与{{keyword}}相关的直播间哟！</p>
                         <router-link  to="/" class="u-switch">查看更多精彩直播</router-link>
                     </div>                    
                 </div>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="g-false" v-else v-show="index=='0' || index=='2'">
-                        <p class="u-desc">没有搜索到任何与“英雄联盟”相关的主播哟！</p>
+                        <p class="u-desc">没有搜索到任何与{{keyword}}相关的主播哟！</p>
                         <router-link  to="/" class="u-switch">关注更多主播</router-link>
                     </div>
                 </div>
@@ -91,14 +91,14 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="g-false" v-else v-show="index=='0' || index=='3'">
-                        <p class="u-desc">没有搜索到任何与“英雄联盟”相关的视频哟！</p>
+                    <div class="g-false" v-else v-show="index=='0' || index=='3'" >
+                        <p class="u-desc">没有搜索到任何与{{keyword}}相关的视频哟！</p>
                         <router-link  to="/" class="u-switch">观看更多精彩视频</router-link>
                     </div>
                 </div>
             </div> 
             <div class="g-false" v-else="totalshow==''">
-                <p class="u-desc">没有搜索到任何与“英雄联盟”相关的结果哟！</p>
+                <p class="u-desc">没有搜索到任何与{{keyword}}相关的结果哟！</p>
                 <router-link  to="/" class="u-switch">查看更多精彩直播</router-link>
             </div>
         </div>
@@ -109,7 +109,7 @@
     	data () {
       		return {
                 totalshow:'',
-                keyword:'王者荣耀',
+                keyword:'',
                 page : 1,
                 pageSize : 20,
                 type: 0 ,
@@ -143,7 +143,6 @@
                 var parm = {};
                 this.$http.get('/mobile/search', {params:{keyword:this.keyword,page : 1,pageSize : 20,type: 0 }}).then(function(response) {
                         this.totalshow = response.data.object;
-                        console.log(this.totalshow.live);
                 }, function(response) {
                     console.log(response);
                 });
