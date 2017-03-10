@@ -32,7 +32,7 @@
                 let _this = this;
 
                 // 获取视频页详情数据
-                _this.$http.get('/mobile/videoDetail',{params:{videoId:_this.$route.query.id}}).then(function(response) {
+                _this.$http.get('/api/mobile/videoDetail',{params:{videoId:_this.$route.query.id}}).then(function(response) {
                     _this.details = response.data.object;
                     
     

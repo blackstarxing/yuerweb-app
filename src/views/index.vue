@@ -120,14 +120,14 @@
                 let _this = this;
 
                 // 获取banner数据
-                _this.$http.get('/mobile/banner').then(function(response) {
+                _this.$http.get('/api/mobile/banner').then(function(response) {
                     _this.banner = response.data.object;                   
                 },function(response) {
                     console.log(response);
                 });
 
                 // 获取首页数据
-                _this.$http.get('/mobile/index').then(function(response) {
+                _this.$http.get('/api/mobile/index').then(function(response) {
                     _this.index = response.data.object;
                     let mySwiper = new Swiper ('.swiper-container', {
                         direction: 'horizontal',

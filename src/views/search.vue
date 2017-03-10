@@ -31,7 +31,7 @@
     		}
 		},
 		mounted:function(){
-        	this.$http.get('/mobile/hotSearchTag').then(function(response) {
+        	this.$http.get('/api/mobile/hotSearchTag').then(function(response) {
                     this.hotsearch = response.data.object;  
                     this.contents = this.hotsearch.content;
                 },function(response) {

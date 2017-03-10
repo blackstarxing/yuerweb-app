@@ -4,8 +4,8 @@ var webpack = require('webpack')
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, './static'),
+    publicPath: '/static/',
     filename: 'build.js'
   },
   module: {
@@ -74,7 +74,7 @@ if (process.env.NODE_ENV === 'production') {
     inline: true,
     host:'0.0.0.0',
     proxy: {
-      '/mobile/*': {
+      '/api/mobile/*': {
           target: 'http://172.16.10.144:8777',
         // changeOrigin: true,
         secure: false
