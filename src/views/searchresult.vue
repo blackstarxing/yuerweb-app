@@ -6,7 +6,7 @@
             <div class="g-s-nav">
                 <div class="m-s-nav">
                     <img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
-                    <input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="totals(keyword)">
+                    <input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-text="keyword" @keyup.enter="totals(keyword)">
                 </div>
                 <router-link  to="/" class="u-s-cancel">取消</router-link>
             </div>  
@@ -39,12 +39,12 @@
                     </div> 
                     <div class="g-false" v-else v-show="index=='1'">
                         <p class="u-desc">没有搜索到任何与{{keyword}}相关的直播间哟！</p>
-                        <router-link  to="/" class="u-switch">查看更多精彩直播</router-link>
+                        <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
                     </div>                    
                 </div>
                 <div class="f-cb"  v-show="index=='0' || index=='2'">
                     <div v-if="uptotal!=0">
-                        <h3><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span></h3>
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
                             <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
                                 <div class="m-sh-label">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="g-false" v-else v-show="index=='2'">
                         <p class="u-desc">没有搜索到任何与{{keyword}}相关的主播哟！</p>
-                        <router-link  to="/" class="u-switch">关注更多主播</router-link>
+                        <!-- <router-link  to="/" class="u-switch">关注更多主播</router-link> -->
                     </div>
                 </div>
                 <div class="m-video" v-show="index=='0' || index=='3'">
@@ -99,13 +99,13 @@
                     </div>
                     <div class="g-false" v-else v-show="index=='3'" >
                         <p class="u-desc">没有搜索到任何与{{keyword}}相关的视频哟！</p>
-                        <router-link  to="/" class="u-switch">观看更多精彩视频</router-link>
+                        <router-link  to="/videos" class="u-switch">观看更多精彩视频</router-link>
                     </div>
                 </div>
             </div> 
             <div class="g-false" v-else>
                 <p class="u-desc">没有搜索到任何与{{keyword}}相关的结果哟！</p>
-                <router-link  to="/" class="u-switch">查看更多精彩直播</router-link>
+                <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
             </div>
         </div>
     </div>
