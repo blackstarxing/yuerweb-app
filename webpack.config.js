@@ -74,7 +74,7 @@ if (process.env.NODE_ENV === 'production') {
     inline: true,
     host:'0.0.0.0',
     proxy: {
-      '/mobile/*': {
+      '/api/mobile/*': {
           target: 'http://172.16.10.144:8777',
         // changeOrigin: true,
         secure: false

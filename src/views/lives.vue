@@ -74,7 +74,7 @@
             },
             vedios:function(page) {
                 var parm = {};
-                this.$http.get('/mobile/liveList', {params:{page:page,pageSize:this.pageSize}}).then(function(response) {
+                this.$http.get('/api/mobile/liveList', {params:{page:page,pageSize:this.pageSize}}).then(function(response) {
                     this.liveshow=response.data.object;
                     this.liveshowlist=this.liveshow.list;
                     if(this.liveshowlist.length>0){

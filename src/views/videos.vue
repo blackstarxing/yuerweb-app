@@ -101,7 +101,7 @@
             },
         videototal:function(type) {
                 var parm = {};
-                this.$http.get('/mobile/videoList', {params:{page : 1,pageSize : 20,type:type,}}).then(function(response) {
+                this.$http.get('/api/mobile/videoList', {params:{page : 1,pageSize : 20,type:type,}}).then(function(response) {
                     this.videos = response.data.object; 
                     if(this.videos.hotLive){
                       // 最热视频下面的list数组

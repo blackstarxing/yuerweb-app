@@ -146,7 +146,7 @@
                 let _this = this;
 
                 // 获取直播间详情数据
-                _this.$http.get('/mobile/liveDetail',{params:{id:_this.$route.query.id,page:1,pageSize:5}}).then(function(response) {
+                _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.id,page:1,pageSize:5}}).then(function(response) {
                     _this.details = response.data.object.info;
                     _this.liveAddress = _this.details.rtmp ? _this.details.rtmp.replace(/rtmp:/, "http:").replace(/rtmp/, "hls")+'.m3u8':'';       
                     _this.roomid = _this.details.chat_room_id;   
@@ -155,7 +155,7 @@
                     _this.otherlive = response.data.object.otherLive ? response.data.object.otherLive : '';
 
                     // 获取聊天室游客id
-                    _this.$http.get('/mobile/visitor').then(function(response) {
+                    _this.$http.get('/api/mobile/visitor').then(function(response) {
 	                    _this.live_account = response.data.object.accid;
 			            _this.live_token = response.data.object.token;
 			            // 云信聊天室初始化
@@ -196,7 +196,7 @@
             	var _this = this;
             	index = parseInt(index+1);
             	// 礼物排行
-                _this.$http.get('/mobile/contributionRank',{params:{type:index,upUserId:_this.accid}}).then(function(response) {
+                _this.$http.get('/api/mobile/contributionRank',{params:{type:index,upUserId:_this.accid}}).then(function(response) {
                     _this.contributionRank = response.data.object;                   
                 },function(response) {
                     console.log(response);

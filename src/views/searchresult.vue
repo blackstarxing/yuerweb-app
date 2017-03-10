@@ -172,7 +172,7 @@
             },
             totals:function() {
                 var parm = {};
-                this.$http.get('/mobile/search', {params:{keyword:this.$route.query.keyword,type: 0 }}).then(function(response) {
+                this.$http.get('/api/mobile/search', {params:{keyword:this.$route.query.keyword,type: 0 }}).then(function(response) {
                         // 获得最大的对象
                         this.totalshow = response.data.object; 
                         // 对象下面的live对象，up对象，video对象下面的total;
