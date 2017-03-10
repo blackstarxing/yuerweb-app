@@ -6,7 +6,7 @@
             <div class="g-s-nav">
                 <div class="m-s-nav">
                     <img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
-                    <input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-text="keyword" @keyup.enter="totals(keyword)">
+                    <input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="search(keyword)">
                 </div>
                 <router-link  to="/" class="u-s-cancel">取消</router-link>
             </div>  
@@ -16,7 +16,7 @@
             <div class="g-list" v-if="totalshow.have!=0">
                 <div class="m-live f-cb"  v-show="index=='0' || index=='1'">
                     <div v-if="livetotal!=0">
-                        <h3 v-show="index=='1'"><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><router-link to="/lives" class="u-more" v-show="index!='0'">更多&gt;</router-link></h3>
                         <div class="m-lst" v-for="lives in totallivelist">
                             <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
                                 <div class="m-cover">
@@ -38,13 +38,13 @@
                         <div class="paging" v-show="!liveislast && index=='1'" style="margin:0 auto;color:#161d24;" >加载更多</div>
                     </div> 
                     <div class="g-false" v-else v-show="index=='1'">
-                        <p class="u-desc">没有搜索到任何与{{keyword}}相关的直播间哟！</p>
+                        <p class="u-desc">没有搜索到任何与{{searchkeyword}}相关的直播间哟！</p>
                         <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
                     </div>                    
                 </div>
-                <div class="f-cb"  v-show="index=='0' || index=='2'">
+                <div class="f-cb"  v-show="index=='0' || index=='2'" style="margin:0 2%">
                     <div v-if="uptotal!=0">
-                        <h3 v-show="index=='2'"><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span></h3>
+                        <h3><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span></h3>
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
                             <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
                                 <div class="m-sh-label">
@@ -69,13 +69,13 @@
                         <div class="paging" v-show="!upislast && index=='2'" style="margin:0 auto;color:#161d24;" >加载更多</div>
                     </div>
                     <div class="g-false" v-else v-show="index=='2'">
-                        <p class="u-desc">没有搜索到任何与{{keyword}}相关的主播哟！</p>
+                        <p class="u-desc">没有搜索到任何与{{searchkeyword}}相关的主播哟！</p>
                         <!-- <router-link  to="/" class="u-switch">关注更多主播</router-link> -->
                     </div>
                 </div>
                 <div class="m-video" v-show="index=='0' || index=='3'">
                     <div v-if="videototal!=0">
-                        <h3 v-show="index=='3'"><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><router-link to="/videos" class="u-more" v-show="index!='0'">更多&gt;</router-link></h3>
                         <div class="m-vd f-cb" v-for="(video,index) in totalvideolist">
                             <router-link :to="{path:'videoDetail',query: {id:video.id}}">
                                 <div class="m-vd-icon f-fl">
@@ -98,13 +98,13 @@
                         <div class="paging" v-show="!videoislast && index=='3'" style="margin:0 auto;color:#161d24;" >加载更多</div>
                     </div>
                     <div class="g-false" v-else v-show="index=='3'" >
-                        <p class="u-desc">没有搜索到任何与{{keyword}}相关的视频哟！</p>
+                        <p class="u-desc">没有搜索到任何与{{searchkeyword}}相关的视频哟！</p>
                         <router-link  to="/videos" class="u-switch">观看更多精彩视频</router-link>
                     </div>
                 </div>
             </div> 
             <div class="g-false" v-else>
-                <p class="u-desc">没有搜索到任何与{{keyword}}相关的结果哟！</p>
+                <p class="u-desc">没有搜索到任何与{{searchkeyword}}相关的结果哟！</p>
                 <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
             </div>
         </div>
@@ -126,6 +126,7 @@
                 upislast:'',
                 videoislast:'',
                 keyword:'',
+                searchkeyword:'',
                 page : 1,
                 pageSize : 20,
                 type: 0 ,
@@ -151,6 +152,7 @@
   		},
         mounted: function () {
             this.keyword = this.$route.query.keyword;
+            this.searchkeyword = this.keyword;
             this.totals();
             $(window).scroll(function(){ 
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
@@ -170,7 +172,16 @@
               // `this` points to the vm instance
               return num>10000 ? (num/10000).toFixed(1)+'万' : num;
             },
-            totals:function() {
+            search:function(keyword){
+                var _this = this;
+                  _this.$router.push({
+                    path: '/searchresult?keyword='+keyword
+                });
+                this.totals();
+                this.keyword = this.$route.query.keyword;
+                this.searchkeyword = this.keyword;
+            },
+            totals:function(refresh) {
                 var parm = {};
                 this.$http.get('/api/mobile/search', {params:{keyword:this.$route.query.keyword,type: 0 }}).then(function(response) {
                         // 获得最大的对象
