@@ -7,7 +7,7 @@
       </div>
       <div class="g-list" v-if="videos.hotLive">
           <div class="m-video">
-            <div class="m-vd f-cb" v-for="(currvideo,index) in videos.hotLive.list">
+            <div class="m-vd f-cb" v-for="(currvideo,index) in videohot">
                 <router-link :to="{path:'videoDetail',query: {id:currvideo.id}}">
                     <div class="m-vd-icon f-fl">
                         <img v-bind:src="currvideo.icon" alt="">
@@ -20,19 +20,19 @@
                             <i class="icon iconfont icon-male" v-else></i>
                         </div>
                         <div class="m-count">
-                            <label for=""><i class="icon iconfont icon-playtimes"></i>{{currvideo.play_times}}</label>
+                            <label for=""><i class="icon iconfont icon-playtimes"></i>{{watchPeople(currvideo.play_times)}}</label>
                             <label for=""><i class="icon iconfont icon-comment"></i>{{currvideo.comment_num}}</label>
                         </div>
                     </div>
                 </router-link>
             </div>
         </div>
-        <div class="paging">加载更多</div>
+        <div class="paging" v-show="!hotislast">加载更多</div>
       </div>
       <!-- 最新视频 -->
       <div class="g-list" v-else>
           <div class="m-video">
-            <div class="m-vd f-cb" v-for="(currvideo,index) in videos.newLive.list" >
+            <div class="m-vd f-cb" v-for="(currvideo,index) in videonew">
                 <router-link :to="{path:'videoDetail',query: {id:currvideo.id}}">
                     <div class="m-vd-icon f-fl">
                         <img v-bind:src="currvideo.icon" alt="">
@@ -45,14 +45,14 @@
                             <i class="icon iconfont icon-male" v-else></i>
                         </div>
                         <div class="m-count">
-                            <label for=""><i class="icon iconfont icon-playtimes"></i>{{currvideo.play_times}}</label>
+                            <label for=""><i class="icon iconfont icon-playtimes"></i>{{watchPeople(currvideo.play_times)}}</label>
                             <label for=""><i class="icon iconfont icon-comment"></i>{{currvideo.comment_num}}</label>
                         </div>
                     </div>
                 </router-link>
             </div>
         </div>
-        <div class="paging">加载更多</div>
+        <div class="paging" v-show="!newislast">加载更多</div>
       </div>
 		</div>
 	</div>
@@ -62,7 +62,11 @@
   	export default {
     	data () {
       		return {
-            videos:'',
+            videos:[],
+            videohot:[],
+            videonew:[],
+            hotislast:'',
+            newislast:'',
             page:1,
             pageSize:20,
             type:'',
@@ -77,16 +81,38 @@
   		},
       mounted:function(){
         this.videototal(0);
+        $(window).scroll(function(){ 
+            var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
+            if($(document).height() <= totalheight){
+                if(hotislast || newislast){
+                    _this.vedios(_this.page);
+                }
+                
+            }
+        })
       },
   		components: {
         	topHead
   		}, 
       methods:{
+        watchPeople: function (num) {
+              // `this` points to the vm instance
+              return num>10000 ? (num/10000).toFixed(1)+'万' : num;
+            },
         videototal:function(type) {
                 var parm = {};
                 this.$http.get('/mobile/videoList', {params:{page : 1,pageSize : 20,type:type,}}).then(function(response) {
                     this.videos = response.data.object; 
-                    console.log(this.videos) 
+                    if(this.videos.hotLive){
+                        this.videohot=response.data.object.hotLive.list;
+                        this.videohot=this.videohot.concat(response.data.object.hotLive.list);
+                        this.hotislast=this.videos.hotLive.isLast;
+                    }
+                    if(this.videos.newLive){
+                        this.videonew=response.data.object.newLive.list;
+                        this.videonew=this.videonew.concat(response.data.object.newLive.list);
+                        this.newislast=this.videos.newLive.isLast;
+                    }
                 }, function(response) {
                     console.log(response);
                 });
@@ -97,25 +123,6 @@
                 });
                 this.videototal(index);
             },
-        Pagination:function(_page,_total,_pageSize,callback){
-            var _this = this;
-            _this._page = _page || 1;
-            _this._total = _total || 0;
-            _this._pageSize = _pageSize || 5;
-            _this._maxPage = (Math.ceil((_this.cur_total)/ _this.cur_pageSize));
-            _this._pageCallback=callback;
-
-            $(".paging").show();
-            if(_this._page==1){
-                $(".paging").hide();
-            }
-            if(_this.local.cur_page==_this.local.cur_maxPage){
-                $(".paging").hide();
-            }
-            if(_this.local.cur_maxPage==1){
-                $(".paging").hide();
-            }
-          },
 
       }
   	}
