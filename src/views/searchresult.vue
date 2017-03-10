@@ -16,7 +16,7 @@
             <div class="g-list" v-if="totalshow.have!=0">
                 <div class="m-live f-cb"  v-show="index=='0' || index=='1'">
                     <div v-if="livetotal!=0">
-                        <h3><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                        <h3 v-show="index=='1'"><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
                         <div class="m-lst" v-for="lives in totallivelist">
                             <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
                                 <div class="m-cover">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="f-cb"  v-show="index=='0' || index=='2'">
                     <div v-if="uptotal!=0">
-                        <h3><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span></h3>
+                        <h3 v-show="index=='2'"><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span></h3>
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
                             <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
                                 <div class="m-sh-label">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="m-video" v-show="index=='0' || index=='3'">
                     <div v-if="videototal!=0">
-                        <h3><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
+                        <h3 v-show="index=='3'"><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
                         <div class="m-vd f-cb" v-for="(video,index) in totalvideolist">
                             <router-link :to="{path:'videoDetail',query: {id:video.id}}">
                                 <div class="m-vd-icon f-fl">
