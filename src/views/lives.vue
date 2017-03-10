@@ -2,13 +2,13 @@
 	<div>
 		<top-head></top-head>
 		<div class="g-bd g-live-bd">
-            <div class="g-true" v-if="liveshow.list!='' ">
+            <div class="g-true" v-if="liveshow.list!=''">
                 <div class="m-top">
                      <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
                 </div>
                 <div class="g-list">
                     <div class="m-recommend-live f-cb">
-                        <div class="m-lst" v-for="item in liveshow.list">
+                        <div class="m-lst" v-for="item in liveshowlist">
                             <a href="" class="m-livelink">
                                 <div class="m-cover">
                                     <img v-bind:src="item.icon" alt="">
@@ -21,17 +21,18 @@
                                         <img src="../../static/images/female.png" alt="" class="sex" v-else>
                                     </div>
                                     <div class="m-nickname f-fl">{{item.nickname}}</div>
-                                    <span>{{item.online_num}}</span>
+                                    <span>{{watchPeople(item.online_num)}}</span>
                                 </div>
                                 <div class="m-title">{{item.title}}</div>
                             </a>
                         </div>
+                        <div class="paging" v-show="!islast" style="margin:0 auto;color:#161d24;">加载更多</div>
                     </div>
-                </div> 
+                </div>  
             </div>
             <div class="g-false" v-else>
                 <p class="u-desc">当前没有主播开播，查看更多主播精彩视频</p>
-                <router-link  to="/" class="u-switch">查看更多精彩视频</router-link>
+                <router-link  to="/videos" class="u-switch">查看更多精彩视频</router-link>
             </div>
 		</div>
 	</div>
@@ -42,30 +43,48 @@
         data () {
             return {
                 liveshow:'',
-                page : '',
-                pageSize : '',
+                liveshowlist:[],
+                islast:'',
+                page : 1,
+                pageSize : 20,
             }
         },
         mounted: function () {
-            // this.$nextTick(function () {
-                // var _this = this;
-                this.vedios();
-            // })
+            this.$nextTick(function () {
+                var _this = this;
+                _this.vedios(_this.page);
+                $(window).scroll(function(){ 
+                    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
+                    if($(document).height() <= totalheight){
+                        if(islast){
+                            _this.vedios(_this.page);
+                        }
+                        
+                    }
+                })
+            })
         },
         components: {
             topHead
         }, 
         methods: {
-            vedios:function() {
+            watchPeople: function (num) {
+              // `this` points to the vm instance
+              return num>10000 ? (num/10000).toFixed(1)+'万' : num;
+            },
+            vedios:function(page) {
                 var parm = {};
-                this.$http.get('/mobile/liveList', {params:{page:1,pageSize:20}}).then(function(response) {
-                // if (response.data.code) {
-                    this.liveshow = response.data.object;
-                // }
+                this.$http.get('/mobile/liveList', {params:{page:page,pageSize:this.pageSize}}).then(function(response) {
+                    this.liveshow=response.data.object;
+                    this.liveshowlist=this.liveshow.list;
+                    if(this.liveshowlist.length>0){
+                        this.liveshowlist=this.liveshowlist.concat(this.liveshowlist);
+                    }
+                    this.islast=this.liveshow.isLast;
                 }, function(response) {
                     console.log(response);
                 });
-            }
+            },
         }
     }
 </script>
