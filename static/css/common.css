@@ -251,8 +251,8 @@ a,a:hover{color:#fff;}
 }
 /*全部直播，搜索结果页为空状态*/
 .g-false{
-        background:#141a20;
-        padding:0 2%;
+    background:#141a20;
+    padding:0 2%;
 }
 .u-desc{
     height:1.5rem;
@@ -263,14 +263,16 @@ a,a:hover{color:#fff;}
     margin-bottom:55%;
 }
 .u-switch{
-    width:45%;
+	display:block;
+    width:40%;
     height:2.4rem;
     line-height:2.4rem;
     text-align:center;
     border:1px solid #f36;
-    font-size:1.5rem;
+    font-size:1.2rem;
     color:#f36;
-    margin:0 29.5%;
+    padding:1% 2%;
+    margin:0 auto;
 }
 .m-count{
 	margin-top: 10px;

@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<!-- <top-head></top-head> -->
+        <download></download>
 		<div class="g-bd g-s-result">
             <div class="g-s-nav">
                 <div class="m-s-nav">
@@ -25,8 +26,8 @@
                                 <div class="m-info f-cb">
                                     <div class="m-head f-fl">
                                         <img v-bind:src="lives.user_icon" alt="" class="anchor-head">
-                                        <img src="../../static/images/male.png" alt="" class="sex" v-if="lives.sex">
-                                        <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                                        <img src="../../static/images/female.png" alt="" class="sex" v-if="lives.sex">
+                                        <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                     </div>
                                     <div class="m-nickname f-fl">{{lives.nickname}}</div>
                                     <span>{{lives.online_num}}</span>
@@ -35,7 +36,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="g-false" v-else v-show="index=='0' || index=='1'">
+                    <div class="g-false" v-else v-show="index=='1'">
                         <p class="u-desc">没有搜索到任何与{{keyword}}相关的直播间哟！</p>
                         <router-link  to="/" class="u-switch">查看更多精彩直播</router-link>
                     </div>                    
@@ -50,20 +51,22 @@
                                   <div class="u-shl-tar">
                                     <p>
                                         <span class="u-shlt-sx">{{up.nickname}}</span>
-                                        <i class="icon iconfont icon-male" v-if="up.sex"></i>
-                                        <i class="icon iconfont icon-female" v-else></i>
-                                        <i class="icon iconfont icon-vip"></i>
+                                        <i class="icon iconfont icon-female iconsearch" v-if="up.sex"></i>
+                                        <i class="icon iconfont icon-male iconsearch" v-else></i>
+                                        <i class="icon iconfont icon-authen iconauth" v-if="up.is_certificate"></i>
                                     </p>
                                     <p class="u-shlt-fs"><span>房间</span><span class="u-s-fs">{{up.id}}</span><span class="u-s-fspec">粉丝</span><span class="u-s-fs">{{up.fans}}</span></p>
                                   </div>
                                   <div class="u-shl-focus">
-                                    <button><i class="icon iconfont icon-focus"></i>关注</button>
+                                    <a href="https://yuertvfile.wangyuhudong.com">
+                                        <i class="icon iconfont icon-focus"></i>关注
+                                    </a>
                                   </div>
                                 </div>
                             </router-link>
                         </div>
                     </div>
-                    <div class="g-false" v-else v-show="index=='0' || index=='2'">
+                    <div class="g-false" v-else v-show="index=='2'">
                         <p class="u-desc">没有搜索到任何与{{keyword}}相关的主播哟！</p>
                         <router-link  to="/" class="u-switch">关注更多主播</router-link>
                     </div>
@@ -80,8 +83,8 @@
                                     <div class="m-title">{{video.title}}</div>
                                     <div class="m-nickname">
                                         <span>{{video.nickname}}</span>
-                                        <i class="icon iconfont icon-male" v-if="video.sex"></i>
-                                        <i class="icon iconfont icon-female" v-else></i>
+                                        <i class="icon iconfont icon-female" v-if="video.sex"></i>
+                                        <i class="icon iconfont icon-male" v-else></i>
                                     </div>
                                     <div class="m-count">
                                         <label for=""><i class="icon iconfont icon-playtimes"></i>{{video.play_times}}</label>
@@ -91,7 +94,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="g-false" v-else v-show="index=='0' || index=='3'" >
+                    <div class="g-false" v-else v-show="index=='3'" >
                         <p class="u-desc">没有搜索到任何与{{keyword}}相关的视频哟！</p>
                         <router-link  to="/" class="u-switch">观看更多精彩视频</router-link>
                     </div>
@@ -105,6 +108,7 @@
     </div>
 </template>
 <script type="text/javascript">
+    import download from '../components/download.vue'
   	export default {
     	data () {
       		return {
@@ -134,14 +138,16 @@
       		}
   		},
         mounted: function () {
-                this.totals();
+            this.keyword = this.$route.query.keyword;
+            this.totals();
         },
   		components: {
+            download
   		},
         methods: {
             totals:function() {
                 var parm = {};
-                this.$http.get('/mobile/search', {params:{keyword:this.keyword,page : 1,pageSize : 20,type: 0 }}).then(function(response) {
+                this.$http.get('/mobile/search', {params:{keyword:this.$route.query.keyword,page : 1,pageSize : 20,type: 0 }}).then(function(response) {
                         this.totalshow = response.data.object;
                 }, function(response) {
                     console.log(response);
@@ -157,7 +163,6 @@
   	}
 </script>
 <style>
-
   .g-s-result{
     width:100%;
   }
@@ -267,6 +272,13 @@
   .u-shl-tar p{
     margin:3% 0;
   }
+  .iconsearch{
+    margin-left:2%;
+  }
+  .iconauth{
+    margin-left:2%;
+    color:#f36;
+  }
   .u-shlt-sx{
     font-size:1.3rem;
     color:#d1d4d8;
@@ -291,10 +303,12 @@
     margin:6% 2%;
     /*margin:3%;*/
   }
-  .u-shl-focus button{
-    border:0px;
+  .u-shl-focus a{
+    display:inline-block;
     width:100%;
     height:2rem;
+    line-height: 2rem;
+    text-align:center;
     color:#fff;
     border-radius:2rem;
     background:#f36;
