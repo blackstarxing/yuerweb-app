@@ -97,7 +97,6 @@
                         </div>
                         <div class="paging" v-show="!videoislast && index=='3'" style="margin:0 auto;color:#161d24;" >加载更多</div>
                     </div>
-                    
                     <div class="g-false" v-else v-show="index=='3'" >
                         <p class="u-desc">没有搜索到任何与{{keyword}}相关的视频哟！</p>
                         <router-link  to="/" class="u-switch">观看更多精彩视频</router-link>
@@ -174,7 +173,9 @@
             totals:function() {
                 var parm = {};
                 this.$http.get('/mobile/search', {params:{keyword:this.$route.query.keyword,type: 0 }}).then(function(response) {
+                        // 获得最大的对象
                         this.totalshow = response.data.object; 
+                        // 对象下面的live对象，up对象，video对象下面的total;
                         this.livetotal=this.totalshow.live.total; 
                         this.uptotal=this.totalshow.up.total; 
                         this.videototal=this.totalshow.video.total;                      
