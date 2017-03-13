@@ -7,7 +7,9 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="banner in banner">
-                            <img v-bind:src="'http://img.wangyuhudong.com/'+banner.img" alt="">
+                            <a v-bind:href="banner.target">
+                                <img v-bind:src="'http://img.wangyuhudong.com/'+banner.img" alt="">
+                            </a>
                         </div>
                     </div>
                     <!-- 如果需要分页器 -->
@@ -16,7 +18,7 @@
             </div>
             <div class="g-list">
                 <div class="m-live f-cb" v-if="index.recommend_live!=''">
-                    <h3><i class="icon iconfont icon-recommend"></i>推荐直播<router-link to="/lives" class="u-more">更多&gt;</router-link></h3>
+                    <h3><i class="icon iconfont icon-recommend"></i>推荐直播</h3>
                     <div class="m-lst" v-for="live in index.recommend_live">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
@@ -121,24 +123,23 @@
 
                 // 获取banner数据
                 _this.$http.get('/api/mobile/banner').then(function(response) {
-                    _this.banner = response.data.object;                   
-                },function(response) {
-                    console.log(response);
-                });
-
-                // 获取首页数据
-                _this.$http.get('/api/mobile/index').then(function(response) {
-                    _this.index = response.data.object;
-                    let mySwiper = new Swiper ('.swiper-container', {
-                        direction: 'horizontal',
-                        loop: true,
-                        autoplay : 2500,
-                        autoplayDisableOnInteraction : false,
-                        // 如果需要分页器
-                        pagination: '.swiper-pagination',
-                        observer:true,
-                        observeParents:true,
-                    }); 
+                    _this.banner = response.data.object;
+                    // 获取首页数据
+                    _this.$http.get('/api/mobile/index').then(function(response) {
+                        _this.index = response.data.object;
+                        let mySwiper = new Swiper ('.swiper-container', {
+                            direction: 'horizontal',
+                            loop: true,
+                            autoplay : 2500,
+                            autoplayDisableOnInteraction : false,
+                            // 如果需要分页器
+                            pagination: '.swiper-pagination',
+                            observer:true,
+                            observeParents:true,
+                        }); 
+                    },function(response) {
+                        console.log(response);
+                    });
                 },function(response) {
                     console.log(response);
                 });
