@@ -16,7 +16,7 @@
             <div class="g-list" v-if="totalshow.have!=0">
                 <div class="m-live f-cb"  v-show="index=='0' || index=='1'">
                     <div v-if="livetotal!=0">
-                        <h3><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><router-link to="/lives" class="u-more" v-show="index!='0'">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><router-link to="/lives" class="u-more" v-show="index=='0' || index!='1'">更多&gt;</router-link></h3>
                         <div class="m-lst" v-for="lives in totallivelist">
                             <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
                                 <div class="m-cover">
@@ -46,25 +46,25 @@
                     <div v-if="uptotal!=0">
                         <h3><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span></h3>
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
-                            <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
                                 <div class="m-sh-label">
-                                  <img v-bind:src="up.user_icon" alt="" class="u-shl-img">
-                                  <div class="u-shl-tar">
-                                    <p>
-                                        <span class="u-shlt-sx">{{up.nickname}}</span>
-                                        <i class="icon iconfont icon-female iconsearch" v-if="up.sex"></i>
-                                        <i class="icon iconfont icon-male iconsearch" v-else></i>
-                                        <i class="icon iconfont icon-authen iconauth" v-if="up.is_certificate"></i>
-                                    </p>
-                                    <p class="u-shlt-fs"><span>房间</span><span class="u-s-fs">{{up.id}}</span><span class="u-s-fspec">粉丝</span><span class="u-s-fs">{{up.fans}}</span></p>
-                                  </div>
+                                  <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
+                                    <img v-bind:src="up.user_icon" alt="" class="u-shl-img">
+                                    <div class="u-shl-tar">
+                                      <p>
+                                          <span class="u-shlt-sx">{{up.nickname}}</span>
+                                          <i class="icon iconfont icon-female iconsearch" v-if="up.sex"></i>
+                                          <i class="icon iconfont icon-male iconsearch" v-else></i>
+                                          <i class="icon iconfont icon-authen iconauth" v-if="up.is_certificate"></i>
+                                      </p>
+                                      <p class="u-shlt-fs"><span>房间</span><span class="u-s-fs">{{up.id}}</span><span class="u-s-fspec">粉丝</span><span class="u-s-fs">{{up.fans}}</span></p>
+                                    </div>
+                                  </router-link>
                                   <div class="u-shl-focus">
                                     <a href="https://yuertvfile.wangyuhudong.com">
                                         <i class="icon iconfont icon-focus"></i>关注
                                     </a>
                                   </div>
                                 </div>
-                            </router-link>
                         </div>
                         <div class="paging" v-show="!upislast && index=='2'" style="margin:0 auto;color:#161d24;" >加载更多</div>
                     </div>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="m-video" v-show="index=='0' || index=='3'">
                     <div v-if="videototal!=0">
-                        <h3><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><router-link to="/videos" class="u-more" v-show="index!='0'">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><router-link to="/videos" class="u-more" v-show="index=='0' || index!='3'">更多&gt;</router-link></h3>
                         <div class="m-vd f-cb" v-for="(video,index) in totalvideolist">
                             <router-link :to="{path:'videoDetail',query: {id:video.id}}">
                                 <div class="m-vd-icon f-fl">
@@ -189,20 +189,24 @@
                         // 对象下面的live对象，up对象，video对象下面的total;
                         this.livetotal=this.totalshow.live.total; 
                         this.uptotal=this.totalshow.up.total; 
-                        this.videototal=this.totalshow.video.total;                      
+                        this.videototal=this.totalshow.video.total;   
+                                          
                         if(this.totallivelist){
-                            this.totallivelist=this.totalshow.live.list;
-                            this.totallivelist=this.totallivelist.concat(response.data.object.live.list);
+                            this.totallivelist=this.totalshow.live.list; 
+                            console.log(this.totallivelist)
+                            this.totallivelist=this.totallivelist.concat(response.data.object.live.list ? [] : response.data.object.live.list);
                             this.liveislast=this.totalshow.live.isLast;
                         }
+                        
                         if(this.totaluplist){
-                            this.totaluplist=this.totalshow.live.list;
-                            this.totaluplist=this.totaluplist.concat(response.data.object.up.list);
+                            this.totaluplist=this.totalshow.up.list;
+                            this.totaluplist=this.totaluplist.concat(response.data.object.up.list ? [] : response.data.object.up.list);
                             this.upislast=this.totalshow.up.isLast;
                         }
+                        
                         if(this.totalvideolist){
-                            this.totalvideolist=this.totalshow.video.list;
-                            this.totalvideolist=this.totalvideolist.concat(response.data.object.video.list);
+                          this.totalvideolist=this.totalshow.video.list;
+                            this.totalvideolist=this.totalvideolist.concat(response.data.object.video.list ? [] : response.data.object.video.list);
                             this.videoislast=this.totalshow.video.isLast;
                         }
 
@@ -223,6 +227,7 @@
 <style>
   .g-s-result{
     width:100%;
+    padding-bottom:64px;
   }
   .g-s-nav{
     width:100%;

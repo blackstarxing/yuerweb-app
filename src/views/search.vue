@@ -55,6 +55,7 @@
 	.g-bdsearch{
 		height:53.5rem;
 		width:100%;
+		padding-bottom:64px;
 	}	
 	.g-s-nav{
 		width:100%;
