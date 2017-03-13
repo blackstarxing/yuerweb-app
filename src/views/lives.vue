@@ -39,6 +39,7 @@
 </template>
 <script type="text/javascript">
 	import topHead from '../components/topHead.vue'
+     import download from '../components/download.vue'
     export default {
         data () {
             return {
@@ -65,7 +66,8 @@
             })
         },
         components: {
-            topHead
+            topHead,
+            download
         }, 
         methods: {
             watchPeople: function (num) {
@@ -77,8 +79,9 @@
                 this.$http.get('/api/mobile/liveList', {params:{page:page,pageSize:this.pageSize}}).then(function(response) {
                     this.liveshow=response.data.object;
                     this.liveshowlist=this.liveshow.list;
-                    if(this.liveshowlist.length>0){
-                        this.liveshowlist=this.liveshowlist.concat(this.liveshowlist);
+                    if(this.liveshowlist){
+                        this.liveshowlist=this.liveshowlist.concat(this.liveshowlist ? []:this.liveshowlist);
+                        console.log(this.liveshowlist)
                     }
                     this.islast=this.liveshow.isLast;
                 }, function(response) {
@@ -93,6 +96,7 @@
         width:96%;
         height:49.3rem;
         background:#141a20;
+        padding-bottom: 64px;
     }
     .m-top{
         margin:0 2%;
