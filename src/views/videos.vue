@@ -85,7 +85,7 @@
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
             if($(document).height() <= totalheight){
                 if(hotislast || newislast){
-                    _this.vedios(_this.page);
+                    _this.vedios(_this.page,_this.pageSize);
                 }
                 
             }
