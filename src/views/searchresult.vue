@@ -14,9 +14,9 @@
               <button v-for="(item,index) in tab" v-text="item.name" v-bind:class="[{cur:item.iscur},'u-sl-result']" @click="setCur(index)"></button>
             </div>
             <div class="g-list" v-if="totalshow.have!=0">
-                <div class="m-live f-cb"  v-show="index=='0' || index=='1'">
+                <div class="m-live f-cb"  v-show="index=='0' || index=='1'"  >
                     <div v-if="livetotal!=0">
-                        <h3><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><router-link to="/lives" class="u-more" v-show="index=='0' || index!='1'">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><a @click="resultswitch(1)" class="u-more" v-show="index=='0' || index!='1'">更多&gt;</a></h3>
                         <div class="m-lst" v-for="lives in totallivelist">
                             <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
                                 <div class="m-cover">
@@ -42,9 +42,9 @@
                         <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
                     </div>                    
                 </div>
-                <div class="f-cb"  v-show="index=='0' || index=='2'" style="margin:0 2%">
+                <div class="f-cb"  v-show="index=='0' || index=='2'" style="margin:0 2%" >
                     <div v-if="uptotal!=0">
-                        <h3><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span></h3>
+                        <h3><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span><a @click="resultswitch(2)" class="u-more" v-show="index=='0' || index!='2'">更多&gt;</a></h3>
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
                                 <div class="m-sh-label">
                                   <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
@@ -73,9 +73,9 @@
                         <!-- <router-link  to="/" class="u-switch">关注更多主播</router-link> -->
                     </div>
                 </div>
-                <div class="m-video" v-show="index=='0' || index=='3'">
+                <div class="m-video" v-show="index=='0' || index=='3'" >
                     <div v-if="videototal!=0">
-                        <h3><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><router-link to="/videos" class="u-more" v-show="index=='0' || index!='3'">更多&gt;</router-link></h3>
+                        <h3><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><a @click="resultswitch(3)" class="u-more" v-show="index=='0' || index!='3'">更多&gt;</a></h3>
                         <div class="m-vd f-cb" v-for="(video,index) in totalvideolist">
                             <router-link :to="{path:'videoDetail',query: {id:video.id}}">
                                 <div class="m-vd-icon f-fl">
@@ -151,14 +151,15 @@
       		}
   		},
         mounted: function () {
-            this.keyword = this.$route.query.keyword;
-            this.searchkeyword = this.keyword;
-            this.totals();
+          var _this=this;
+            _this.keyword = _this.$route.query.keyword;
+            _this.searchkeyword = _this.keyword;
+            _this.totals();
             $(window).scroll(function(){ 
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
             if($(document).height() <= totalheight){
-                if(liveislast || upislast || videoislast){
-                    this.vedios(this.page,this.pageSize);
+                if(!_this.liveislast || !_this.upislast || !_this.videoislast){
+                    _this.totals(_this.page,_this.pageSize);
                 }
                 
             }
@@ -168,6 +169,10 @@
             download
   		},
         methods: {
+            resultswitch:function(i){
+              this.index=i;
+              this.setCur(this.index);
+            },
             watchPeople: function (num) {
               // `this` points to the vm instance
               return num>10000 ? (num/10000).toFixed(1)+'万' : num;
@@ -193,7 +198,6 @@
                                           
                         if(this.totallivelist){
                             this.totallivelist=this.totalshow.live.list; 
-                            console.log(this.totallivelist)
                             this.totallivelist=this.totallivelist.concat(response.data.object.live.list ? [] : response.data.object.live.list);
                             this.liveislast=this.totalshow.live.isLast;
                         }
