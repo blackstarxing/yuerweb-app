@@ -31,12 +31,12 @@
 					</div>
 					<div class="name f-fl">
 						<h4>{{details.nickname}}</h4>
-						<div>房间号&nbsp;&nbsp;&nbsp;<span style="margin-right: 25px;">{{details.room_number}}</span>粉丝&nbsp;&nbsp;&nbsp;<span class="fans-num">{{details.fans}}</span></div>
+						<div>房间号&nbsp;&nbsp;&nbsp;<span style="margin-right: 25px;">{{details.room_id}}</span>粉丝&nbsp;&nbsp;&nbsp;<span class="fans-num">{{details.fans}}</span></div>
 					</div>
 				</div>
 				<div class="intro">
 					<h3><img src="../../static/images/trumpet.png" alt="">直播公告</h3>
-					<p v-html="details.introduce?details.introduce:'主播很懒，什么都没留下'"></p>
+					<p v-html="details.notice?details.notice:'主播很懒，什么都没留下'"></p>
 				</div>
 			</div>
 		</div>
@@ -57,7 +57,8 @@
 					<div class="bank-left f-fl">
 						<span class="rank-index">{{index+1}}</span>
 						<div class="bank-head">
-							<img v-bind:src="contribution.icon" alt="">
+							<img v-bind:src="contribution.icon" alt="" v-if="contribution.icon">
+							<img src="../../static/images/default.png" alt="" v-else>
 						</div>
 						<span class="rank-name">{{contribution.nickname}}</span> 
 						<i class="icon iconfont icon-female rank-sex" v-if="contribution.sex"></i>
@@ -346,12 +347,14 @@
 	}
 	.otherlive{
 		width: 44%;
+		height: 5rem;
 		margin:0 3%;
 		border:1px solid #fff;
 		box-sizing: border-box;
 	}
 	.otherlive img{
 		width: 100%;
+		height: 100%;
 	}
 	.tab{
 		height: 39px;
@@ -643,6 +646,9 @@
 		color: #ff0;
 	}
 	/*播放*/
+	.videolist{
+		margin-bottom: 10px;
+	}
 	.videolist a{
 		display: block;
 		padding:12px;
