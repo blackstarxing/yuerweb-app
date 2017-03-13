@@ -81,12 +81,13 @@
       		}
   		},
       mounted:function(){
-        this.videototal(0);
+        var _this=this;
+        _this.videototal(0);
         $(window).scroll(function(){ 
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
             if($(document).height() <= totalheight){
-                if(hotislast || newislast){
-                    _this.vedios(_this.page,_this.pageSize);
+                if(!_this.hotislast || !_this.newislast){
+                    _this.videototal(_this.page,_this.pageSize);
                 }
                 
             }

@@ -9,7 +9,7 @@
                 <div class="g-list">
                     <div class="m-recommend-live f-cb">
                         <div class="m-lst" v-for="item in liveshowlist">
-                            <router-link :to="{path:'liveDetail',query: {id:item.id}}"  class="m-livelink">
+                            <router-link :to="{path:'liveDetail',query: {id:item.id}}" class="m-livelink">
                                 <div class="m-cover">
                                     <img v-bind:src="item.icon" alt="">
                                     <span><i>·</i>{{item.game_name}}</span>
