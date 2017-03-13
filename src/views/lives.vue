@@ -9,7 +9,7 @@
                 <div class="g-list">
                     <div class="m-recommend-live f-cb">
                         <div class="m-lst" v-for="item in liveshowlist">
-                            <a href="" class="m-livelink">
+                            <router-link :to="{path:'liveDetail',query: {id:item.id}}"  class="m-livelink">
                                 <div class="m-cover">
                                     <img v-bind:src="item.icon" alt="">
                                     <span><i>·</i>{{item.game_name}}</span>
@@ -24,7 +24,7 @@
                                     <span>{{watchPeople(item.online_num)}}</span>
                                 </div>
                                 <div class="m-title">{{item.title}}</div>
-                            </a>
+                            </router-link>
                         </div>
                         <div class="paging" v-show="!islast" style="margin:0 auto;color:#161d24;">加载更多</div>
                     </div>
@@ -57,7 +57,7 @@
                 $(window).scroll(function(){ 
                     var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
                     if($(document).height() <= totalheight){
-                        if(islast){
+                        if(!_this.islast){
                             _this.vedios(_this.page,_this.pageSize);
                         }
                         

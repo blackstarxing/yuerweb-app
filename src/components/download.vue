@@ -40,7 +40,7 @@
 		line-height: 34px;
 		border-radius: 5px;
 		vertical-align: middle;
-		font-size: 1.4rem;
+		font-size: 14px;
 		color:#fff;
 		background: #ff3366;
 		font-family: Arial;
