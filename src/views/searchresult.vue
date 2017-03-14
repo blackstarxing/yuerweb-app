@@ -71,7 +71,7 @@
                     </div>
                     <div class="g-false" v-else v-show="index=='2'">
                         <p class="u-desc">没有搜索到任何与{{searchkeyword}}相关的主播哟！</p>
-                        <!-- <router-link  to="/" class="u-switch">关注更多主播</router-link> -->
+                        <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
                     </div>
                 </div>
                 <div class="m-video" v-show="index=='0' || index=='3'" >
@@ -106,7 +106,7 @@
             </div> 
             <div class="g-false" v-else>
                 <p class="u-desc">没有搜索到任何与{{searchkeyword}}相关的结果哟！</p>
-                <router-link  to="/lives" class="u-switch" v-if="index==0 || index==1">查看更多精彩直播</router-link>
+                <router-link  to="/lives" class="u-switch" v-if="index==0 || index==1 || index==2">查看更多精彩直播</router-link>
                 <router-link  to="/videos" class="u-switch" v-else-if="index==3">查看更多精彩视频</router-link>
             </div>
         </div>
