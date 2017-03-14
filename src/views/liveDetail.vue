@@ -679,11 +679,17 @@
 		border-radius: 4px;
 		margin-right: 12px;
 	}
+	.videolist .title{
+		width: 50%;
+	}
 	.videolist h3{
 		font-size: 14px;
 		line-height: 25px;
 		margin-bottom: 35px;
 		color:#9da4ad;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.videolist label{
 		display: inline-block;

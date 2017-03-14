@@ -20,7 +20,7 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {
-      path: '/',
+      path: '/index',
       component: index
     },
     {
@@ -46,7 +46,8 @@ const router = new VueRouter({
     {
       path: '/videoDetail',
       component: videoDetail
-    }
+    },
+    { path: '*', redirect: '/index'}
   ]
 })
 
