@@ -1,8 +1,8 @@
 <template>
-	<div>
-		<!-- <top-head></top-head> -->
+  <div>
+    <!-- <top-head></top-head> -->
         <download></download>
-		<div class="g-bd g-s-result">
+    <div class="g-bd g-s-result">
             <div class="g-s-nav">
                 <div class="m-s-nav">
                     <img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
@@ -48,7 +48,8 @@
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
                                 <div class="m-sh-label">
                                   <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
-                                    <img v-bind:src="up.user_icon" alt="" class="u-shl-img">
+                                    <img v-bind:src="up.user_icon" alt="" class="u-shl-img" v-if="up.user_icon">
+                                    <img src="../../static/images/default.png" alt="" class="u-shl-img" v-else>
                                     <div class="u-shl-tar">
                                       <p>
                                           <span class="u-shlt-sx">{{up.nickname}}</span>
@@ -105,16 +106,17 @@
             </div> 
             <div class="g-false" v-else>
                 <p class="u-desc">没有搜索到任何与{{searchkeyword}}相关的结果哟！</p>
-                <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
+                <router-link  to="/lives" class="u-switch" v-if="index==0 || index==1">查看更多精彩直播</router-link>
+                <router-link  to="/videos" class="u-switch" v-else-if="index==3">查看更多精彩视频</router-link>
             </div>
         </div>
     </div>
 </template>
 <script type="text/javascript">
     import download from '../components/download.vue'
-  	export default {
-    	data () {
-      		return {
+    export default {
+      data () {
+          return {
                 totalshow:'',
                 totallivelist:[],
                 totaluplist:[],
@@ -128,8 +130,11 @@
                 keyword:'',
                 searchkeyword:'',
                 page : 1,
+                livepage: 1,
+                uppage: 1,
+                videopage: 1,
                 pageSize : 20,
-                type: 0 ,
+                type: 0,
                 userId:'',
                 tab: [{
                     name:"综合",
@@ -148,26 +153,35 @@
                     iscur:false,
                 }],
                 index:0,
-      		}
-  		},
+          }
+      },
         mounted: function () {
           var _this=this;
             _this.keyword = _this.$route.query.keyword;
             _this.searchkeyword = _this.keyword;
-            _this.totals();
+            _this.totals(0);
             $(window).scroll(function(){ 
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
             if($(document).height() <= totalheight){
-                if(!_this.liveislast || !_this.upislast || !_this.videoislast){
-                    _this.totals(_this.page,_this.pageSize);
+                if(!_this.liveislast && _this.index==1){
+                    _this.livepage+=1;
+                    _this.totals(_this.index);
+                }
+                if(!_this.upislast && _this.index==2){
+                  _this.uppage+=1;
+                  _this.totals(_this.index);
+                }
+                if(!_this.videoislast && _this.index==3){
+                  _this.videopage+=1;
+                  _this.totals(_this.index);
                 }
                 
             }
         })
         },
-  		components: {
+      components: {
             download
-  		},
+      },
         methods: {
             resultswitch:function(i){
               this.index=i;
@@ -182,51 +196,60 @@
                   _this.$router.push({
                     path: '/searchresult?keyword='+keyword
                 });
-                this.totals();
+                _this.totals(0);
                 this.keyword = this.$route.query.keyword;
                 this.searchkeyword = this.keyword;
             },
-            totals:function(refresh) {
+            totals:function(type) {
                 var parm = {};
-                this.$http.get('/api/mobile/search', {params:{keyword:this.$route.query.keyword,type: 0 }}).then(function(response) {
+                if(type==1){
+                  this.page = this.livepage;
+                }else if(type==2){
+                  this.page = this.uppage;
+                }else if(type==3){
+                  this.page=this.videopage;
+                }else{
+                  this.page=this.page;
+                }
+                this.$http.get('/api/mobile/search', {params:{keyword:this.$route.query.keyword,page:this.page,pageSize:this.pageSize,type:type}}).then(function(response) {
                         // 获得最大的对象
                         this.totalshow = response.data.object; 
                         // 对象下面的live对象，up对象，video对象下面的total;
-                        this.livetotal=this.totalshow.live.total; 
-                        this.uptotal=this.totalshow.up.total; 
-                        this.videototal=this.totalshow.video.total;   
-                                          
-                        if(this.totallivelist){
-                            this.totallivelist=this.totalshow.live.list; 
-                            this.totallivelist=this.totallivelist.concat(response.data.object.live.list ? [] : response.data.object.live.list);
+                        if(this.totalshow.live){
+                          this.livetotal=this.totalshow.live.total; 
+                          this.totallivelist=this.totalshow.live.list; 
+                          this.totallivelist=this.totallivelist.concat(response.data.object.live.list ? [] : response.data.object.live.list);
                             this.liveislast=this.totalshow.live.isLast;
                         }
-                        
-                        if(this.totaluplist){
-                            this.totaluplist=this.totalshow.up.list;
-                            this.totaluplist=this.totaluplist.concat(response.data.object.up.list ? [] : response.data.object.up.list);
+                        if(this.totalshow.up){
+                          this.uptotal=this.totalshow.up.total;
+                          this.totaluplist=this.totalshow.up.list;
+                          console.log(this.totaluplist.length)
+                          this.totaluplist=this.totaluplist.concat(response.data.object.up.list ? [] : response.data.object.up.list);
                             this.upislast=this.totalshow.up.isLast;
-                        }
-                        
-                        if(this.totalvideolist){
-                          this.totalvideolist=this.totalshow.video.list;
+                        } 
+                        if(this.totalshow.video){
+                          this.videototal=this.totalshow.video.total; 
+                           this.totalvideolist=this.totalshow.video.list;  
                             this.totalvideolist=this.totalvideolist.concat(response.data.object.video.list ? [] : response.data.object.video.list);
                             this.videoislast=this.totalshow.video.isLast;
-                        }
-
-                        
+                        }                 
+                      
                 }, function(response) {
                     console.log(response);
                 });
             },
             setCur: function (index) {
+              var _this=this;
                 this.tab.map(function (v,i) {
-                    i==index? v.iscur=true: v.iscur=false;                    
+                    i==index? v.iscur=true: v.iscur=false;     
                 });
-                this.index = index;
+                _this.index = index;
+                _this.totals(_this.index);
+                
             }
         },   
-  	}
+    }
 </script>
 <style>
   .g-s-result{

@@ -27,7 +27,7 @@
                 </router-link>
             </div>
         </div>
-        <div class="paging" v-show="!hotislast">加载更多</div>
+        <div v-show="!hotislast" class="paging">加载更多</div>
       </div>
       <!-- 最新视频 -->
       <div class="g-list" v-else>
@@ -52,7 +52,7 @@
                 </router-link>
             </div>
         </div>
-        <div class="paging" v-show="!newislast">加载更多</div>
+        <div v-show="!newislast" class="paging">加载更多</div>
       </div>
 		</div>
 	</div>

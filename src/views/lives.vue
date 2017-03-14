@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="m-info f-cb">
                                     <div class="m-head f-fl">
-                                        <img v-bind:src="item.icon" alt="" class="anchor-head">
+                                        <img v-bind:src="item.user_icon" alt="" class="anchor-head">
                                         <img src="../../static/images/male.png" alt="" class="sex" v-if="item.sex">
                                         <img src="../../static/images/female.png" alt="" class="sex" v-else>
                                     </div>
@@ -26,7 +26,7 @@
                                 <div class="m-title">{{item.title}}</div>
                             </router-link>
                         </div>
-                        <div class="paging" v-show="!islast" style="margin:0 auto;color:#161d24;">加载更多</div>
+                        <div v-show="!islast" class="paging">加载更多</div>
                     </div>
                 </div>  
             </div>
@@ -111,5 +111,4 @@
         color:#f36;
         margin-right:2%;
     }
-    
 </style>
