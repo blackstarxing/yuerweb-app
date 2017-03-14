@@ -129,7 +129,7 @@
 	}
 	.u-hc{
 		float:left;
-		width:21%;
+		width:20%;
 		height:3rem;
 		line-height:3rem;
 		color:#8e8e9a;
