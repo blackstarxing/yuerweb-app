@@ -197,7 +197,6 @@
                     path: '/searchresult?keyword='+keyword
                 });
                 _this.index = 0;
-                _this.totals(_this.index);
                 this.keyword = this.$route.query.keyword;
                 this.searchkeyword = this.keyword;
                 this.page = 0;
@@ -215,6 +214,7 @@
                 this.uppage=1;
                 this.videopage=1;
                 _this.setCur(0);
+                // _this.totals(_this.index);
             },
             totals:function(type) {
                 var parm = {};
