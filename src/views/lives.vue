@@ -1,6 +1,8 @@
 <template>
 	<div>
+
 		<top-head></top-head>
+        <download></download>
 		<div class="g-bd g-live-bd">
             <div class="g-true" v-if="liveshow.list!=''">
                 <div class="m-top">
@@ -26,7 +28,7 @@
                                 <div class="m-title">{{item.title}}</div>
                             </router-link>
                         </div>
-                        <div v-show="!islast" class="paging">加载更多</div>
+                        <div v-show="!islast" class="paging" @click="vedios">加载更多</div>
                     </div>
                 </div>  
             </div>
