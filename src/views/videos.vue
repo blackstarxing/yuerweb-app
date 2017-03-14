@@ -122,14 +122,14 @@
                     this.videos = response.data.object; 
                     if(this.videos.hotLive){
                       // 最热视频下面的list数组
-                        this.videohot=response.data.object.hotLive.list;
-                        this.videohot=this.videohot.concat(response.data.object.hotLive.list ? []:response.data.object.hotLive.list);
+                        // this.videohot=response.data.object.hotLive.list;
+                        this.videohot=this.videohot.concat(response.data.object.hotLive.list);
                         this.hotislast=this.videos.hotLive.isLast;
                     }
                     if(this.videos.newLive){
                       // 最新视频下面的list数组
-                        this.videonew=response.data.object.newLive.list;
-                        this.videonew=this.videonew.concat(response.data.object.newLive.list ? []:response.data.object.newLive.list);
+                        // this.videonew=response.data.object.newLive.list;
+                        this.videonew=this.videonew.concat(response.data.object.newLive.list);
                         this.newislast=this.videos.newLive.isLast;
                     }
                 }, function(response) {

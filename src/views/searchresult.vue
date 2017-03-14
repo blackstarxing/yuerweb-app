@@ -196,9 +196,25 @@
                   _this.$router.push({
                     path: '/searchresult?keyword='+keyword
                 });
-                _this.totals(0);
+                _this.index = 0;
+                _this.totals(_this.index);
                 this.keyword = this.$route.query.keyword;
                 this.searchkeyword = this.keyword;
+                this.page = 0;
+                this.totalshow='';
+                this.totallivelist=[];
+                this.totaluplist=[];
+                this.totalvideolist=[];
+                this.livetotal='';
+                this.uptotal='';
+                this.videototal='';
+                this.liveislast='';
+                this.upislast='';
+                this.videoislast='';
+                this.livepage=1;
+                this.uppage=1;
+                this.videopage=1;
+                _this.setCur(0);
             },
             totals:function(type) {
                 var parm = {};
@@ -217,21 +233,30 @@
                         // 对象下面的live对象，up对象，video对象下面的total;
                         if(this.totalshow.live){
                           this.livetotal=this.totalshow.live.total; 
-                          this.totallivelist=this.totalshow.live.list; 
-                          this.totallivelist=this.totallivelist.concat(response.data.object.live.list ? [] : response.data.object.live.list);
+                          if(this.page==1){
+                            this.totallivelist=[];
+                          }
+                          // this.totallivelist=this.totalshow.live.list; 
+                          this.totallivelist=this.totallivelist.concat(response.data.object.live.list);
                             this.liveislast=this.totalshow.live.isLast;
                         }
                         if(this.totalshow.up){
                           this.uptotal=this.totalshow.up.total;
-                          this.totaluplist=this.totalshow.up.list;
-                          console.log(this.totaluplist.length)
-                          this.totaluplist=this.totaluplist.concat(response.data.object.up.list ? [] : response.data.object.up.list);
+                          if(this.page==1){
+                            this.totaluplist=[];
+                          }
+                          // this.totaluplist=this.totalshow.up.list;
+                          // console.log(this.totaluplist.length)
+                          this.totaluplist=this.totaluplist.concat(response.data.object.up.list);
                             this.upislast=this.totalshow.up.isLast;
                         } 
                         if(this.totalshow.video){
                           this.videototal=this.totalshow.video.total; 
-                           this.totalvideolist=this.totalshow.video.list;  
-                            this.totalvideolist=this.totalvideolist.concat(response.data.object.video.list ? [] : response.data.object.video.list);
+                          if(this.page==1){
+                            this.totalvideolist=[];
+                          }
+                           // this.totalvideolist=this.totalshow.video.list;  
+                            this.totalvideolist=this.totalvideolist.concat(response.data.object.video.list);
                             this.videoislast=this.totalshow.video.isLast;
                         }                 
                       
