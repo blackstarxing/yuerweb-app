@@ -254,7 +254,7 @@
 <style>
   .g-s-result{
     width:100%;
-    padding-bottom:64px;
+/*    padding-bottom:64px;*/
   }
   .g-s-nav{
     width:100%;
