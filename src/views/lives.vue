@@ -60,6 +60,7 @@
                     var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
                     if($(document).height() <= totalheight){
                         if(!_this.islast){
+                            _this.page+=1;
                             _this.vedios(_this.page,_this.pageSize);
                         }
                         
@@ -98,7 +99,7 @@
         width:96%;
         height:49.3rem;
         background:#141a20;
-        padding-bottom: 64px;
+        /*padding-bottom: 64px;*/
     }
     .m-top{
         margin:0 2%;
