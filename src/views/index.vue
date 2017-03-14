@@ -7,7 +7,13 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="banner in banner">
-                            <a v-bind:href="banner.target">
+                            <router-link :to="{path:'liveDetail',query: {id:banner.target}}" v-if="banner.type==1">
+                                <img v-bind:src="'http://img.wangyuhudong.com/'+banner.img" alt="">
+                            </router-link>
+                            <router-link :to="{path:'videoDetail',query: {id:banner.target}}" v-else-if="banner.type==2">
+                                <img v-bind:src="'http://img.wangyuhudong.com/'+banner.img" alt="">
+                            </router-link>
+                            <a v-bind:href="banner.target" v-else>
                                 <img v-bind:src="'http://img.wangyuhudong.com/'+banner.img" alt="">
                             </a>
                         </div>

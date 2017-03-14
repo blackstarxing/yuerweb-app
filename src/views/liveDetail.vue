@@ -9,7 +9,7 @@
 			<div class="m-outline" v-else>
 				<p>主播当前不在线，查看更多直播</p>
 				<div class="other-wrap f-cb">
-					<router-link :to="{path:'liveDetail',query: {id:live.id}}" class="otherlive f-fl" v-for="live in otherlive">
+					<router-link :to="{path:live.type==1?'liveDetail':'videoDetail',query: {id:live.id}}" class="otherlive f-fl" v-for="live in otherlive">
 						<img v-bind:src="live.icon" alt="">
 					</router-link>
 				</div>				
@@ -26,8 +26,8 @@
 				<div class="subscribe clearfix">
 					<div class="head f-fl">
 						<img v-bind:src="details.user_icon" alt="">
-                        <img src="../../static/images/male.png" alt="" class="sex" v-if="details.sex">
-                        <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                        <img src="../../static/images/female.png" alt="" class="sex" v-if="details.sex">
+                        <img src="../../static/images/male.png" alt="" class="sex" v-else>
 					</div>
 					<div class="name f-fl">
 						<h4>{{details.nickname}}</h4>
@@ -146,8 +146,13 @@
   		},
   		mounted: function () {
             this.$nextTick(function () {
-                let _this = this;
-
+            	this.getDetail();               
+            })
+        },
+        methods:{
+        	getDetail : function(){
+        		let _this = this;
+        		_this.page = 1;
                 // 获取直播间详情数据
                 _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.id,page:_this.page,pageSize:5}}).then(function(response) {
                     _this.details = response.data.object.info;
@@ -190,9 +195,7 @@
                         
                     }
                 })
-            })
-        },
-        methods:{
+        	},
         	// tab切换
             setCur : function(index){
             	this.tab.map(function (v,i) {
@@ -337,6 +340,9 @@
 				    }
 				}
             }
+        },
+        watch: {
+        	"$route": "getDetail"
         },
   		components: {
         	topHead,
