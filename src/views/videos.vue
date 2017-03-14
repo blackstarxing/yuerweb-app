@@ -28,7 +28,7 @@
                 </router-link>
             </div>
         </div>
-        <div v-show="!hotislast" class="paging" @click="videototal(0)">加载更多</div>
+        <div v-show="!hotislast" class="paging" >加载更多</div>
       </div>
       <!-- 最新视频 -->
       <div class="g-list" v-else>
@@ -53,7 +53,7 @@
                 </router-link>
             </div>
         </div>
-        <div v-show="!newislast" class="paging" @click="videototal(1)">加载更多</div>
+        <div v-show="!newislast" class="paging">加载更多</div>
       </div>
 		</div>
 	</div>
@@ -70,8 +70,10 @@
             hotislast:'',
             newislast:'',
             page:1,
+            hotpage:1,
+            newpage:1,
             pageSize:20,
-            type:'',
+            type:0,
             tabs:[{
               name:"最热视频",
               iscur:true,
@@ -81,14 +83,19 @@
             }]
       		}
   		},
-      mounted:function(){
+      mounted:function(type){
         var _this=this;
         _this.videototal(0);
         $(window).scroll(function(){ 
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
             if($(document).height() <= totalheight){
-                if(!_this.hotislast || !_this.newislast){
-                    _this.videototal(_this.page,_this.pageSize);
+                if(!_this.hotislast && _this.type==0){
+                  _this.hotpage+=1;
+                  _this.videototal(_this.type);
+                }
+                if(!_this.newislast && _this.type==1){
+                  _this.newpage+=1;
+                    _this.videototal(_this.type);
                 }
                 
             }
@@ -105,7 +112,13 @@
             },
         videototal:function(type) {
                 var parm = {};
-                this.$http.get('/api/mobile/videoList', {params:{page : 1,pageSize : 20,type:type,}}).then(function(response) {
+                if(type==0){
+                  this.page=this.hotpage;
+                }else{
+                  this.page=this.newpage;
+                }
+                this.$http.get('/api/mobile/videoList', {params:{page :this.page,pageSize : 20,type:type,}}).then(function(response) {
+
                     this.videos = response.data.object; 
                     if(this.videos.hotLive){
                       // 最热视频下面的list数组
@@ -127,6 +140,7 @@
                 this.tabs.map(function (v,i) {
                     i==index? v.iscur=true: v.iscur=false;             
                 });
+                this.type=index;
                 this.videototal(index);
             },
 
@@ -135,7 +149,7 @@
 </script>
 <style>
 .g-videospadding{
-  padding-bottom: 64px;
+  /*padding-bottom: 64px;*/
 }
 .m-navigation{
   width:50%;
