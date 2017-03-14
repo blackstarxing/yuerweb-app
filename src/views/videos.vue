@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<top-head></top-head>
+    <download></download>
 		<div class="g-bd g-videospadding">
 			<div class="m-navigation">
            <button v-for="(item,index) in tabs" v-text="item.name" v-bind:class="[{curs:item.iscur},'u-sl-results']" @click="setCur(index)"></button>
@@ -27,7 +28,7 @@
                 </router-link>
             </div>
         </div>
-        <div v-show="!hotislast" class="paging">加载更多</div>
+        <div v-show="!hotislast" class="paging" @click="videototal(0)">加载更多</div>
       </div>
       <!-- 最新视频 -->
       <div class="g-list" v-else>
@@ -52,7 +53,7 @@
                 </router-link>
             </div>
         </div>
-        <div v-show="!newislast" class="paging">加载更多</div>
+        <div v-show="!newislast" class="paging" @click="videototal(1)">加载更多</div>
       </div>
 		</div>
 	</div>
