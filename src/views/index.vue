@@ -7,7 +7,13 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="banner in banner">
-                            <a v-bind:href="banner.target">
+                            <router-link :to="{path:'liveDetail',query: {id:banner.target}}" v-if="banner.type==1">
+                                <img v-bind:src="'http://img.wangyuhudong.com/'+banner.img" alt="">
+                            </router-link>
+                            <router-link :to="{path:'videoDetail',query: {id:banner.target}}" v-else-if="banner.type==2">
+                                <img v-bind:src="'http://img.wangyuhudong.com/'+banner.img" alt="">
+                            </router-link>
+                            <a v-bind:href="banner.target" v-else>
                                 <img v-bind:src="'http://img.wangyuhudong.com/'+banner.img" alt="">
                             </a>
                         </div>
@@ -27,7 +33,8 @@
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
-                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head">
+                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head" v-if="live.user_icon">
+                                    <img src="../../static/images/default.png" alt="" class="anchor-head" v-else>
                                     <img src="../../static/images/female.png" alt="" class="sex" v-if="live.sex">
                                     <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
@@ -48,7 +55,8 @@
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
-                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head">
+                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head" v-if="live.user_icon">
+                                    <img src="../../static/images/default.png" alt="" class="anchor-head" v-else>
                                     <img src="../../static/images/female.png" alt="" class="sex" v-if="live.sex">
                                     <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
@@ -59,7 +67,7 @@
                         </router-link>
                     </div>
                 </div>
-                <div class="m-live f-cb" v-for="game in index.game_live">
+                <div class="m-live f-cb" v-for="game in index.game_live" v-show="game.lives.length>=4">
                     <h3><i class="icon iconfont icon-game"></i>{{game.game_name}}</h3>
                     <div class="m-lst" v-for="live in game.lives">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
@@ -69,7 +77,8 @@
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
-                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head">
+                                    <img v-bind:src="live.user_icon" alt="" class="anchor-head" v-if="live.user_icon">
+                                    <img src="../../static/images/default.png" alt="" class="anchor-head" v-else>
                                     <img src="../../static/images/female.png" alt="" class="sex" v-if="live.sex">
                                     <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>

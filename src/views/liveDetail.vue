@@ -9,7 +9,7 @@
 			<div class="m-outline" v-else>
 				<p>主播当前不在线，查看更多直播</p>
 				<div class="other-wrap f-cb">
-					<router-link :to="{path:'liveDetail',query: {id:live.id}}" class="otherlive f-fl" v-for="live in otherlive">
+					<router-link :to="{path:live.type==1?'liveDetail':'videoDetail',query: {id:live.id}}" class="otherlive f-fl" v-for="live in otherlive">
 						<img v-bind:src="live.icon" alt="">
 					</router-link>
 				</div>				
@@ -26,8 +26,8 @@
 				<div class="subscribe clearfix">
 					<div class="head f-fl">
 						<img v-bind:src="details.user_icon" alt="">
-                        <img src="../../static/images/male.png" alt="" class="sex" v-if="details.sex">
-                        <img src="../../static/images/female.png" alt="" class="sex" v-else>
+                        <img src="../../static/images/female.png" alt="" class="sex" v-if="details.sex">
+                        <img src="../../static/images/male.png" alt="" class="sex" v-else>
 					</div>
 					<div class="name f-fl">
 						<h4>{{details.nickname}}</h4>
@@ -76,11 +76,11 @@
 		</div>
 		<div class="m-comments" v-show="index=='3'">
 			<div class="comment overlook">
-                <div class="empty" v-if="historyVideo.list == ''">
+                <div class="empty" v-if="historyVideo == ''">
 					<img src="../../static/images/empty.png" alt="">
 				</div>
     			<div v-else>
-    				<div class="videolist" v-for="video in historyVideo.list">
+    				<div class="videolist" v-for="video in historyVideo">
 						<router-link :to="{path:'videoDetail',query: {id:video.id}}" class="f-cb">
 							<img v-bind:src="video.icon" alt="" class="f-fl">
 							<div class="title f-fl">
@@ -140,20 +140,28 @@
         			isCur:false
         		}],
         		contributionRank:'',
+        		islast:'',
+        		page:1,
       		}
   		},
   		mounted: function () {
             this.$nextTick(function () {
-                let _this = this;
-
+            	this.getDetail();               
+            })
+        },
+        methods:{
+        	getDetail : function(){
+        		let _this = this;
+        		_this.page = 1;
                 // 获取直播间详情数据
-                _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.id,page:1,pageSize:5}}).then(function(response) {
+                _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.id,page:_this.page,pageSize:5}}).then(function(response) {
                     _this.details = response.data.object.info;
                     _this.liveAddress = _this.details.rtmp ? _this.details.rtmp.replace(/rtmp:/, "http:").replace(/rtmp/, "hls")+'.m3u8':'';       
                     _this.roomid = _this.details.chat_room_id;   
                     _this.accid = _this.details.up_user_id; 
-                    _this.historyVideo = response.data.object.historyVideo; 
+                    _this.historyVideo = response.data.object.historyVideo.list; 
                     _this.otherlive = response.data.object.otherLive ? response.data.object.otherLive : '';
+                    _this.islast = response.data.object.historyVideo.isLast;
 
                     // 获取聊天室游客id
                     _this.$http.get('/api/mobile/visitor').then(function(response) {
@@ -172,9 +180,22 @@
                 // 动态设置聊天区域高度
 				let height=$(window).height()-366;
 				$('#chat').css('height',height+'px');
-            })
-        },
-        methods:{
+				$(window).scroll(function(){ 
+                    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
+                    if($(document).height() <= totalheight){
+                        if(!_this.islast){
+                        	_this.page+=1;
+                            _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.id,page:_this.page,pageSize:5}}).then(function(response) {
+                            	_this.islast = response.data.object.historyVideo.isLast;
+                            	_this.historyVideo=_this.historyVideo.concat(response.data.object.historyVideo.list);
+	                        },function(response) {
+			                    console.log(response);
+			                });
+                        }
+                        
+                    }
+                })
+        	},
         	// tab切换
             setCur : function(index){
             	this.tab.map(function (v,i) {
@@ -319,6 +340,9 @@
 				    }
 				}
             }
+        },
+        watch: {
+        	"$route": "getDetail"
         },
   		components: {
         	topHead,
@@ -661,11 +685,17 @@
 		border-radius: 4px;
 		margin-right: 12px;
 	}
+	.videolist .title{
+		width: 50%;
+	}
 	.videolist h3{
 		font-size: 14px;
 		line-height: 25px;
 		margin-bottom: 35px;
 		color:#9da4ad;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.videolist label{
 		display: inline-block;

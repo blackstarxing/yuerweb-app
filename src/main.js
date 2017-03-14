@@ -16,11 +16,11 @@ Vue.use(VueRouter)
 
 
 const router = new VueRouter({
-  mode: 'history',
-  base: __dirname,
+  // mode: 'history',
+  // base: __dirname,
   routes: [
     {
-      path: '/',
+      path: '/index',
       component: index
     },
     {
@@ -46,7 +46,8 @@ const router = new VueRouter({
     {
       path: '/videoDetail',
       component: videoDetail
-    }
+    },
+    { path: '*', redirect: '/index'}
   ]
 })
 
