@@ -18,7 +18,8 @@
                                 </div>
                                 <div class="m-info f-cb">
                                     <div class="m-head f-fl">
-                                        <img v-bind:src="item.user_icon" alt="" class="anchor-head">
+                                        <img v-bind:src="item.user_icon" alt="" class="anchor-head" v-if="item.user_icon">
+                                        <img src="../../static/images/default.png" alt="" class="u-shl-img" v-else>
                                         <img src="../../static/images/male.png" alt="" class="sex" v-if="item.sex">
                                         <img src="../../static/images/female.png" alt="" class="sex" v-else>
                                     </div>
@@ -81,11 +82,10 @@
                 var parm = {};
                 this.$http.get('/api/mobile/liveList', {params:{page:page,pageSize:this.pageSize}}).then(function(response) {
                     this.liveshow=response.data.object;
-                    this.liveshowlist=this.liveshow.list;
-                    if(this.liveshowlist){
-                        this.liveshowlist=this.liveshowlist.concat(this.liveshowlist ? []:this.liveshowlist);
-                        console.log(this.liveshowlist)
-                    }
+                    // this.liveshowlist=this.liveshow.list;
+                    // if(this.liveshowlist){
+                        this.liveshowlist=this.liveshowlist.concat(response.data.object.list);
+                    // }
                     this.islast=this.liveshow.isLast;
                 }, function(response) {
                     console.log(response);

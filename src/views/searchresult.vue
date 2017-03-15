@@ -162,7 +162,7 @@
             _this.totals(0);
             $(window).scroll(function(){ 
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
-            if($(document).height() <= totalheight){
+            if($(document).height() <= totalheight && _this.index != 0){
                 if(!_this.liveislast && _this.index==1){
                     _this.livepage+=1;
                     _this.totals(_this.index);
@@ -233,8 +233,9 @@
                         // 对象下面的live对象，up对象，video对象下面的total;
                         if(this.totalshow.live){
                           this.livetotal=this.totalshow.live.total; 
-                          if(this.page==1){
+                          if(this.page==1 || type==0){
                             this.totallivelist=[];
+                            this.livepage=1;
                           }
                           // this.totallivelist=this.totalshow.live.list; 
                           this.totallivelist=this.totallivelist.concat(response.data.object.live.list);
@@ -242,8 +243,9 @@
                         }
                         if(this.totalshow.up){
                           this.uptotal=this.totalshow.up.total;
-                          if(this.page==1){
+                          if(this.page==1 || type==0){
                             this.totaluplist=[];
+                            this.uppage=1;
                           }
                           // this.totaluplist=this.totalshow.up.list;
                           // console.log(this.totaluplist.length)
@@ -252,8 +254,9 @@
                         } 
                         if(this.totalshow.video){
                           this.videototal=this.totalshow.video.total; 
-                          if(this.page==1){
+                          if(this.page==1 || type==0){
                             this.totalvideolist=[];
+                            this.videopage=1;
                           }
                            // this.totalvideolist=this.totalshow.video.list;  
                             this.totalvideolist=this.totalvideolist.concat(response.data.object.video.list);

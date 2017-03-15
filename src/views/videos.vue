@@ -147,6 +147,8 @@
                     i==index? v.iscur=true: v.iscur=false;             
                 });
                 this.type=index;
+                this.hotpage=1;
+                this.newpage=1;
                 this.videototal(index);
             },
 
