@@ -4,7 +4,7 @@
 		<top-head></top-head>
         <download></download>
 		<div class="g-bd g-live-bd">
-            <div class="g-true" v-if="liveshow.list!=''">
+            <div class="g-true" v-if="liveshowlist!=''">
                 <div class="m-top">
                      <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
                 </div>
@@ -19,7 +19,7 @@
                                 <div class="m-info f-cb">
                                     <div class="m-head f-fl">
                                         <img v-bind:src="item.user_icon" alt="" class="anchor-head" v-if="item.user_icon">
-                                        <img src="../../static/images/default.png" alt="" class="u-shl-img" v-else>
+                                        <img src="../../static/images/default.png" alt="" class="anchor-head" v-else>
                                         <img src="../../static/images/male.png" alt="" class="sex" v-if="item.sex">
                                         <img src="../../static/images/female.png" alt="" class="sex" v-else>
                                     </div>
