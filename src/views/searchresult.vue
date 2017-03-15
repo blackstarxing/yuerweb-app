@@ -55,7 +55,7 @@
                                           <span class="u-shlt-sx">{{up.nickname}}</span>
                                           <i class="icon iconfont icon-female iconsearch" v-if="up.sex"></i>
                                           <i class="icon iconfont icon-male iconsearch" v-else></i>
-                                          <i class="icon iconfont icon-authen iconauth" v-if="up.is_certificate"></i>
+                                          <img src="../../static/images/auth.png" class="u-re-auth" v-if="up.is_certificate"></img>
                                       </p>
                                       <p class="u-shlt-fs"><span>房间</span><span class="u-s-fs">{{up.id}}</span><span class="u-s-fspec">粉丝</span><span class="u-s-fs">{{up.fans}}</span></p>
                                     </div>
@@ -430,5 +430,11 @@
     color:#fff;
     border-radius:2rem;
     background:#f36;
+  }
+  .u-re-auth{
+    display:inline-block;
+    width:1.5rem;
+    height:1.5rem;
+    margin-left:2%;
   }
 </style>
