@@ -28,7 +28,8 @@
                     <div class="m-lst" v-for="live in index.recommend_live">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
-                                <img v-bind:src="live.icon" alt="">
+                                <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
+                                <img v-bind:src="live.icon" alt="" v-else>
                                 <span><i>·</i>{{live.game_name}}</span>
                             </div>
                             <div class="m-info f-cb">
@@ -50,7 +51,8 @@
                     <div class="m-lst" v-for="live in index.hot_live">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
-                                <img v-bind:src="live.icon" alt="">
+                                <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
+                                <img v-bind:src="live.icon" alt="" v-else>
                                 <span><i>·</i>{{live.game_name}}</span>
                             </div>
                             <div class="m-info f-cb">
@@ -72,7 +74,8 @@
                     <div class="m-lst" v-for="live in game.lives">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
-                                <img v-bind:src="live.icon" alt="">
+                                <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
+                                <img v-bind:src="live.icon" alt="" v-else>
                                 <span><i>·</i>{{live.game_name}}</span>
                             </div>
                             <div class="m-info f-cb">
@@ -94,7 +97,8 @@
                     <div class="m-vd f-cb" v-for="video in index.video">
                         <router-link :to="{path:'videoDetail',query: {id:video.id}}">
                             <div class="m-vd-icon f-fl">
-                                <img v-bind:src="video.icon" alt="">
+                                <img v-bind:src="video.icon" alt="" class="screen" v-if="video.screen">
+                                <img v-bind:src="video.icon" alt="" v-else>
                             </div>
                             <div class="m-vd-info f-fl">
                                 <div class="m-title">{{video.title}}</div>

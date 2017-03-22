@@ -13,7 +13,8 @@
                         <div class="m-lst" v-for="item in liveshowlist">
                             <router-link :to="{path:'liveDetail',query: {id:item.id}}" class="m-livelink">
                                 <div class="m-cover">
-                                    <img v-bind:src="item.icon" alt="">
+                                    <img v-bind:src="item.icon" alt="" class="screen" v-if="item.screen">
+                                    <img v-bind:src="item.icon" alt="" v-else>
                                     <span><i>·</i>{{item.game_name}}</span>
                                 </div>
                                 <div class="m-info f-cb">

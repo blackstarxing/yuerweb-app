@@ -11,7 +11,8 @@
             <div class="m-vd f-cb" v-for="(currvideo,index) in videohot">
                 <router-link :to="{path:'videoDetail',query: {id:currvideo.id}}">
                     <div class="m-vd-icon f-fl">
-                        <img v-bind:src="currvideo.icon" alt="">
+                        <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
+                        <img v-bind:src="currvideo.icon" alt="" v-else>
                     </div>
                     <div class="m-vd-info f-fl">
                         <div class="m-title">{{currvideo.title}}</div>

@@ -82,7 +82,10 @@
     			<div v-else>
     				<div class="videolist" v-for="video in historyVideo">
 						<router-link :to="{path:'videoDetail',query: {id:video.id}}" class="f-cb">
-							<img v-bind:src="video.icon" alt="" class="f-fl">
+							<div class="history f-fl">
+								<img v-bind:src="video.icon" alt="" class="screen" v-if="video.screen">
+                        		<img v-bind:src="video.icon" alt="" v-else>
+							</div>							
 							<div class="title f-fl">
 								<h3>{{video.title}}</h3>
 								<div class="count">
@@ -679,11 +682,23 @@
 		background: #242d3c;
 		/*border-bottom: 1px solid #e4e4e4;*/
 	}
-	.videolist img{
+	.videolist .history{
 		width: 140px;
 		height: 78px;
 		border-radius: 4px;
 		margin-right: 12px;
+		background: url('../../static/images/cover.png') no-repeat;
+    	background-size: cover;
+	}
+	.history img{
+		width: 100%;
+		height: 100%;
+	}
+	.history .screen{
+		height: 100%;
+		width: auto;
+		margin:0 auto;
+		display: block;
 	}
 	.videolist .title{
 		width: 50%;

@@ -20,7 +20,8 @@
                         <div class="m-lst" v-for="lives in totallivelist">
                             <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
                                 <div class="m-cover">
-                                    <img v-bind:src="lives.icon" alt="">
+                                    <img v-bind:src="lives.icon" alt="" class="screen" v-if="lives.screen">
+                                    <img v-bind:src="lives.icon" alt="" v-else>
                                     <span><i>·</i>{{lives.game_name}}</span>
                                 </div>
                                 <div class="m-info f-cb">
@@ -80,7 +81,8 @@
                         <div class="m-vd f-cb" v-for="(video,index) in totalvideolist">
                             <router-link :to="{path:'videoDetail',query: {id:video.id}}">
                                 <div class="m-vd-icon f-fl">
-                                    <img v-bind:src="video.icon" alt="">
+                                    <img v-bind:src="video.icon" alt="" class="screen" v-if="video.screen">
+                                    <img v-bind:src="video.icon" alt="" v-else>
                                 </div>
                                 <div class="m-vd-info f-fl">
                                     <div class="m-title">{{video.title}}</div>
