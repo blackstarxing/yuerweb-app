@@ -176,7 +176,7 @@
 <style>
     @import '../../static/css/swiper.min.css';
     .swiper-container{
-        height: 21rem;
+        height: 18rem;
         color:#fff;
     }
     .swiper-slide img{
