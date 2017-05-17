@@ -5,9 +5,10 @@
         <download></download>
 		<div class="g-bd g-live-bd">
             <div class="g-true" v-if="liveshowlist!=''">
-                <div class="m-top">
+                <!-- <div class="m-top">
                      <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
-                </div>
+                </div> -->
+                <div class="g-all-live">全部直播</div>
                 <div class="g-list">
                     <div class="m-recommend-live f-cb">
                         <div class="m-lst" v-for="item in liveshowlist">
@@ -99,8 +100,15 @@
     .g-live-bd{
         /*width:96%;*/
         height:49.3rem;
-        background:#141a20;
+        background:#fff;
         /*padding-bottom: 64px;*/
+    }
+    .g-all-live{
+        width:100%;
+        text-align:center;
+        color:#333;
+        font-size:16px;
+        padding:20px 0;
     }
     .m-top{
         margin:0 2%;
