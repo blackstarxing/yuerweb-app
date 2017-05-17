@@ -25,7 +25,11 @@
             <div class="news f-cb">
                 <img src="../../static/images/news.png" alt="" class="f-fl">
                 <div class="pvp-list f-fl">
-                    <ul id='list1'></ul>
+                    <ul id='list1'>
+                        <li v-for="live in index.news">
+                            <router-link :to="{path:'news',query: {id:live.id}}">{{live.title}}</router-link>
+                        </li>
+                    </ul>
                     <ul id="list2"></ul>
                 </div>
             </div>
@@ -129,12 +133,6 @@
                             observeParents:true,
                         }); 
                         _this.loaded = true;
-                        var content = "";
-                        var news = response.data.object.news;
-                        for(var i = 0;i<news.length;i++){
-                            content+='<li><a href="http://www.yuerlive.top/mobile/news?id='+news[i].id+'">'+news[i].title+'</a></li>';
-                        }
-                        $('#list1').html(content);
                         var index = 1;
                         var h = $('.pvp-list').height();
                         $("#list2").html($("#list1").html());

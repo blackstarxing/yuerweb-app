@@ -48,8 +48,20 @@
             }
             return flag;
         }
+        function getQueryString(name,index){
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.hash.substr(index).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
         if(IsPC()){
-          window.location.href = 'http://www.yuerlive.cn';
+          if(window.location.href.indexOf('liveDetail') > -1){
+            window.location.href = 'http://www.yuerlive.top/liveroom?id='+getQueryString('id',13);
+          }else{
+            window.location.href = 'http://www.yuerlive.cn';
+          }          
         }
       </script>
   	</head>
