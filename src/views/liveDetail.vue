@@ -409,7 +409,7 @@
 	}
 	.follow{
 		display: block;
-		width: 14%;
+		/*width: 14%;*/
 		height: 26px;
 		line-height: 26px;
 		margin:8px 3%;
@@ -417,6 +417,7 @@
 		text-align: center;
 		color:#fff;
 		font-size: 13px;
+		padding:0 5px;
 		border-radius: 3px;
 	}
 	.follow img{

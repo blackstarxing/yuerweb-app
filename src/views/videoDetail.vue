@@ -75,7 +75,7 @@
 		font-size: 15px;
 		color:#9da4ad;
 		margin-bottom: 15px;
-		width: 170px;
+		width: 160px;
 		overflow:hidden;
 		white-space:nowrap;
 		text-overflow:ellipsis;

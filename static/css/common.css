@@ -26,7 +26,7 @@ a,button{cursor:pointer;}
 h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
 del,ins,u,s,a,a:hover{text-decoration:none;}
 body,textarea,input,button,select,keygen,legend{font:12px/1.14 arial,\5b8b\4f53;color:#333;outline:0;}
-body{background:#151a20;}
+body{background:#f4f4f4;}
 a,a:hover{color:#fff;}
 
 /* function */
@@ -110,41 +110,61 @@ a,a:hover{color:#fff;}
 }
 
 .g-doc{
-	background: #151a20;
+	/*background: #151a20;*/
 	max-width: 800px;
 	margin:0 auto;
 }
 /*列表*/
 .g-list{
-	padding:0 2% 64px;
+	padding:0 0 64px;
 }
 .g-list h3{
 	height: 4.5rem;
 	line-height: 4.5rem;
 	padding: 0 2%;
 	font-size: 1.5rem;
-	color:#d0d1d2;
+	color:#333;
+	text-align: center;
+}
+.g-list h3 img{
+	width: 1.8rem;
+	vertical-align: -0.4rem;
+	margin-right: 5px;
 }
 .u-more{
-	float: right;
+	display: block;
+	width: 100%;
 	font-size: 1.2rem;
-	color:#8a8d90;
+	color:#1cc7ff;
+	text-align: center;
+	margin-bottom: 10px;
+}
+.u-more img{
+	width: 1.2rem;
+	vertical-align: middle;
+	margin-left: 5px;
+}
+.m-live{
+	background: #fff;
+	padding:0 10px;
+	margin-top: 10px;
 }
 .m-lst{
     float: left;
     width:46%;
     margin:0 2% 10px;
-    background: #242d3c;
-    border-radius: 3px;
+    background: #fff;
 }
 .m-lst .m-livelink{
     display: block;  
 }
 .m-cover{
-	height: 8.5rem;
+	height: 8.125rem;
     position: relative;
     background: url('../images/cover.png') no-repeat;
     background-size: cover;
+    overflow: hidden;
+    border-radius: 5px;
 }
 .m-cover img{
 	width: 100%;
@@ -165,19 +185,25 @@ a,a:hover{color:#fff;}
     line-height: 26px;
     display: inline-block;
     padding:0 5px;
+    border-bottom-left-radius: 5px;
 }
 .m-cover i{
 	color:#f36;
 }
 .m-info{
 	position: relative;
-	padding:0 5px;
+	/*padding:0 5px;*/
+	margin-top: -2.83rem;
+	border-radius: 5px;
+	overflow: hidden;
+	background: -webkit-linear-gradient(to bottom,rgba(0, 0, 0, 0) 0%,rgba(0, 0, 0, 0.5) 60%, #000 100%);
+	background: linear-gradient(to bottom,rgba(0, 0, 0, 0) 0%,rgba(0, 0, 0, 0.5) 60%, #000 100%);
 }
 .m-head{
-	position: relative;
-	width: 4.2rem;
-	height: 4.2rem;
-	margin-top: -2.1rem;
+	position: absolute;
+	width: 2.83rem;
+	height: 2.83rem;
+	/*margin-top: -1.415rem;*/
 }
 .m-head .anchor-head{
 	width: 100%;
@@ -187,8 +213,10 @@ a,a:hover{color:#fff;}
 }
 .m-head .sex{
 	position: absolute;
-	right: 0;
+	left: 0;
 	bottom: 0;
+	width: 1.08rem;
+	height: 1.08rem;
 }
 .m-info span{
 	display: block;
@@ -198,20 +226,35 @@ a,a:hover{color:#fff;}
 	text-align: center;
 	border-radius: 3px;
 	position: absolute;
-	right: 5px;
-	bottom:0;
-	background: #37475c;
-	color:#848e9c;
+	right: 0;
+	bottom:3px;
+	background: url('../images/play.png') center left no-repeat;
+	background-size: 1rem;
+	color:#fff;
 }
 .m-nickname{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	width: 4rem;
-	margin-top: 1rem;
-	color:#8b8e92;
+	width: 100%;
+	text-indent: 3.5rem;
+	/*margin-top: 1rem;*/
+	color:#fff;
 	font-size: 1rem;
-	margin-left: 3px;
+	/*margin-left: 3px;*/
+	height: 2.83rem;
+	line-height: 4rem;
+}
+.m-video-info .m-nickname{
+	text-indent: 10px;
+	width: 40%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.m-video-info .sex{
+	width: 1.5rem;
+	margin-top: 1.2rem;
 }
 .m-title{
 	width: 99%;
@@ -222,7 +265,7 @@ a,a:hover{color:#fff;}
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	color:#d0d1d2;
+	color:#666666;
 }
 /*视频列表*/
 .m-vd{

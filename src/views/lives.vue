@@ -97,7 +97,7 @@
 </script>
 <style>
     .g-live-bd{
-        width:96%;
+        /*width:96%;*/
         height:49.3rem;
         background:#141a20;
         /*padding-bottom: 64px;*/

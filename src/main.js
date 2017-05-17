@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Yuer from './yuer.vue'
 import index from './views/index.vue'
 import lives from './views/lives.vue'
+import collect from './views/collect.vue'
 import videos from './views/videos.vue'
 import search from './views/search.vue'
 import searchresult from './views/searchresult.vue'
@@ -26,6 +27,10 @@ const router = new VueRouter({
     {
       path: '/lives',
       component: lives
+    },
+    {
+      path: '/collect',
+      component: collect
     },
     {
       path: '/videos',

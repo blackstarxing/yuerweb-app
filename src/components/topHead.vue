@@ -4,8 +4,8 @@
     <router-link to="/search" class="u-search f-fr"><i class="icon iconfont icon-index-search"></i></router-link>
 		<ul class="m-nav f-fr">
             <router-link tag="li" to="/index" exact>首页</router-link>
-            <router-link tag="li" to="/lives">直播</router-link>
-            <router-link tag="li" to="/videos">视频</router-link>
+            <router-link tag="li" to="/collect">直播</router-link>
+            <!-- <router-link tag="li" to="/videos">视频</router-link> -->
 		</ul>
 	</div>
 </template>
@@ -23,25 +23,26 @@
 </script>
 <style>
     .g-hd{
-        height: 3.1rem;
-        padding:0.45rem 10px;
+        height: 2rem;
+        padding:1rem 10px;
+        background: #fff;
     }
     .logo{
-        height: 100%;
+        height: 2rem;
         float: left;
     }
     .m-nav{
-        height: 3.1rem;
-        line-height: 3.1rem;
+        height: 2rem;
+        line-height: 2rem;
     }
     .m-nav li{
         float: left;
         font-size: 1.5rem;
-        color:#fff;
+        color:#999;
         margin:0 1.5rem;
     }
     .m-nav .router-link-active{
-        color:#f36;
+        color:#1cc7ff;
     }
     .u-search{
         margin-left: 2rem;
