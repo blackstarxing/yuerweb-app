@@ -111,6 +111,7 @@
                 banner:'',
                 index:'',
                 loaded:false,
+                vid:null,
             }
         },
         mounted: function () {
@@ -148,13 +149,16 @@
                             }
 
                         };
-                        var vid = setInterval(mar, 2000);
+                        _this.vid = setInterval(mar, 2000);
                     },500)
                     
                 },function(response) {
                     console.log(response);
                 });
             })
+        },
+        beforeDestroy:function(){
+            clearInterval(this.vid);
         },
         methods:{
             watchPeople: function (num) {
