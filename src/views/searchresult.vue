@@ -77,7 +77,7 @@
                     <div v-if="videototal!=0" style="background:#fff;">
                         <h3 class="u-h3 u-h3-switch"><span class="u-h3-spec">{{videototal}}个相关视频</span><a @click="resultswitch(3)" class="u-h3-a" v-show="index=='0' || index!='3'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
                         <div class="m-lst" v-for="(video,index) in totalvideolist">
-                          <router-link :to="{path:'liveDetail',query: {id:video.id}}" class="m-livelink">
+                          <router-link :to="{path:'videoDetail',query: {id:video.id}}" class="m-livelink">
                               <div class="m-cover">
                                   <img v-bind:src="video.icon" alt="" class="screen" v-if="video.screen">
                                   <img v-bind:src="video.icon" alt="" v-else>

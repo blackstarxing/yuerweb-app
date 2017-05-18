@@ -9,7 +9,7 @@
       <div class="g-list g-list-bg" v-if="videos.hotLive">
         <div class="m-all-video">全部视频</div>
         <div class="m-lst" v-for="(currvideo,index) in videohot">
-            <router-link :to="{path:'liveDetail',query: {id:currvideo.id}}" class="m-livelink">
+            <router-link :to="{path:'videoDetail',query: {id:currvideo.id}}" class="m-livelink">
                 <div class="m-cover">
                     <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
                     <img v-bind:src="currvideo.icon" alt="" v-else>
@@ -30,7 +30,7 @@
       <div class="g-list g-list-bg" v-else>
         <div class="m-all-video">全部视频</div>
         <div class="m-lst" v-for="(currvideo,index) in videonew">
-            <router-link :to="{path:'liveDetail',query: {id:currvideo.id}}" class="m-livelink">
+            <router-link :to="{path:'videoDetail',query: {id:currvideo.id}}" class="m-livelink">
                 <div class="m-cover">
                     <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
                     <img v-bind:src="currvideo.icon" alt="" v-else>
