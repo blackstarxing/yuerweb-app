@@ -20,7 +20,7 @@
                             <img v-bind:src="list.icon" alt="" class="f-fl" v-if="list.icon">
                               <img src="../../static/images/default.png" alt="" class="f-fl" v-else>
                             <div class="comment-content">
-                                <h3>{{list.nickname}} <span class="f-fr">{{list.create_date}}</span></h3>
+                                <h3><span class="comment-nick">{{list.nickname}} </span><span class="f-fr">{{list.create_date}}</span></h3>
                                 <div v-if="list.reply_nickname">
                                 回复<span class="reply-nickname">@{{list.reply_nickname}}</span>:{{list.content}}
                                 </div>
@@ -195,7 +195,8 @@
         padding-left: 4rem;
         box-sizing: border-box;
     }
-    .comment-content h3{
+    .comment-content .comment-nick{
+        display: inline-block;
         font-size: 1.2rem;
         color:#333;
         width:50%;
