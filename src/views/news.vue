@@ -75,8 +75,8 @@
                     _this.day=response.data.object.newsInfo.create_date.substr(8,2);
                     _this.time = response.data.object.newsInfo.create_date.substr(11,5);
                     _this.date = new Date(response.data.object.newsInfo.create_date);
-                    _this.m = date.getMonth() + 1,
-                    _this.d = date.getDate();   
+                    _this.m = _this.date.getMonth() + 1,
+                    _this.d = _this.date.getDate();   
                 },function(response) {
                     console.log(response);
                 });
