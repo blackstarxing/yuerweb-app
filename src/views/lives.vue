@@ -4,6 +4,7 @@
 		<top-head></top-head>
         <download></download>
 		<div class="g-bd g-live-bd">
+            <div class="g-bg-empty"></div>
             <div class="g-true" v-if="liveshowlist!=''">
                 <!-- <div class="m-top">
                      <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
@@ -12,24 +13,23 @@
                 <div class="g-list">
                     <div class="m-recommend-live f-cb">
                         <div class="m-lst" v-for="item in liveshowlist">
-                            <router-link :to="{path:'liveDetail',query: {id:item.id}}" class="m-livelink">
-                                <div class="m-cover">
-                                    <img v-bind:src="item.icon" alt="" class="screen" v-if="item.screen">
-                                    <img v-bind:src="item.icon" alt="" v-else>
-                                    <span><i>·</i>{{item.game_name}}</span>
-                                </div>
-                                <div class="m-info f-cb">
-                                    <div class="m-head f-fl">
-                                        <img v-bind:src="item.user_icon" alt="" class="anchor-head" v-if="item.user_icon">
-                                        <img src="../../static/images/default.png" alt="" class="anchor-head" v-else>
-                                        <img src="../../static/images/male.png" alt="" class="sex" v-if="item.sex">
-                                        <img src="../../static/images/female.png" alt="" class="sex" v-else>
-                                    </div>
-                                    <div class="m-nickname f-fl">{{item.nickname}}</div>
-                                    <span>{{watchPeople(item.online_num)}}</span>
-                                </div>
-                                <div class="m-title">{{item.title}}</div>
-                            </router-link>
+                          <router-link :to="{path:'liveDetail',query: {id:item.id}}" class="m-livelink">
+                              <div class="m-cover">
+                                  <img v-bind:src="item.icon" alt="" class="screen" v-if="item.screen">
+                                  <img v-bind:src="item.icon" alt="" v-else>
+                                  <span v-bind:style="'background:'+item.tag_color">{{item.game_name}}</span>
+                              </div>
+                              <div class="m-info f-cb">
+                                  <div class="m-head f-fl">
+                                      <img v-bind:src="item.user_icon" alt="" class="anchor-head" v-if="item.user_icon">
+                                      <img src="../../static/images/default.png" alt="" class="anchor-head" v-else>
+                                      <img src="../../static/images/female.png" alt="" class="sex" v-if="item.sex">
+                                      <img src="../../static/images/male.png" alt="" class="sex" v-else>
+                                  </div>
+                                  <div class="m-nickname f-fl">{{item.nickname}}</div>
+                              </div>
+                              <div class="m-title">{{item.title}}</div>
+                          </router-link>
                         </div>
                         <div v-show="!islast" class="paging" @click="vedios">加载更多</div>
                     </div>
@@ -102,6 +102,11 @@
         height:49.3rem;
         background:#fff;
         /*padding-bottom: 64px;*/
+    }
+    .g-bg-empty{
+        width:100%;
+        height:12px;
+        background:#f5f5f5;
     }
     .g-all-live{
         width:100%;

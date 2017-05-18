@@ -18,23 +18,23 @@
                     <div v-if="livetotal!=0">
                         <h3 class="u-h3 u-h3-switch"><span class="u-h3-spec">{{livetotal}}个相关直播</span><a @click="resultswitch(1)" class="u-h3-a" v-show="index=='0' || index!='1'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
                         <div class="m-lst" v-for="lives in totallivelist">
-                            <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
-                                <div class="m-cover">
-                                    <img v-bind:src="lives.icon" alt="" class="screen" v-if="lives.screen">
-                                    <img v-bind:src="lives.icon" alt="" v-else>
-                                    <span><i>·</i>{{lives.game_name}}</span>
-                                </div>
-                                <div class="m-info f-cb">
-                                    <div class="m-head f-fl">
-                                        <img v-bind:src="lives.user_icon" alt="" class="anchor-head">
-                                        <img src="../../static/images/female.png" alt="" class="sex" v-if="lives.sex">
-                                        <img src="../../static/images/male.png" alt="" class="sex" v-else>
-                                    </div>
-                                    <div class="m-nickname f-fl">{{lives.nickname}}</div>
-                                    <span>{{watchPeople(lives.online_num)}}</span>
-                                </div>
-                                <div class="m-title">{{lives.title}}</div>
-                            </router-link>
+                          <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
+                              <div class="m-cover">
+                                  <img v-bind:src="lives.icon" alt="" class="screen" v-if="lives.screen">
+                                  <img v-bind:src="lives.icon" alt="" v-else>
+                                  <span v-bind:style="'background:'+lives.tag_color">{{lives.game_name}}</span>
+                              </div>
+                              <div class="m-info f-cb">
+                                  <div class="m-head f-fl">
+                                      <img v-bind:src="lives.user_icon" alt="" class="anchor-head" v-if="lives.user_icon">
+                                      <img src="../../static/images/default.png" alt="" class="anchor-head" v-else>
+                                      <img src="../../static/images/female.png" alt="" class="sex" v-if="lives.sex">
+                                      <img src="../../static/images/male.png" alt="" class="sex" v-else>
+                                  </div>
+                                  <div class="m-nickname f-fl">{{lives.nickname}}</div>
+                              </div>
+                              <div class="m-title">{{lives.title}}</div>
+                          </router-link>
                         </div>
                         <div class="paging" v-show="!liveislast && index=='1'" style="margin:0 auto;color:#161d24;" >加载更多</div>
                     </div> 
@@ -308,18 +308,26 @@
   input::-webkit-input-placeholder { /* WebKit browsers */ 
     font-size:1.2rem;
       color: #999; 
+      position:relative;
+      left:-10px;
   } 
   input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
     font-size:1.2rem;
       color: #999; 
+      position:relative;
+      left:-10px;
   } 
   input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
     font-size:1.2rem;
       color: #999; 
+      position:relative;
+      left:-10px;
   } 
   input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
     font-size:1.2rem;
       color: #999; 
+      position:relative;
+      left:-10px;
   } 
   .u-s-simg{
     display:inline-block;
@@ -376,12 +384,10 @@
   .u-h3-spec{
     text-align:left;
     float:left;
-    /*width:70%;*/
     display:inline-block;
   }
   .u-h3-a{
     display:inline-block;
-    /*width:30%;*/
     float:right;
     color:#1cc7ff;
     font-size:14px;
