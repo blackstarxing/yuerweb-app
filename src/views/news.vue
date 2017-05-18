@@ -157,7 +157,7 @@
         margin-top:5%;
     }
     .g-mian{
-        font-size:12px;color:#666;
+        font-size:12px;color:#666;line-height:1.3;
     }
     .g-mian img{
         max-width: 100%;
