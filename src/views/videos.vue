@@ -2,7 +2,7 @@
 	<div>
 		<top-head></top-head>
     <download></download>
-		<div class="g-bd g-videospadding">
+		<div class="g-bd g-videospadding f-cb">
 			<div class="m-navigation">
            <button v-for="(item,index) in tabs" v-text="item.name" v-bind:class="[{curs:item.iscur},'u-sl-results']" @click="setCur(index)"></button>
       </div>
@@ -149,7 +149,7 @@
 </script>
 <style>
 .g-videospadding{
-  /*padding-bottom: 164px;*/
+  padding-bottom: 64px;
 }
 .g-list-bg{
   background:#fff;

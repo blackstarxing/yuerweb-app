@@ -86,18 +86,26 @@
 	input::-webkit-input-placeholder { /* WebKit browsers */ 
 		font-size:1.2rem;
     	color: #999; 
+    	position:relative;
+      	left:-10px;
 	} 
 	input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
 		font-size:1.2rem;
-	    color: #999; 
+	    color: #999;
+	    position:relative;
+      	left:-10px; 
 	} 
 	input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
 		font-size:1.2rem;
 	    color: #999; 
+	    position:relative;
+      	left:-10px;
 	} 
 	input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
 		font-size:1.2rem;
 	    color: #999; 
+	    position:relative;
+      	left:-10px;
 	} 
 	.u-s-simg{
 		display:inline-block;

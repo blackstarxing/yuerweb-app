@@ -159,7 +159,7 @@
         		let _this = this;
         		_this.page = 1;
                 // 获取直播间详情数据
-                _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.id,page:_this.page,pageSize:5}}).then(function(response) {
+                _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.game_id,page:_this.page,pageSize:5}}).then(function(response) {
                     _this.details = response.data.object.info;
                     _this.liveAddress = _this.details.rtmp ? _this.details.rtmp.replace(/rtmp:/, "http:").replace(/rtmp/, "hls")+'.m3u8':'';       
                     _this.roomid = _this.details.chat_room_id;   
@@ -190,7 +190,7 @@
                     if($(document).height() <= totalheight){
                         if(!_this.islast){
                         	_this.page+=1;
-                            _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.id,page:_this.page,pageSize:5}}).then(function(response) {
+                            _this.$http.get('/api/mobile/liveDetail',{params:{id:_this.$route.query.game_id,page:_this.page,pageSize:5}}).then(function(response) {
                             	_this.islast = response.data.object.historyVideo.isLast;
                             	_this.historyVideo=_this.historyVideo.concat(response.data.object.historyVideo.list);
 	                        },function(response) {
