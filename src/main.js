@@ -45,11 +45,11 @@ const router = new VueRouter({
     },
     {
       path: '/videoArea',
-      component: videos
+      component: videoArea
     },
     {
       path: '/liveArea',
-      component: videos
+      component: liveArea
     },
     {
       path: '/search',
