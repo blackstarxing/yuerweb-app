@@ -15,7 +15,7 @@
                     <img v-bind:src="currvideo.icon" alt="" v-else>
                     <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.game_name}}</span>
                 </div>
-                <div class="m-info m-currvideo-info f-cb">
+                <div class="m-info m-video-info f-cb">
                     <div class="m-nickname f-fl">{{currvideo.nickname}}</div>
                     <img src="../../static/images/female.png" alt="" class="sex f-fl" v-if="currvideo.sex">
                     <img src="../../static/images/male.png" alt="" class="sex f-fl" v-else>
@@ -36,7 +36,7 @@
                     <img v-bind:src="currvideo.icon" alt="" v-else>
                     <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.game_name}}</span>
                 </div>
-                <div class="m-info m-currvideo-info f-cb">
+                <div class="m-info m-video-info f-cb">
                     <div class="m-nickname f-fl">{{currvideo.nickname}}</div>
                     <img src="../../static/images/female.png" alt="" class="sex f-fl" v-if="currvideo.sex">
                     <img src="../../static/images/male.png" alt="" class="sex f-fl" v-else>
