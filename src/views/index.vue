@@ -87,7 +87,7 @@
                                     <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
-                                <span>{{watchPeople(live.online_num)}}</span>
+                                <!-- <span>{{watchPeople(live.online_num)}}</span> -->
                             </div>
                             <div class="m-title">{{live.title}}</div>
                         </router-link>

@@ -5,7 +5,8 @@
 	    <video class="mejs-wmp" width="100%" height="203" v-bind:src="details.rtmp" type="video/mp4" id="player1" poster="" controls="controls" preload="none" webkit-playsinline playsinline></video>
 		<div class="subscribe clearfix" style="background:#fff0;-webkit-box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);-moz-box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);">
 			<div class="head f-fl">
-				<img v-bind:src="details.user_icon" alt="">
+				<img v-bind:src="details.user_icon" alt="" v-if="details.user_icon">
+				<img src="../../static/images/default.png" alt="" v-else>
 				<img src="../../static/images/female.png" alt="" class="sex" v-if="details.sex">
                 <img src="../../static/images/male.png" alt="" class="sex" v-else>
 			</div>
