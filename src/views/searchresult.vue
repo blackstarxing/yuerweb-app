@@ -16,7 +16,7 @@
             <div class="g-list" v-if="totalshow.have!=0">
                 <div class="m-live f-cb"  v-show="index=='0' || index=='1'"  >
                     <div v-if="livetotal!=0">
-                        <h3 class="u-h3"><span class="u-h3-spec">{{livetotal}}个相关直播</span><a @click="resultswitch(1)" class="u-h3-a" v-show="index=='0' || index!='1'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
+                        <h3 class="u-h3 u-h3-switch"><span class="u-h3-spec">{{livetotal}}个相关直播</span><a @click="resultswitch(1)" class="u-h3-a" v-show="index=='0' || index!='1'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
                         <div class="m-lst" v-for="lives in totallivelist">
                             <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
                                 <div class="m-cover">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="f-cb"  v-show="index=='0' || index=='2'" style="margin:0 2%" >
                     <div v-if="uptotal!=0">
-                        <h3 class="u-h3"><span class="u-h3-spec">{{uptotal}}个相关主播</span><a @click="resultswitch(2)" class="u-h3-a" v-show="index=='0' || index!='2'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
+                        <h3 class="u-h3 u-h3-width"><span class="u-h3-spec">{{uptotal}}个相关主播</span><a @click="resultswitch(2)" class="u-h3-a" v-show="index=='0' || index!='2'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img "></a></h3>
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
                                 <div class="m-sh-label">
                                   <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
@@ -61,7 +61,7 @@
                                   </router-link>
                                   <div class="u-shl-focus">
                                     <a href="https://yuertvfile.wangyuhudong.com">
-                                        <span class="u-shl-add">+</span>关注
+                                        <span class="u-shl-add">+</span>&nbsp;<span class="u-shl-focuspec">关注</span>
                                     </a>
                                   </div>
                                 </div>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="m-video g-list" v-show="index=='0' || index=='3'" >
                     <div v-if="videototal!=0">
-                        <h3 class="u-h3"><span class="u-h3-spec">{{videototal}}个相关视频</span><a @click="resultswitch(3)" class="u-h3-a" v-show="index=='0' || index!='3'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
+                        <h3 class="u-h3 u-h3-switch"><span class="u-h3-spec">{{videototal}}个相关视频</span><a @click="resultswitch(3)" class="u-h3-a" v-show="index=='0' || index!='3'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
                         <div class="m-lst" v-for="(video,index) in totalvideolist">
                           <router-link :to="{path:'liveDetail',query: {id:video.id}}" class="m-livelink">
                               <div class="m-cover">
@@ -363,24 +363,38 @@
   h3.u-h3{
     width:97%;
     margin-right:3%;
+    position:relative;
+    overflow:hidden;
   } 
+  h3.u-h3-width{
+    width:100%;
+    margin-right:0;
+    position:relative;
+    left:-4.5px;
+    text-align:left;
+  }
   .u-h3-spec{
     text-align:left;
-    width:70%;
+    float:left;
+    /*width:70%;*/
     display:inline-block;
   }
   .u-h3-a{
     display:inline-block;
-    width:30%;
+    /*width:30%;*/
+    float:right;
     color:#1cc7ff;
     font-size:14px;
     text-align:right;
   }
   .u-h3 img.u-h3-img{
-    width:1.2rem;
+    position:relative;
+    top:-1.5px;
+    width:1.1rem;
     margin-left:4px;
     vertical-align:middle;
   }
+
   .m-result-host{
     width:100%;
     height:6rem;
@@ -435,11 +449,6 @@
     margin:6% 2%;
 
   }
-  .u-shl-add{
-    display:inline-block;
-    width:10px;
-    height:10px;
-  }
   .u-shl-focus a{
     display:inline-block;
     width:100%;
@@ -449,6 +458,14 @@
     color:#fff;
     border-radius:2rem;
     background:#18d1fb;
+  }
+  .u-shl-add{
+    display:inline-block;
+    font-size:19px;
+  }
+  .u-shl-focuspec{
+    position:relative;
+    top:-2.5px;
   }
   .u-re-auth{
     display:inline-block;
