@@ -10,7 +10,7 @@
                 <span class="g-n-date">{{m}}月{{d}}日</span><span class="g-n-time">{{time}}</span><span class="g-n-title">{{info.game_name}}</span>
                 <div class="g-n-line"></div>
             </div>
-            <div class="g-mian m-bg">
+            <div class="g-mian m-bg" v-html="info.content">
             </div>
             <div class="g-comment">
                 <h3 class="u-title"><img src="../../static/images/comment_icon.png" alt="">评论</h3>
@@ -156,7 +156,7 @@
         margin-top:5%;
     }
     .g-mian{
-        font-size:12px;color:#fff;
+        font-size:12px;color:#666;
     }
     .g-mian img{
         max-width: 100%;
