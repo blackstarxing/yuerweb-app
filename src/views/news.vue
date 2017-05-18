@@ -130,6 +130,9 @@
         margin-right:5%;
         color:#999;
     }
+    .g-n-time{
+        color:#999;
+    }
     .g-n-title{
         display:inline-block; 
         width:20%;
@@ -177,7 +180,7 @@
     }
     .comment{
         display:block;
-        border-top: 1px solid #1c232d;
+        border-top: 1px solid #e6e6e6;
         padding:9px 0;
         font-size: 1.2rem;
     }
@@ -198,7 +201,7 @@
     }
     .comment-content h3 span{
         font-size: 0.9rem;
-        color:#465667;
+        color:#999;
     }
     .reply-nickname{
         color: #1cc7ff;
