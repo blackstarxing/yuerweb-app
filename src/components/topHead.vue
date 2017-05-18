@@ -1,10 +1,10 @@
 <template>
 	<div class="g-hd">
     <img src="../../static/images/logo.png" alt="" class="logo">
-    <router-link to="/search" class="u-search f-fr"><i class="icon iconfont icon-index-search"></i></router-link>
+    <router-link to="/search" class="u-search f-fr"><img src="../../static/images/search.png"></router-link>
 		<ul class="m-nav f-fr">
-            <router-link tag="li" to="/index" exact>首页</router-link>
-            <router-link tag="li" to="/collect">直播</router-link>
+            <router-link tag="li" to="/index" exact><i class="icon iconfont icon-index"></i></router-link>
+            <router-link tag="li" to="/collect"><i class="icon iconfont icon-collect"></i></router-link>
             <!-- <router-link tag="li" to="/videos">视频</router-link> -->
 		</ul>
 	</div>
@@ -37,9 +37,11 @@
     }
     .m-nav li{
         float: left;
-        font-size: 1.5rem;
         color:#999;
         margin:0 1.5rem;
+    }
+    .m-nav .iconfont{
+        font-size: 2rem;
     }
     .m-nav .router-link-active{
         color:#1cc7ff;
@@ -49,6 +51,6 @@
     }
     .u-search img{
         height: 1.6rem;
-        margin:0.75rem 0;
+        margin:0.2rem 0;
     }
 </style>

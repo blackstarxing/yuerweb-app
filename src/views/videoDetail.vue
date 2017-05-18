@@ -3,7 +3,7 @@
 		<top-head></top-head>
 	    <download></download>
 	    <video class="mejs-wmp" width="100%" height="203" v-bind:src="details.rtmp" type="video/mp4" id="player1" poster="" controls="controls" preload="none" webkit-playsinline playsinline></video>
-		<div class="subscribe clearfix" style="background:#141a20;-webkit-box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);-moz-box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);">
+		<div class="subscribe clearfix" style="background:#fff0;-webkit-box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);-moz-box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);box-shadow: 0 5px 5px -2px rgba(0,0,0,0.2);">
 			<div class="head f-fl">
 				<img v-bind:src="details.user_icon" alt="">
 				<img src="../../static/images/female.png" alt="" class="sex" v-if="details.sex">
@@ -13,7 +13,7 @@
 				<h4>{{details.nickname}}</h4>
 				<div>粉丝 <span>{{details.fans}}</span></div>
 			</div>
-			<a href="https://yuertvfile.wangyuhudong.com" class="follow f-fr"><i class="icon iconfont icon-focus"></i>关注</a>
+			<a href="https://yuertvfile.wangyuhudong.com" class="follow f-fr"><img src="../../static/images/follow.png" alt="">关注</a>
 		</div>
 
 	</div>
@@ -54,7 +54,8 @@
 	.subscribe{
 		height: 46px;
 		padding:15px;
-		background: #1c232d;
+		background: #fff;
+		position: relative;
 		/*border-bottom:1px solid #e4e4e4;*/
 	}
 	.subscribe .name{
@@ -73,7 +74,7 @@
 	}
 	.subscribe .name h4{
 		font-size: 15px;
-		color:#9da4ad;
+		color:#333;
 		margin-bottom: 15px;
 		width: 160px;
 		overflow:hidden;
@@ -99,7 +100,7 @@
 		font-size: 14px;
 		line-height: 23px;
 		color: #9a9a9a;
-		background: #1c232d;
+		background: #fff;
 		margin-top: 10px;
 	}
 	.anchor .intro h3{
