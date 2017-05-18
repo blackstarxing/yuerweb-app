@@ -4,11 +4,11 @@
         <download></download>
     <div class="g-bd g-s-result">
             <div class="g-s-nav">
+                <router-link  to="/" class="u-s-cancel">取消</router-link>
                 <div class="m-s-nav">
                     <img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
                     <input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="search(keyword)">
-                </div>
-                <router-link  to="/" class="u-s-cancel">取消</router-link>
+                </div> 
             </div>  
             <div class="g-s-list">
               <button v-for="(item,index) in tab" v-text="item.name" v-bind:class="[{cur:item.iscur},'u-sl-result']" @click="setCur(index)"></button>
@@ -16,7 +16,7 @@
             <div class="g-list" v-if="totalshow.have!=0">
                 <div class="m-live f-cb"  v-show="index=='0' || index=='1'"  >
                     <div v-if="livetotal!=0">
-                        <h3><span class="u-h3-spec">{{livetotal}}</span><span>个相关直播</span><a @click="resultswitch(1)" class="u-more" v-show="index=='0' || index!='1'">更多&gt;</a></h3>
+                        <h3 class="u-h3"><span class="u-h3-spec">{{livetotal}}个相关直播</span><a @click="resultswitch(1)" class="u-h3-a" v-show="index=='0' || index!='1'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
                         <div class="m-lst" v-for="lives in totallivelist">
                             <router-link :to="{path:'liveDetail',query: {id:lives.id}}" class="m-livelink">
                                 <div class="m-cover">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="f-cb"  v-show="index=='0' || index=='2'" style="margin:0 2%" >
                     <div v-if="uptotal!=0">
-                        <h3><span class="u-h3-spec">{{uptotal}}</span><span>个相关主播</span><a @click="resultswitch(2)" class="u-more" v-show="index=='0' || index!='2'">更多&gt;</a></h3>
+                        <h3 class="u-h3"><span class="u-h3-spec">{{uptotal}}个相关主播</span><a @click="resultswitch(2)" class="u-h3-a" v-show="index=='0' || index!='2'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
                                 <div class="m-sh-label">
                                   <router-link :to="{path:'liveDetail',query: {id:up.id}}" class="m-livelink">
@@ -54,8 +54,6 @@
                                     <div class="u-shl-tar">
                                       <p>
                                           <span class="u-shlt-sx">{{up.nickname}}</span>
-                                          <i class="icon iconfont icon-female iconsearch" v-if="up.sex"></i>
-                                          <i class="icon iconfont icon-male iconsearch" v-else></i>
                                           <img src="../../static/images/auth.png" class="u-re-auth" v-if="up.is_certificate"></img>
                                       </p>
                                       <p class="u-shlt-fs"><span>房间</span><span class="u-s-fs">{{up.id}}</span><span class="u-s-fspec">粉丝</span><span class="u-s-fs">{{up.fans}}</span></p>
@@ -63,7 +61,7 @@
                                   </router-link>
                                   <div class="u-shl-focus">
                                     <a href="https://yuertvfile.wangyuhudong.com">
-                                        <i class="icon iconfont icon-focus"></i>关注
+                                        <span class="u-shl-add">+</span>关注
                                     </a>
                                   </div>
                                 </div>
@@ -75,27 +73,23 @@
                         <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
                     </div>
                 </div>
-                <div class="m-video" v-show="index=='0' || index=='3'" >
+                <div class="m-video g-list" v-show="index=='0' || index=='3'" >
                     <div v-if="videototal!=0">
-                        <h3><span class="u-h3-spec">{{videototal}}</span><span>个相关视频</span><a @click="resultswitch(3)" class="u-more" v-show="index=='0' || index!='3'">更多&gt;</a></h3>
-                        <div class="m-vd f-cb" v-for="(video,index) in totalvideolist">
-                            <router-link :to="{path:'videoDetail',query: {id:video.id}}">
-                                <div class="m-vd-icon f-fl">
-                                    <img v-bind:src="video.icon" alt="" class="screen" v-if="video.screen">
-                                    <img v-bind:src="video.icon" alt="" v-else>
-                                </div>
-                                <div class="m-vd-info f-fl">
-                                    <div class="m-title">{{video.title}}</div>
-                                    <div class="m-nickname">
-                                        <span>{{video.nickname}}</span>
-                                        <i class="icon iconfont icon-female" v-if="video.sex"></i>
-                                        <i class="icon iconfont icon-male" v-else></i>
-                                    </div>
-                                    <div class="m-count">
-                                        <label for=""><i class="icon iconfont icon-playtimes"></i>{{watchPeople(video.play_times)}}</label>
-                                        <label for=""><i class="icon iconfont icon-comment"></i>{{video.comment_num}}</label>
-                                    </div>
-                                </div>
+                        <h3 class="u-h3"><span class="u-h3-spec">{{videototal}}个相关视频</span><a @click="resultswitch(3)" class="u-h3-a" v-show="index=='0' || index!='3'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
+                        <div class="m-lst" v-for="(video,index) in totalvideolist">
+                          <router-link :to="{path:'liveDetail',query: {id:video.id}}" class="m-livelink">
+                              <div class="m-cover">
+                                  <img v-bind:src="video.icon" alt="" class="screen" v-if="video.screen">
+                                  <img v-bind:src="video.icon" alt="" v-else>
+                                  <span v-bind:style="'background:'+video.tag_color">{{video.game_name}}</span>
+                              </div>
+                              <div class="m-info m-video-info f-cb">
+                                  <div class="m-nickname f-fl">{{video.nickname}}</div>
+                                  <img src="../../static/images/female.png" alt="" class="sex f-fl" v-if="video.sex">
+                                  <img src="../../static/images/male.png" alt="" class="sex f-fl" v-else>
+                                  <span class="f-fr">{{watchPeople(video.play_times)}}</span>
+                              </div>
+                              <div class="m-title">{{video.title}}</div>
                             </router-link>
                         </div>
                         <div class="paging" v-show="!videoislast && index=='3'" style="margin:0 auto;color:#161d24;" >加载更多</div>
@@ -284,47 +278,48 @@
 <style>
   .g-s-result{
     width:100%;
-/*    padding-bottom:64px;*/
+    padding-bottom:64px;
   }
   .g-s-nav{
     width:100%;
     height:3.7rem;
-    background:#1c232d;
+    background:#fff;
     overflow:hidden;
   }
   .m-s-nav{
     position:relative;
-    float:left;
+    float:right;
     width:80%;
     height:2.8rem;
     line-height:2.8rem;
     text-align:center;
+    margin-right:2.5%;
   }
   input.u-s-search{
-    width:85%;
-    height:2.2rem;
-    line-height:2.2rem;
-    margin:3% 0% 0% 2%;
+    width:90%;
+    height:2.5rem;
+    line-height:2.5rem;
+    margin:2.5% 0% 0% 0%;
     padding-left:10%;
-    background:#161d24;
+    background:#f5f5f5;
     border:0px;
     border-radius:2%;
   }
   input::-webkit-input-placeholder { /* WebKit browsers */ 
     font-size:1.2rem;
-      color: #465667; 
+      color: #999; 
   } 
   input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
     font-size:1.2rem;
-      color: #465667; 
+      color: #999; 
   } 
   input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
     font-size:1.2rem;
-      color: #465667; 
+      color: #999; 
   } 
   input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
     font-size:1.2rem;
-      color: #465667; 
+      color: #999; 
   } 
   .u-s-simg{
     display:inline-block;
@@ -332,7 +327,7 @@
     width:15px;
     height:15px;
     top:41%;
-    left:6.5%;
+    right:6.5%;
   }
   .u-s-cancel{
     display:inline-block;
@@ -341,17 +336,14 @@
     line-height:10%;
     text-align:center;
     font-size:1.5rem;
-    color:#9da4ad;
+    color:#666;
     margin:6% 0% 0% 4%;
-  }
-  .u-h3-spec{
-    color:#f36;
   }
   /*综合直播主播视频*/
   .g-s-list{
     height:3rem;
     width:100%;
-    background:#1c232d;
+    background:#fff;
   }
   .u-sl-result{
     border:0px;
@@ -361,18 +353,38 @@
     line-height:3rem;
     text-align:center;
     font-size:1.5rem;
-    color:#d0d1d2;
+    color:#999;
     background:transparent;
   }
   .cur{
-    color:#f36;
-    border-bottom:0.2rem solid #f36;
+    color:#1cc7ff;
+    border-bottom:0.2rem solid #1cc7ff;
   }
-    
+  h3.u-h3{
+    width:97%;
+    margin-right:3%;
+  } 
+  .u-h3-spec{
+    text-align:left;
+    width:70%;
+    display:inline-block;
+  }
+  .u-h3-a{
+    display:inline-block;
+    width:30%;
+    color:#1cc7ff;
+    font-size:14px;
+    text-align:right;
+  }
+  .u-h3 img.u-h3-img{
+    width:1.2rem;
+    margin-left:4px;
+    vertical-align:middle;
+  }
   .m-result-host{
     width:100%;
     height:6rem;
-    background:#242d3c;
+    background:#fff;
     margin-top:2%;
     overflow:hidden;
   }
@@ -401,17 +413,17 @@
   }
   .u-shlt-sx{
     font-size:1.3rem;
-    color:#d1d4d8;
+    color:#333;
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
   }
   .u-shlt-fs{
     font-size:1.1rem;
-    color:#626f7e;
+    color:#999;
   }
   .u-s-fs{
-    color:#3cc;
+    color:#1cc7ff;
     margin-left:2%;
   }
   .u-s-fspec{
@@ -421,7 +433,12 @@
     width:15%;
     float:left;
     margin:6% 2%;
-    /*margin:3%;*/
+
+  }
+  .u-shl-add{
+    display:inline-block;
+    width:10px;
+    height:10px;
   }
   .u-shl-focus a{
     display:inline-block;
@@ -431,7 +448,7 @@
     text-align:center;
     color:#fff;
     border-radius:2rem;
-    background:#f36;
+    background:#18d1fb;
   }
   .u-re-auth{
     display:inline-block;

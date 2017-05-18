@@ -6,54 +6,45 @@
 			<div class="m-navigation">
            <button v-for="(item,index) in tabs" v-text="item.name" v-bind:class="[{curs:item.iscur},'u-sl-results']" @click="setCur(index)"></button>
       </div>
-      <div class="g-list" v-if="videos.hotLive">
-          <div class="m-video">
-            <div class="m-vd f-cb" v-for="(currvideo,index) in videohot">
-                <router-link :to="{path:'videoDetail',query: {id:currvideo.id}}">
-                    <div class="m-vd-icon f-fl">
-                        <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
-                        <img v-bind:src="currvideo.icon" alt="" v-else>
-                    </div>
-                    <div class="m-vd-info f-fl">
-                        <div class="m-title">{{currvideo.title}}</div>
-                        <div class="m-nickname">
-                            <span>{{currvideo.nickname}}</span>
-                            <i class="icon iconfont icon-female" v-if="currvideo.sex"></i>
-                            <i class="icon iconfont icon-male" v-else></i>
-                        </div>
-                        <div class="m-count">
-                            <label for=""><i class="icon iconfont icon-playtimes"></i>{{watchPeople(currvideo.play_times)}}</label>
-                            <label for=""><i class="icon iconfont icon-comment"></i>{{currvideo.comment_num}}</label>
-                        </div>
-                    </div>
-                </router-link>
-            </div>
-        </div>
+      <div class="g-list g-list-bg" v-if="videos.hotLive">
+        <div class="m-all-video">全部视频</div>
+        <div class="m-lst" v-for="(currvideo,index) in videohot">
+            <router-link :to="{path:'liveDetail',query: {id:currvideo.id}}" class="m-livelink">
+                <div class="m-cover">
+                    <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
+                    <img v-bind:src="currvideo.icon" alt="" v-else>
+                    <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.game_name}}</span>
+                </div>
+                <div class="m-info m-currvideo-info f-cb">
+                    <div class="m-nickname f-fl">{{currvideo.nickname}}</div>
+                    <img src="../../static/images/female.png" alt="" class="sex f-fl" v-if="currvideo.sex">
+                    <img src="../../static/images/male.png" alt="" class="sex f-fl" v-else>
+                    <span class="f-fr">{{watchPeople(currvideo.play_times)}}</span>
+                </div>
+                <div class="m-title">{{currvideo.title}}</div>
+              </router-link>
+          </div>
         <div v-show="!hotislast" class="paging" >加载更多</div>
       </div>
       <!-- 最新视频 -->
-      <div class="g-list" v-else>
-          <div class="m-video">
-            <div class="m-vd f-cb" v-for="(currvideo,index) in videonew">
-                <router-link :to="{path:'videoDetail',query: {id:currvideo.id}}">
-                    <div class="m-vd-icon f-fl">
-                        <img v-bind:src="currvideo.icon" alt="">
-                    </div>
-                    <div class="m-vd-info f-fl">
-                        <div class="m-title">{{currvideo.title}}</div>
-                        <div class="m-nickname">
-                            <span>{{currvideo.nickname}}</span>
-                            <i class="icon iconfont icon-female" v-if="currvideo.sex"></i>
-                            <i class="icon iconfont icon-male" v-else></i>
-                        </div>
-                        <div class="m-count">
-                            <label for=""><i class="icon iconfont icon-playtimes"></i>{{watchPeople(currvideo.play_times)}}</label>
-                            <label for=""><i class="icon iconfont icon-comment"></i>{{currvideo.comment_num}}</label>
-                        </div>
-                    </div>
-                </router-link>
-            </div>
-        </div>
+      <div class="g-list g-list-bg" v-else>
+        <div class="m-all-video">全部视频</div>
+        <div class="m-lst" v-for="(currvideo,index) in videonew">
+            <router-link :to="{path:'liveDetail',query: {id:currvideo.id}}" class="m-livelink">
+                <div class="m-cover">
+                    <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
+                    <img v-bind:src="currvideo.icon" alt="" v-else>
+                    <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.game_name}}</span>
+                </div>
+                <div class="m-info m-currvideo-info f-cb">
+                    <div class="m-nickname f-fl">{{currvideo.nickname}}</div>
+                    <img src="../../static/images/female.png" alt="" class="sex f-fl" v-if="currvideo.sex">
+                    <img src="../../static/images/male.png" alt="" class="sex f-fl" v-else>
+                    <span class="f-fr">{{watchPeople(currvideo.play_times)}}</span>
+                </div>
+                <div class="m-title">{{currvideo.title}}</div>
+              </router-link>
+          </div>
         <div v-show="!newislast" class="paging">加载更多</div>
       </div>
 		</div>
@@ -158,14 +149,24 @@
 </script>
 <style>
 .g-videospadding{
-  /*padding-bottom: 64px;*/
+  /*padding-bottom: 164px;*/
+}
+.g-list-bg{
+  background:#fff;
+}
+.m-all-video{
+  width:100%;
+  text-align:center;
+  color:#333;
+  font-size:16px;
+  padding:20px 0;
 }
 .m-navigation{
   width:50%;
   margin:5% 25%;
   height:3rem;
   line-height:3rem;
-  border:1px solid #f36;
+  border:1px solid #1cc7ff;
   border-radius:3rem;
 }
 .u-sl-results{
@@ -176,11 +177,11 @@
   line-height:3rem;
   text-align:center;
   font-size:1.5rem;
-  color:#f36;
+  color:#1cc7ff;
   background:transparent;
 }
 .curs{
-  background:#f36;
+  background:#1cc7ff;
   color:#fff;
 }
 .curs:first-child{

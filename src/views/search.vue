@@ -4,11 +4,11 @@
 		<div class="g-bd g-bdsearch">
 			<div class="m-s-main">
 				<div class="g-s-nav">
+					<router-link  to="/" class="u-s-cancel">取消</router-link>
 					<div class="m-s-nav">
 						<img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
 						<input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="searchs(keyword)">
 					</div>
-					<router-link  to="/" class="u-s-cancel">取消</router-link>
 				</div>
 				<div class="g-s-main">
 					<div class="u-hs">热门搜索</div>
@@ -53,50 +53,51 @@
 </script>
 <style>
 	.g-bdsearch{
-		height:53.5rem;
+		height:100%;
 		width:100%;
 		padding-bottom:64px;
 	}	
 	.g-s-nav{
 		width:100%;
 		height:3.7rem;
-		background:#1c232d;
+		background:#fff;
 		overflow:hidden;
 	}
 	.m-s-nav{
 		position:relative;
-		float:left;
+		float:right;
 		width:80%;
 		height:2.8rem;
 		line-height:2.8rem;
 		text-align:center;
+		margin-right:2.5%;
 	}
 	input.u-s-search{
-		width:85%;
-		height:2.2rem;
-		line-height:2.2rem;
-		margin:3% 0% 0% 2%;
+		width:90%;
+		height:2.5rem;
+		line-height:2.5rem;
+		margin:2.5% 0% 0% 0%;
 		padding-left:10%;
-		background:#161d24;
+		background:#f5f5f5;
 		border:0px;
 		border-radius:2%;
-		color:#8e8e9a;
+		color:#666;
 	}
 	input::-webkit-input-placeholder { /* WebKit browsers */ 
 		font-size:1.2rem;
-    	color: #465667; 
+    	color: #999; 
 	} 
 	input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
 		font-size:1.2rem;
-	    color: #465667; 
+	    color: #999; 
 	} 
 	input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
 		font-size:1.2rem;
-	    color: #465667; 
+	    color: #999; 
 	} 
 	input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
 		font-size:1.2rem;
-	    color: #465667; 
+	    color: #999; 
 	} 
 	.u-s-simg{
 		display:inline-block;
@@ -104,7 +105,7 @@
 		width:15px;
 		height:15px;
 		top:41%;
-		left:6.5%;
+		right:6.5%;
 	}
 	.u-s-cancel{
 		display:inline-block;
@@ -113,7 +114,7 @@
 		line-height:10%;
 		text-align:center;
 		font-size:1.5rem;
-		color:#9da4ad;
+		color:#666;
 		margin:6% 0% 0% 4%;
 	}
 	.g-s-main{
@@ -124,7 +125,7 @@
 	}
 	.u-hs{
 		font-size:1rem;
-		color:#f36;
+		color:#1cc7ff;
 		padding:5% 2%;
 	}
 	.u-hc{
@@ -132,17 +133,31 @@
 		width:20%;
 		height:3rem;
 		line-height:3rem;
-		color:#8e8e9a;
+		color:#666;
 		font-size:1.2rem;
-		background:#1a2129;
+		background:#fff;
 		cursor:pointer;
 		text-align:center;
 		border-radius:2%;
 		margin:2% 2%;
 	}
+	.u-hc:link{
+		color:#666;
+		background:#fff;
+	}
+	.u-hc:visited{
+		border:1px solid #1cc7ff;
+		color:#1cc7ff;
+		background:#fff;
+	}
 	.u-hc:hover{
-		border:1px solid #f36;
-		color:#f36;
-		background:#1a2129;
+		border:1px solid #1cc7ff;
+		color:#1cc7ff;
+		background:#fff;
+	}
+	.u-hc:active{
+		border:1px solid #1cc7ff;
+		color:#1cc7ff;
+		background:#fff;
 	}
 </style>
