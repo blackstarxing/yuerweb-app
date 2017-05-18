@@ -16,10 +16,9 @@
 			</div>
 		</div>	
 		<div class="tab">
-			<ul class="f-fl">
+			<ul>
 				<li v-for='(item,index) in tab' v-text="item.name" v-bind:class="{current:item.isCur}" @click="setCur(index)"></li>
 			</ul>
-			<a href="https://yuertvfile.wangyuhudong.com" class="follow f-fl"><i class="icon iconfont icon-focus"></i>关注</a>
 		</div>
 		<div class="m-comments" v-show="index=='0'">
 			<div class="comment anchor">
@@ -33,14 +32,16 @@
 						<h4>{{details.nickname}}</h4>
 						<div>房间号&nbsp;&nbsp;&nbsp;<span style="margin-right: 25px;">{{details.room_id}}</span>粉丝&nbsp;&nbsp;&nbsp;<span class="fans-num">{{details.fans}}</span></div>
 					</div>
+					<a href="https://yuertvfile.wangyuhudong.com" class="follow"><img src="../../static/images/follow.png" alt="">关注</a>
 				</div>
 				<div class="intro">
-					<h3><img src="../../static/images/trumpet.png" alt="">直播公告</h3>
+					<h3><img src='../../static/images/welcome.png' alt=''>直播公告</h3>
 					<p v-html="details.notice?details.notice:'主播很懒，什么都没留下'"></p>
 				</div>
 			</div>
 		</div>
 		<div class="m-comments" v-show="index=='1'">
+			<a href="https://yuertvfile.wangyuhudong.com" class="follow"><img src="../../static/images/follow.png" alt="">关注</a>
 			<div id="chat">
 				
 			</div>
@@ -80,21 +81,22 @@
 					<img src="../../static/images/empty.png" alt="">
 				</div>
     			<div v-else>
-    				<div class="videolist" v-for="video in historyVideo">
-						<router-link :to="{path:'videoDetail',query: {id:video.id}}" class="f-cb">
-							<div class="history f-fl">
-								<img v-bind:src="video.icon" alt="" class="screen" v-if="video.screen">
-                        		<img v-bind:src="video.icon" alt="" v-else>
-							</div>							
-							<div class="title f-fl">
-								<h3>{{video.title}}</h3>
-								<div class="count">
-									<label for=""><i class="icon iconfont icon-playtimes"></i>{{video.play_times}}</label>
-									<label for=""><i class="icon iconfont icon-comment"></i>{{video.comment_num}}</label>
-								</div>
-							</div>
-						</router-link>
-					</div>   
+					 <div class="m-lst" v-for="video in historyVideo">
+                        <router-link :to="{path:'videoDetail',query: {id:video.id}}" class="m-livelink">
+                            <div class="m-cover">
+                                <img v-bind:src="video.icon" alt="" class="screen" v-if="video.screen">
+                                <img v-bind:src="video.icon" alt="" v-else>
+                                <span v-bind:style="'background:'+video.tag_color">{{video.game_name}}</span>
+                            </div>
+                            <div class="m-info m-video-info f-cb">
+                                <div class="m-nickname f-fl">{{video.nickname}}</div>
+                                <img src="../../static/images/female.png" alt="" class="sex f-fl" v-if="video.sex">
+                                <img src="../../static/images/male.png" alt="" class="sex f-fl" v-else>
+                                <span class="f-fr">{{watchPeople(video.play_times)}}</span>
+                            </div>
+                            <div class="m-title">{{video.title}}</div>
+                        </router-link>
+                    </div>
     			</div>                   
 			</div>
 		</div>
@@ -227,6 +229,10 @@
                     console.log(response);
                 });
             },
+            watchPeople: function (num) {
+              	// `this` points to the vm instance
+              	return num>10000 ? (num/10000).toFixed(1)+'万' : num;
+            },
             // 进入聊天室
             enterLiveroom : function(){
             	let _this = this;
@@ -290,7 +296,7 @@
 
 				function onChatroomConnect(chatroom) {
 				    console.log('进入聊天室', chatroom);
-				    $('#chat').append("<div>你已进入聊天室！<div>"); 
+				    $('#chat').append("<div><span class='bubble s-bl'><img src='../../static/images/welcome.png' alt=''>欢迎来到<span class='nick'>"+_this.details.nickname+"</span>的直播间，喜欢主播别忘点关注哦！</span></div>"); 
 				}
 				function onChatroomWillReconnect(obj) {
 				    // 此时说明 `SDK` 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
@@ -311,7 +317,7 @@
 				            break;
 				        }
 				    }
-				    $('#chat').append("<div>连接断开<div>"); 
+				    $('#chat').append("<div><span class='bubble'>连接断开</span></div>"); 
 				}
 				function onChatroomError(error, obj) {
 				    console.log('发生错误', error, obj);
@@ -324,20 +330,23 @@
 				    		let content=JSON.parse(msgs[i].content);
 				    		// console.log(content);
 				    		if(content.data.giftNum>1){
-				    			$('#chat').append("<div class='gift'>"+content.data.senderName+":&nbsp;&nbsp;送给主播1个"+content.data.giftName+"<span class='combo'>"+content.data.giftNum+"<i></i></span><div>");
+				    			$('#chat').append("<div class='gift'><span class='bubble'><span class='s-bl'>"+content.data.senderName+"</span>赠送给主播<span class='s-f36'>"+content.data.giftName+"</span><img src='"+content.data.giftShowImage+"' class='gift-icon' alt=''><span class='combo'>x"+content.data.giftNum+"</span></span><div>");
 				    		}else{
-				    			$('#chat').append("<div class='gift'>"+content.data.senderName+":&nbsp;&nbsp;送给主播1个"+content.data.giftName+"<div>");
+				    			$('#chat').append("<div class='gift'><span class='bubble'><span class='s-bl'>"+content.data.senderName+"</span>赠送给主播<span class='s-f36'>"+content.data.giftName+"</span><img src='"+content.data.giftShowImage+"' class='gift-icon' alt=''></span><div>");
 				    		}
-				    	}else if(msgs[i].text && msgs[i].fromNick){
+				    	}else if(msgs[i].text && msgs[i].fromNick && msgs[i].fromClientType != 'Server'){
 				    		let host = msgs[i].fromNick=="1" ? '<label for="">主播</label>&nbsp;' : '';
-							$('#chat').append("<div>"+host+"<span class='fromNick'>"+msgs[i].fromNick+":&nbsp;&nbsp;</span>"+msgs[i].text+"<div>");   		
+							$('#chat').append("<div><span class='bubble'>"+host+"<span class='fromNick'>"+msgs[i].fromNick+":&nbsp;&nbsp;</span>"+msgs[i].text+"</span><div>");   		
 				    	}else if(msgs[i].text && !msgs[i].fromNick && msgs[i].custom){
 				            let custom=JSON.parse(msgs[i].custom);
-				            $('#chat').append("<div><span class='fromNick'>"+custom.nickname+":&nbsp;&nbsp;</span>"+msgs[i].text+"</div>");        
+				            $('#chat').append("<div><span class='bubble'><span class='fromNick'>"+custom.nickname+":&nbsp;&nbsp;</span>"+msgs[i].text+"</span></div>");        
 				        }else if(msgs[i].flow=="in" && !msgs[i].text && msgs[i].attach.fromNick && msgs[i].attach.type=="memberEnter"){
-				    		$('#chat').append("<div>欢迎用户"+msgs[i].attach.fromNick+"进入直播间");
+				    		$('#chat').append("<div><span class='bubble'>欢迎用户"+msgs[i].attach.fromNick+"进入直播间</span></div>");
 				    	}else if(msgs[i].flow=="in" && msgs[i].text && msgs[i].custom =="" ){
-				            $('#chat').append('<div>'+msgs[i].text+'</div>');
+				    		var a = msgs[i].text.slice(0,2);
+				    		var b = msgs[i].text.slice(2).slice(0,-5);
+				    		var c = msgs[i].text.slice(2).slice(-5);
+				            $('#chat').append('<div><span class="bubble">'+a+'<span class="s-bl">'+b+'</span>'+c+'</span></div>');
 				        }
 				    	lct.scrollTop=Math.max(0,lct.scrollHeight-lct.offsetHeight);    	
 				    }
@@ -387,11 +396,12 @@
 		height: 39px;
 		line-height: 39px;
 		padding-bottom: 3px;
-		background: #1c232d;
+		background: #fff;
 		/*border-bottom: 1px solid #e4e4e4;*/
 	}
 	.tab ul{
 		width: 80%;
+		margin:0 auto;
 	}
 	.tab li{
 		float: left;
@@ -400,33 +410,39 @@
 		margin:0 5%;
 		display: block;
 		box-sizing: border-box;
-		color: #9da4ad;
+		color: #666;
 		font-size: 13px;
 	}
 	.tab li.current{
-		color: #ff3366;
-		border-bottom: 3px solid #ff3366;
+		color: #1cc7ff;
+		border-bottom: 3px solid #1cc7ff;
 	}
 	.follow{
+		position: absolute;
+		top:1rem;
+		right: 0;
 		display: block;
-		/*width: 14%;*/
-		height: 26px;
-		line-height: 26px;
-		margin:8px 3%;
-		background: #f36;
+		width: 5rem;
+		height: 3rem;
+		line-height: 3rem;
+		background: #1cc7ff;
 		text-align: center;
 		color:#fff;
 		font-size: 13px;
 		padding:0 5px;
-		border-radius: 3px;
+		border-top-left-radius: 1.5rem;
+		border-bottom-left-radius: 1.5rem;
+		-webkit-box-shadow: 0px 2px 20px rgba(71,202,255,.7);
+	    -moz-box-shadow: 0px 2px 20px rgba(71,202,255,.7);
+	    box-shadow: 0px 2px 20px rgba(71,202,255,.7);
 	}
 	.follow img{
 		width: 14px;
-		vertical-align: middle;
-		margin-right: 3px;
+		vertical-align: text-bottom;
+		margin-right: 5px;
 	}
 	/*评论区域*/
-	.m-comments{padding:0 0 70px;color:#9da4ad;}
+	.m-comments{padding:0 0 70px;color:#9da4ad;position: relative;}
 	.m-comments .comment{padding:12px 12px 0;}
 	.showItem,.showRank{display: block;}
 	.m-comments .comment .head{width:30px;}
@@ -448,14 +464,15 @@
 		margin-top: 12px;
 	}
 	.m-comments .anchor{
-		background: #141a20;
+		background: #f5f5f5;
+		margin:10px;
 		/*border-top:1px solid #e4e4e4;
 		border-bottom:1px solid #e4e4e4;*/
 	}
 	.subscribe{
 		height: 46px;
 		padding:15px;
-		background: #1c232d;
+		background: #fff;
 		/*border-bottom:1px solid #e4e4e4;*/
 	}
 	.subscribe .name{
@@ -474,7 +491,7 @@
 	}
 	.subscribe .name h4{
 		font-size: 15px;
-		color:#9da4ad;
+		color:#333;
 		margin-bottom: 15px;
 		width: 170px;
 		overflow:hidden;
@@ -494,6 +511,12 @@
 		color:#ff3366;
 		line-height: 24px;
 		margin-right: 9px;
+	}
+	.subscribe .follow{
+		border-radius: 1.5rem;
+		/*top:50%;
+		margin-top: -1.5rem;*/
+		right:10px;
 	}
 	.anchor .intro{
 		padding:12px 15px 15px;
@@ -518,17 +541,42 @@
 		padding:10px 10px 0;
 		box-sizing: border-box;
 		line-height: 20px;
-		font-size: 13px;
+		font-size: 1rem;
+	}
+	#chat .bubble{
+		background: #fff;
+		display: inline-block;
+		padding:0.6rem 1.2rem;
+		line-height: 1.6rem;
+		margin-bottom: 1rem;
+		border-radius: 1.4rem;
+		border-bottom-left-radius: 0;
+	}
+	.bubble img{
+		height: 1.2rem;
+		vertical-align: middle;
+		margin-right: 8px;
+	}
+	.bubble .s-bl{
+		margin:0 5px;
+	}
+	.bubble .nick{
+		margin:0 5px;
+		font-weight: bolder;
+	}
+	.bubble .gift-icon{
+		vertical-align: text-bottom;
+		margin-right: 0;
 	}
 	#chat .gift{
-		color:#ffff00;
+		/*color:#ffff00;*/
 	}
 	#chat .combo{
 		font-size: 14px;
-		margin-left: 10px;
-		font-style: italic;
-		color:#f60;
-		font-weight: bolder;
+		margin-left: 5px;
+		/*font-style: italic;*/
+		color:#f36;
+		/*font-weight: bolder;*/
 	}
 	#chat .combo i{
 		display: inline-block;
@@ -539,7 +587,7 @@
 		vertical-align: bottom;
 	}
 	#chat .fromNick{
-		color:#3ff;
+		color:#1cc7ff;
 	}
 	#chat label{
 		display: inline-block;
@@ -558,13 +606,13 @@
 	.contribute-tab li{
 		float: left;
 		width: 50%;
-		border:1px solid #f36;
+		border:1px solid #1cc7ff;
 		height: 30px;
 		line-height: 30px;
 		text-align: center;
 		box-sizing: border-box;
 		font-size: 15px;
-		color:#f36;
+		color:#1cc7ff;
 	}
 	.contribute-tab li:first-child{
 		border-top-left-radius: 15px;
@@ -575,13 +623,13 @@
 		border-bottom-right-radius: 15px; 
 	}
 	.contribute-tab .current{
-		background: #f36;
+		background: #1cc7ff;
 		color:#fff;
 	}
 	.contributionRank{
 		height: 76px;
-		background: #1a2129;
-		color:#ccc;
+		background: #fff;
+		color:#333;
 		margin-bottom: 11px;
 		font-size: 15px
 	}
@@ -671,7 +719,7 @@
 		color: #f36;
 	}
 	.rank-detail .yuer-coin{
-		color: #ff0;
+		color: #ff9e2c;
 	}
 	/*播放*/
 	.videolist{
