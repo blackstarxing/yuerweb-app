@@ -21,8 +21,8 @@
                               <img src="../../static/images/default.png" alt="" class="f-fl" v-else>
                             <div class="comment-content">
                                 <h3><span class="comment-nick">{{list.nickname}} </span><span class="f-fr">{{list.create_date}}</span></h3>
-                                <div v-if="list.reply_nickname">
-                                回复<span class="reply-nickname">@{{list.reply_nickname}}</span>:{{list.content}}
+                                <div>
+                                    <span v-if="list.reply_nickname">回复<span class="reply-nickname">@{{list.reply_nickname}}</span>:</span>{{list.content}}
                                 </div>
                             </div>
                         </a>
