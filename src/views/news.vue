@@ -10,7 +10,7 @@
                 <span class="g-n-date">{{m}}月{{d}}日</span><span class="g-n-time">{{time}}</span><span class="g-n-title">{{info.game_name}}</span>
                 <div class="g-n-line"></div>
             </div>
-            <div class="g-mian m-bg">
+            <div class="g-mian m-bg" v-html="info.content">
             </div>
             <div class="g-comment">
                 <h3 class="u-title"><img src="../../static/images/comment_icon.png" alt="">评论</h3>
@@ -20,7 +20,7 @@
                             <img v-bind:src="list.icon" alt="" class="f-fl" v-if="list.icon">
                               <img src="../../static/images/default.png" alt="" class="f-fl" v-else>
                             <div class="comment-content">
-                                <h3>{{list.nickname}} <span class="f-fr">{{list.create_date}}</span></h3>
+                                <h3><span class="comment-nick">{{list.nickname}} </span><span class="f-fr">{{list.create_date}}</span></h3>
                                 <div>
                                     <span v-if="list.reply_nickname">回复<span class="reply-nickname">@{{list.reply_nickname}}</span>:</span>{{list.content}}
                                 </div>
@@ -157,7 +157,7 @@
         margin-top:5%;
     }
     .g-mian{
-        font-size:12px;color:#fff;
+        font-size:12px;color:#666;
     }
     .g-mian img{
         max-width: 100%;
@@ -196,7 +196,8 @@
         padding-left: 4rem;
         box-sizing: border-box;
     }
-    .comment-content h3{
+    .comment-content .comment-nick{
+        display: inline-block;
         font-size: 1.2rem;
         color:#333;
         width:50%;
