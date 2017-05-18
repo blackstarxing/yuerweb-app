@@ -16,7 +16,7 @@
                 <h3 class="u-title"><img src="../../static/images/comment_icon.png" alt="">评论</h3>
                 <div v-if="comments.length>0 ">
                     <div v-for="(list,index) in comments">
-                        <a href="https://yuertvfile.wangyuhudong.com/" class="comment f-cb">
+                        <a href="https://yuertvfile.wangyuhudong.com/" class="comment news-comment f-cb">
                             <img v-bind:src="list.icon" alt="" class="f-fl" v-if="list.icon">
                               <img src="../../static/images/default.png" alt="" class="f-fl" v-else>
                             <div class="comment-content">
@@ -184,7 +184,7 @@
         padding:9px 0;
         font-size: 1.2rem;
     }
-    .comment img{
+    .news-comment img{
         width: 2.8rem;
         height: 2.8rem;
         border-radius: 50%;

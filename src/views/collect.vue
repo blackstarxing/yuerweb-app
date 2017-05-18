@@ -37,7 +37,7 @@
                 <div class="m-live f-cb" v-if="index.hotVideo!=''">
                     <h3><img src="../../static/images/hot_icon.png" alt="">热门视频</h3>
                     <div class="m-lst" v-for="live in index.hotVideo">
-                        <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
+                        <router-link :to="{path:'videoDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>
@@ -57,7 +57,7 @@
                 <div class="m-live f-cb" v-for="game in index.sortVideos" v-show="game.videos.length>=0">
                     <h3><img v-bind:src="'http://img.wangyuhudong.com/'+game.index_sort_icon" alt="">{{game.game_name}}</h3>
                     <div class="m-lst" v-for="live in game.videos">
-                        <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
+                        <router-link :to="{path:'videoDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>

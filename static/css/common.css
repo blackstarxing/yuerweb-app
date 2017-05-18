@@ -193,6 +193,7 @@ a,a:hover{color:#fff;}
     display: inline-block;
     padding:0 5px;
     border-bottom-left-radius: 5px;
+    color:#fff;
 }
 .m-cover i{
 	color:#f36;
