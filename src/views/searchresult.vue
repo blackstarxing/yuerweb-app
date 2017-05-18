@@ -6,7 +6,7 @@
             <div class="g-s-nav">
                 <router-link  to="/" class="u-s-cancel">取消</router-link>
                 <div class="m-s-nav">
-                    <img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
+                    <img src="/static/search.png" alt="" class="u-s-simg">
                     <input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="search(keyword)">
                 </div> 
             </div>  
@@ -14,7 +14,7 @@
               <button v-for="(item,index) in tab" v-text="item.name" v-bind:class="[{cur:item.iscur},'u-sl-result']" @click="setCur(index)"></button>
             </div>
             <div class="g-list" v-if="totalshow.have!=0">
-                <div class="m-live f-cb"  v-show="index=='0' || index=='1'"  >
+                <div class="m-live f-cb"  v-show="index=='0' || index=='1'"  style="background:#fff;">
                     <div v-if="livetotal!=0">
                         <h3 class="u-h3 u-h3-switch"><span class="u-h3-spec">{{livetotal}}个相关直播</span><a @click="resultswitch(1)" class="u-h3-a" v-show="index=='0' || index!='1'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
                         <div class="m-lst" v-for="lives in totallivelist">
@@ -43,7 +43,7 @@
                         <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
                     </div>                    
                 </div>
-                <div class="f-cb"  v-show="index=='0' || index=='2'" style="margin:0 2%" >
+                <div class="f-cb"  v-show="index=='0' || index=='2'" style="background:#fff;" >
                     <div v-if="uptotal!=0">
                         <h3 class="u-h3 u-h3-width"><span class="u-h3-spec">{{uptotal}}个相关主播</span><a @click="resultswitch(2)" class="u-h3-a" v-show="index=='0' || index!='2'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img "></a></h3>
                         <div class="m-result-host" v-for="(up,index) in totaluplist">
@@ -73,8 +73,8 @@
                         <router-link  to="/lives" class="u-switch">查看更多精彩直播</router-link>
                     </div>
                 </div>
-                <div class="m-video g-list" v-show="index=='0' || index=='3'" >
-                    <div v-if="videototal!=0">
+                <div class="m-video g-list f-cb" v-show="index=='0' || index=='3'" style="margin-top:10px;background:#fff;padding:0;">
+                    <div v-if="videototal!=0" style="background:#fff;">
                         <h3 class="u-h3 u-h3-switch"><span class="u-h3-spec">{{videototal}}个相关视频</span><a @click="resultswitch(3)" class="u-h3-a" v-show="index=='0' || index!='3'">更多<img src="../../static/images/more_icon.png" alt="" class="u-h3-img"></a></h3>
                         <div class="m-lst" v-for="(video,index) in totalvideolist">
                           <router-link :to="{path:'liveDetail',query: {id:video.id}}" class="m-livelink">
@@ -304,30 +304,32 @@
     background:#f5f5f5;
     border:0px;
     border-radius:2%;
+    color:#333;
+    font-size:15px;
   }
   input::-webkit-input-placeholder { /* WebKit browsers */ 
     font-size:1.2rem;
       color: #999; 
       position:relative;
-      left:-10px;
+      left:-20px;
   } 
   input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
     font-size:1.2rem;
       color: #999; 
       position:relative;
-      left:-10px;
+      left:-20px;
   } 
   input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
     font-size:1.2rem;
       color: #999; 
       position:relative;
-      left:-10px;
+      left:-20px;
   } 
   input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
     font-size:1.2rem;
       color: #999; 
       position:relative;
-      left:-10px;
+      left:-20px;
   } 
   .u-s-simg{
     display:inline-block;
@@ -375,11 +377,12 @@
     overflow:hidden;
   } 
   h3.u-h3-width{
-    width:100%;
+    width:96%;
     margin-right:0;
     position:relative;
-    left:-4.5px;
     text-align:left;
+    padding-left:2%;
+    padding-right:2%;
   }
   .u-h3-spec{
     text-align:left;
@@ -407,6 +410,7 @@
     background:#fff;
     margin-top:2%;
     overflow:hidden;
+    border-top:1px solid #e6e6e6;
   }
   .u-shl-img{
     display:inline-block;
@@ -478,5 +482,9 @@
     width:1.5rem;
     height:1.5rem;
     margin-left:2%;
+  }
+  .m-live{
+    padding:0 2%;
+    background:#fff;
   }
 </style>

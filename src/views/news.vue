@@ -135,12 +135,13 @@
     }
     .g-n-title{
         display:inline-block; 
-        width:20%;
+        width:15%;
+        padding:0 2%;
         height:20px;
         line-height:20px;
         text-align:center;
         margin-right:0.2%;
-        font-size:9px;
+        font-size:12px;
         color:#00a3ff;
         border:1px solid #00a3ff;
         position:absolute;
@@ -246,7 +247,7 @@
         font-style: normal;
         width: 1px;
         height: 100%;
-        background: #666;
+        background: #e6e6e6;
     }
     .g-bt li img{
         height: 100%;

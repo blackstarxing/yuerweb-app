@@ -6,7 +6,7 @@
 				<div class="g-s-nav">
 					<router-link  to="/" class="u-s-cancel">取消</router-link>
 					<div class="m-s-nav">
-						<img src="../../static/images/nav_search.png" alt="" class="u-s-simg">
+						<img src="/static/search.png" alt="" class="u-s-simg">
 						<input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="searchs(keyword)">
 					</div>
 				</div>
@@ -81,31 +81,32 @@
 		background:#f5f5f5;
 		border:0px;
 		border-radius:2%;
-		color:#666;
+		color:#333;
+    	font-size:15px;
 	}
 	input::-webkit-input-placeholder { /* WebKit browsers */ 
 		font-size:1.2rem;
     	color: #999; 
     	position:relative;
-      	left:-10px;
+      	left:-20px;
 	} 
 	input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
 		font-size:1.2rem;
 	    color: #999;
 	    position:relative;
-      	left:-10px; 
+      	left:-20px; 
 	} 
 	input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
 		font-size:1.2rem;
 	    color: #999; 
 	    position:relative;
-      	left:-10px;
+      	left:-20px;
 	} 
 	input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
 		font-size:1.2rem;
 	    color: #999; 
 	    position:relative;
-      	left:-10px;
+      	left:-20px;
 	} 
 	.u-s-simg{
 		display:inline-block;
@@ -134,7 +135,7 @@
 	.u-hs{
 		font-size:1rem;
 		color:#1cc7ff;
-		padding:5% 2%;
+		padding:5% 2% 3% 2%;
 	}
 	.u-hc{
 		float:left;
