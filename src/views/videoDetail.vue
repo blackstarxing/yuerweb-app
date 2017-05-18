@@ -112,4 +112,10 @@
 		vertical-align: middle;
 		margin-right: 8px;
 	}
+	@media screen and (max-width: 320px) { 
+		.subscribe .head img {
+			width: 40px;
+			height: 40px;
+		}
+	}
 </style>

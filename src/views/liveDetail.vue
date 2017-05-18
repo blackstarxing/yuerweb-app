@@ -415,7 +415,8 @@
 	}
 	.tab li.current{
 		color: #1cc7ff;
-		border-bottom: 3px solid #1cc7ff;
+		background: url(../../static/images/current.png) center 35px no-repeat;
+		background-size: 1.83rem;
 	}
 	.follow{
 		position: absolute;
@@ -432,9 +433,9 @@
 		padding:0 5px;
 		border-top-left-radius: 1.5rem;
 		border-bottom-left-radius: 1.5rem;
-		-webkit-box-shadow: 0px 2px 20px rgba(71,202,255,.7);
-	    -moz-box-shadow: 0px 2px 20px rgba(71,202,255,.7);
-	    box-shadow: 0px 2px 20px rgba(71,202,255,.7);
+		-webkit-box-shadow: 0px 2px 10px rgba(71,202,255,.7);
+	    -moz-box-shadow: 0px 2px 10px rgba(71,202,255,.7);
+	    box-shadow: 0px 2px 10px rgba(71,202,255,.7);
 	}
 	.follow img{
 		width: 14px;
@@ -514,8 +515,8 @@
 	}
 	.subscribe .follow{
 		border-radius: 1.5rem;
-		/*top:50%;
-		margin-top: -1.5rem;*/
+		top:50%;
+		margin-top: -1.5rem;
 		right:10px;
 	}
 	.anchor .intro{
