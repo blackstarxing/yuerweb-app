@@ -9,7 +9,7 @@
                 <!-- <div class="m-top">
                      <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
                 </div> -->
-                <div class="g-all-live">全部直播</div>
+                <div class="g-all-live">{{tagname}}全部直播</div>
                 <div class="g-list">
                     <div class="m-recommend-live f-cb">
                         <div class="m-lst" v-for="item in liveshowlist">
@@ -17,7 +17,7 @@
                               <div class="m-cover">
                                   <img v-bind:src="item.icon" alt="" class="screen" v-if="item.screen">
                                   <img v-bind:src="item.icon" alt="" v-else>
-                                  <span v-bind:style="'background:'+item.tag_color">{{item.game_name}}</span>
+                                  <span v-bind:style="'background:'+item.tag_color" v-if="item.tagname">{{item.tag_name}}</span>
                               </div>
                               <div class="m-info f-cb">
                                   <div class="m-head f-fl">
@@ -55,6 +55,7 @@
                 page : 1,
                 pageSize : 20,
                 liveId:'',
+                tagname:'',
             }
         },
         mounted: function () {
@@ -89,7 +90,8 @@
                     this.liveshow=response.data.object;
                     // this.liveshowlist=this.liveshow.list;
                     // if(this.liveshowlist){
-                        this.liveshowlist=this.liveshowlist.concat(response.data.object.list);
+                        liveshowlist=this.liveshowlist.concat(response.data.object.list);
+                        this.tagname=response.data.object.tag_name;
                     // }
                     this.islast=this.liveshow.isLast;
                 }, function(response) {
