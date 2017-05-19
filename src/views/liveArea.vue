@@ -90,7 +90,7 @@
                     this.liveshow=response.data.object;
                     // this.liveshowlist=this.liveshow.list;
                     // if(this.liveshowlist){
-                        liveshowlist=this.liveshowlist.concat(response.data.object.list);
+                        this.liveshowlist=this.liveshowlist.concat(response.data.object.list);
                         this.tagname=response.data.object.tag_name;
                     // }
                     this.islast=this.liveshow.isLast;
