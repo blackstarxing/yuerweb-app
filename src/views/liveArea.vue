@@ -9,7 +9,7 @@
                 <!-- <div class="m-top">
                      <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
                 </div> -->
-                <div class="g-all-live">{{tagname}}全部直播</div>
+                <div class="g-all-live">{{tagname}}</div>
                 <div class="g-list">
                     <div class="m-recommend-live f-cb">
                         <div class="m-lst" v-for="item in liveshowlist">
@@ -17,7 +17,7 @@
                               <div class="m-cover">
                                   <img v-bind:src="item.icon" alt="" class="screen" v-if="item.screen">
                                   <img v-bind:src="item.icon" alt="" v-else>
-                                  <span v-bind:style="'background:'+item.tag_color" v-if="item.tagname">{{item.tag_name}}</span>
+                                  <span v-bind:style="'background:'+item.tag_color" v-if="item.tag_name">{{item.tag_name}}</span>
                               </div>
                               <div class="m-info f-cb">
                                   <div class="m-head f-fl">
@@ -31,7 +31,7 @@
                               <div class="m-title">{{item.title}}</div>
                           </router-link>
                         </div>
-                        <div v-show="islast" class="paging" @click="vedios">加载更多</div>
+                        <div v-show="!islast" class="paging" @click="vedios">加载更多</div>
                     </div>
                 </div>  
             </div>
@@ -61,7 +61,9 @@
         mounted: function () {
             this.$nextTick(function () {
                 var _this = this;
-
+                _this.page = 1;
+                _this.liveshowlist=[];
+                _this.islast = '';
                 _this.vedios(_this.page);
                 $(window).scroll(function(){ 
                     var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
@@ -74,6 +76,11 @@
                     }
                 })
             })
+        },
+        beforeDestroy:function(){
+            this.islast = '';
+            this.page = 1;
+            $(window).unbind('scroll');
         },
         components: {
             topHead,
@@ -91,7 +98,7 @@
                     // this.liveshowlist=this.liveshow.list;
                     // if(this.liveshowlist){
                         this.liveshowlist=this.liveshowlist.concat(response.data.object.list);
-                        this.tagname=response.data.object.tag_name;
+                        this.tagname=this.liveshowlist[0].game_name;
                     // }
                     this.islast=this.liveshow.isLast;
                 }, function(response) {
