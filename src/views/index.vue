@@ -53,7 +53,7 @@
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>
-                                <span v-bind:style="'background:'+live.tag_color">{{live.game_name}}</span>
+                                <span v-bind:style="'background:'+live.game_color">{{live.game_name}}</span>
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
@@ -77,7 +77,7 @@
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>
-                                <span><i>·</i>{{live.game_name}}</span>
+                                <span v-bind:style="'background:'+live.tag_color">{{live.game_name}}</span>
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
@@ -87,7 +87,7 @@
                                     <img src="../../static/images/male.png" alt="" class="sex" v-else>
                                 </div>
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
-                                <span>{{watchPeople(live.online_num)}}</span>
+                                <!-- <span>{{watchPeople(live.online_num)}}</span> -->
                             </div>
                             <div class="m-title">{{live.title}}</div>
                         </router-link>

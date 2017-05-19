@@ -24,7 +24,8 @@
 			<div class="comment anchor">
 				<div class="subscribe clearfix">
 					<div class="head f-fl">
-						<img v-bind:src="details.user_icon" alt="">
+						<img v-bind:src="details.user_icon" alt="" v-if="details.user_icon">
+						<img src="../../static/images/default.png" alt="" v-else>
                         <img src="../../static/images/female.png" alt="" class="sex" v-if="details.sex">
                         <img src="../../static/images/male.png" alt="" class="sex" v-else>
 					</div>

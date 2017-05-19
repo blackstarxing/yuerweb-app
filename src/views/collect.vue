@@ -41,7 +41,7 @@
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>
-                                <span v-bind:style="'background:'+live.tag_color">{{live.game_name}}</span>
+                                <span v-bind:style="'background:'+live.game_color">{{live.game_name}}</span>
                             </div>
                             <div class="m-info m-video-info f-cb">
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
@@ -54,14 +54,14 @@
                     </div>
                     <div><router-link to="/videos" class="u-more">全部视频<img src="../../static/images/more_icon.png" alt=""></router-link></div>
                 </div>
-                <div class="m-live f-cb" v-for="game in index.sortVideos" v-show="game.videos.length>=0">
+                <div class="m-live f-cb" v-for="game in index.sortVideos" v-show="game.videos.length>=4">
                     <h3><img v-bind:src="'http://img.wangyuhudong.com/'+game.index_sort_icon" alt="">{{game.game_name}}</h3>
                     <div class="m-lst" v-for="live in game.videos">
                         <router-link :to="{path:'videoDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>
-                                <span><i>·</i>{{live.game_name}}</span>
+                                <span v-bind:style="'background:'+live.tag_color">{{live.game_name}}</span>
                             </div>
                             <div class="m-info m-video-info f-cb">
                                 <div class="m-nickname f-fl">{{live.nickname}}</div>
