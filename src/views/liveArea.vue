@@ -9,7 +9,7 @@
                 <!-- <div class="m-top">
                      <p class="u-tcon">当前在线：<span class="u-tspec">{{liveshow.total}}</span>位主播</p>        
                 </div> -->
-                <div class="g-all-live">{{tagname}}全部直播</div>
+                <div class="g-all-live">{{tagname}}</div>
                 <div class="g-list">
                     <div class="m-recommend-live f-cb">
                         <div class="m-lst" v-for="item in liveshowlist">
@@ -31,7 +31,7 @@
                               <div class="m-title">{{item.title}}</div>
                           </router-link>
                         </div>
-                        <div v-show="islast" class="paging" @click="vedios">加载更多</div>
+                        <div v-show="!islast" class="paging" @click="vedios">加载更多</div>
                     </div>
                 </div>  
             </div>
@@ -61,7 +61,7 @@
         mounted: function () {
             this.$nextTick(function () {
                 var _this = this;
-
+                _this.liveshowlist=[];
                 _this.vedios(_this.page);
                 $(window).scroll(function(){ 
                     var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
@@ -90,8 +90,8 @@
                     this.liveshow=response.data.object;
                     // this.liveshowlist=this.liveshow.list;
                     // if(this.liveshowlist){
-                        liveshowlist=this.liveshowlist.concat(response.data.object.list);
-                        this.tagname=response.data.object.tag_name;
+                        this.liveshowlist=this.liveshowlist.concat(response.data.object.list);
+                        this.tagname=response.data.object.game_name;
                     // }
                     this.islast=this.liveshow.isLast;
                 }, function(response) {

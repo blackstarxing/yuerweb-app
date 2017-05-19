@@ -7,7 +7,7 @@
            <button v-for="(item,index) in tabs" v-text="item.name" v-bind:class="[{curs:item.iscur},'u-sl-results']" @click="setCur(index)"></button>
       </div>
       <div class="g-list g-list-bg" v-if="videos.hotLive">
-        <div class="m-all-video">全部视频</div>
+        <div class="m-all-video">{{tagname}}</div>
         <div class="m-lst" v-for="(currvideo,index) in videohot">
             <router-link :to="{path:'liveDetail',query: {id:currvideo.id}}" class="m-livelink">
                 <div class="m-cover">
@@ -28,7 +28,7 @@
       </div>
       <!-- 最新视频 -->
       <div class="g-list g-list-bg" v-else>
-        <div class="m-all-video">全部视频</div>
+        <div class="m-all-video">{{tagname}}</div>
         <div class="m-lst" v-for="(currvideo,index) in videonew">
             <router-link :to="{path:'liveDetail',query: {id:currvideo.id}}" class="m-livelink">
                 <div class="m-cover">
@@ -67,6 +67,7 @@
             newpage:1,
             pageSize:20,
             type:0,
+            tagname:'',
             tabs:[{
               name:"最热视频",
               iscur:true,
@@ -129,6 +130,7 @@
                         // this.videohot=response.data.object.hotLive.list;
                         this.videohot=this.videohot.concat(response.data.object.hotLive.list);
                         this.hotislast=this.videos.hotLive.isLast;
+                        this.tagname=this.videohot.game_name;
                     }
                     if(this.videos.newLive){
                       // 最新视频下面的list数组
@@ -138,6 +140,7 @@
                         // this.videonew=response.data.object.newLive.list;
                         this.videonew=this.videonew.concat(response.data.object.newLive.list);
                         this.newislast=this.videos.newLive.isLast;
+                        this.tagname=this.videonew.game_name;
                     }
                 }, function(response) {
                     console.log(response);
