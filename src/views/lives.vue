@@ -17,7 +17,7 @@
                               <div class="m-cover">
                                   <img v-bind:src="item.icon" alt="" class="screen" v-if="item.screen">
                                   <img v-bind:src="item.icon" alt="" v-else>
-                                  <span v-bind:style="'background:'+item.game_color" v-if="item.tagname">{{item.game_name}}</span>
+                                  <span v-bind:style="'background:'+item.game_color" v-if="item.game_name">{{item.game_name}}</span>
                               </div>
                               <div class="m-info f-cb">
                                   <div class="m-head f-fl">
@@ -75,7 +75,7 @@
             })
         },
         beforeDestroy:function(){
-            this.islast = '';
+            this.islast = null;
             this.page = 1;
             $(window).unbind('scroll');
         },

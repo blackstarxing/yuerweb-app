@@ -107,8 +107,8 @@
         }) 
       },
       beforeDestroy:function(){
-          this.hotislast = '';
-          this.newislast = '';
+          this.hotislast = null;
+          this.newislast = null;
           this.page = 1;
           $(window).unbind('scroll');
       },

@@ -78,7 +78,7 @@
             })
         },
         beforeDestroy:function(){
-            this.islast = '';
+            this.islast = null;
             this.page = 1;
             $(window).unbind('scroll');
         },
