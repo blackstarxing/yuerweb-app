@@ -92,7 +92,7 @@
                             <div class="m-title">{{live.title}}</div>
                         </router-link>
                     </div>
-                    <router-link :to="{path:'liveArea',query: {id:game.id}}" class="u-more">进入专区<img src="../../static/images/more_icon.png" alt=""></router-link>
+                    <router-link :to="{path:'liveArea',query: {id:game.game_id}}" class="u-more">进入专区<img src="../../static/images/more_icon.png" alt=""></router-link>
                 </div>
                 <!-- <div class="m-video">
                     <h3><i class="icon iconfont icon-video"></i>精彩视频<router-link to="/videos" class="u-more">更多&gt;</router-link></h3>

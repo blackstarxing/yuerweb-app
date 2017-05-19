@@ -83,7 +83,7 @@
             },
             vedios:function(page) {
                 var parm = {};
-                this.$http.get('/api/mobile/liveList', {params:{liveId:_this.$route.query.id,page:page,pageSize:this.pageSize}}).then(function(response) {
+                this.$http.get('/api/mobile/liveList', {params:{liveId:this.$route.query.id,page:page,pageSize:this.pageSize}}).then(function(response) {
                     this.liveshow=response.data.object;
                     // this.liveshowlist=this.liveshow.list;
                     // if(this.liveshowlist){
