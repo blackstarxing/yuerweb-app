@@ -31,7 +31,7 @@
                               <div class="m-title">{{item.title}}</div>
                           </router-link>
                         </div>
-                        <div v-show="!islast" class="paging" @click="vedios">加载更多</div>
+                        <div v-show="islast" class="paging" @click="vedios">加载更多</div>
                     </div>
                 </div>  
             </div>
@@ -60,6 +60,7 @@
         mounted: function () {
             this.$nextTick(function () {
                 var _this = this;
+
                 _this.vedios(_this.page);
                 $(window).scroll(function(){ 
                     var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
