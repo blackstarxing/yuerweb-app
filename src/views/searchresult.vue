@@ -257,7 +257,7 @@
                         } 
                         if(this.totalshow.video){
                           this.videototal=this.totalshow.video.total; 
-                          if(this.page==1 || type==0){
+                          if(this.page==1 || type==0 || this.videoislast!=1){
                             this.totalvideolist=[];
                             this.videopage=1;
                           }
