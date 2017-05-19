@@ -77,6 +77,10 @@
   		},
       mounted:function(type){
         var _this=this;
+        _this.newpage = 1;
+        _this.hotpage = 1;
+        _this.hotislast = '';
+        _this.newislast = '';
         _this.videototal(0);
         $(window).scroll(function(){ 
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
@@ -92,6 +96,12 @@
                 
             }
         })
+      },
+      beforeDestroy:function(){
+          this.hotislast = '';
+          this.newislast = '';
+          this.page = 1;
+          $(window).unbind('scroll');
       },
   		components: {
         	topHead,

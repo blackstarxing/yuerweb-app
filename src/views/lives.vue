@@ -59,6 +59,8 @@
         mounted: function () {
             this.$nextTick(function () {
                 var _this = this;
+                _this.page = 1;
+                _this.islast = '';
                 _this.vedios(_this.page);
                 $(window).scroll(function(){ 
                     var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
@@ -71,6 +73,11 @@
                     }
                 })
             })
+        },
+        beforeDestroy:function(){
+            this.islast = '';
+            this.page = 1;
+            $(window).unbind('scroll');
         },
         components: {
             topHead,

@@ -13,7 +13,7 @@
                 <div class="m-cover">
                     <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
                     <img v-bind:src="currvideo.icon" alt="" v-else>
-                    <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.tag_name}}</span>
+                    <span v-bind:style="'background:'+currvideo.tag_color" v-if="currvideo.tag_name">{{currvideo.tag_name}}</span>
                 </div>
                 <div class="m-info m-video-info f-cb">
                     <div class="m-nickname f-fl">{{currvideo.nickname}}</div>
@@ -85,6 +85,10 @@
       mounted:function(type){
         this.$nextTick(function () {
           var _this=this;
+          _this.newpage = 1;
+          _this.hotpage = 1;
+          _this.hotislast = '';
+          _this.newislast = '';
           _this.gameId=_this.$route.query.id;
           _this.videototal(0);
           $(window).scroll(function(){ 
@@ -101,6 +105,12 @@
               }
           })
         }) 
+      },
+      beforeDestroy:function(){
+          this.hotislast = '';
+          this.newislast = '';
+          this.page = 1;
+          $(window).unbind('scroll');
       },
   		components: {
         	topHead,
@@ -130,7 +140,7 @@
                         // this.videohot=response.data.object.hotLive.list;
                         this.videohot=this.videohot.concat(response.data.object.hotLive.list);
                         this.hotislast=this.videos.hotLive.isLast;
-                        this.tagname=this.videohot.game_name;
+                        this.tagname=this.videohot[0].game_name;
                     }
                     if(this.videos.newLive){
                       // 最新视频下面的list数组
@@ -140,7 +150,7 @@
                         // this.videonew=response.data.object.newLive.list;
                         this.videonew=this.videonew.concat(response.data.object.newLive.list);
                         this.newislast=this.videos.newLive.isLast;
-                        this.tagname=this.videonew.game_name;
+                        this.tagname=this.videonew[0].game_name;
                     }
                 }, function(response) {
                     console.log(response);
