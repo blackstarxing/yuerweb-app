@@ -71,13 +71,13 @@
                     <div><router-link to="/lives" class="u-more">全部直播<img src="../../static/images/more_icon.png" alt=""></router-link></div>
                 </div>
                 <div class="m-live f-cb" v-for="game in index.game_live" v-show="game.lives.length>=4">
-                    <h3><img v-bind:src="'http://img.wangyuhudong.com/'+game.index_sort_icon" alt="">{{game.tag_name}}</h3>
+                    <h3><img v-bind:src="'http://img.wangyuhudong.com/'+game.index_sort_icon" alt="">{{game.game_name}}</h3>
                     <div class="m-lst" v-for="live in game.lives">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>
-                                <span v-bind:style="'background:'+live.tag_color">{{live.game_name}}</span>
+                                <span v-bind:style="'background:'+live.tag_color" v-if="live.tag_name">{{live.tag_name}}</span>
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
