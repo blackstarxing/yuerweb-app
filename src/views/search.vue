@@ -6,7 +6,7 @@
 				<div class="g-s-nav">
 					<router-link  to="/" class="u-s-cancel">取消</router-link>
 					<div class="m-s-nav">
-						<img src="/static/search.png" alt="" class="u-s-simg">
+						<button class="u-s-simg" @click="searchs(keyword)">搜索</button>
 						<input type="text" placeholder="可搜索房间号、主播昵称、游戏名称" class="u-s-search" v-model="keyword" @keyup.enter="searchs(keyword)">
 					</div>
 				</div>
@@ -44,9 +44,12 @@
 		methods:{
 			searchs:function(keyword,type) {
 				var _this = this;
-                	_this.$router.push({
+				if(keyword){
+					_this.$router.push({
 		                path: '/searchresult?keyword='+keyword
 		            });
+				}
+                	
             },
 		} 
 	}
@@ -77,44 +80,41 @@
 		height:2.5rem;
 		line-height:2.5rem;
 		margin:2.5% 0% 0% 0%;
-		padding-left:10%;
 		background:#f5f5f5;
 		border:0px;
 		border-radius:2%;
 		color:#333;
     	font-size:15px;
+    	padding-left:10px;
 	}
 	input::-webkit-input-placeholder { /* WebKit browsers */ 
 		font-size:1.2rem;
     	color: #999; 
-    	position:relative;
-      	left:-20px;
 	} 
 	input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
 		font-size:1.2rem;
-	    color: #999;
-	    position:relative;
-      	left:-20px; 
+	    color: #999; 
 	} 
 	input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
 		font-size:1.2rem;
 	    color: #999; 
-	    position:relative;
-      	left:-20px;
 	} 
 	input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
 		font-size:1.2rem;
 	    color: #999; 
-	    position:relative;
-      	left:-20px;
 	} 
 	.u-s-simg{
 		display:inline-block;
-		position:absolute;
-		width:15px;
-		height:15px;
-		top:41%;
-		right:6.5%;
+	    position:absolute;
+	    width:50px;
+	    height:30px;
+	    line-height:30px;
+	    background:#1cc7ff;
+	    color:#fff;
+	    top:23%;
+	    right:5px;
+	    border-radius:5px;
+	    border:1px solid #1cc7ff;
 	}
 	.u-s-cancel{
 		display:inline-block;
