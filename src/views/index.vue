@@ -53,7 +53,7 @@
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>
-                                <span v-bind:style="'background:'+live.tag_color">{{live.game_name}}</span>
+                                <span v-bind:style="'background:'+live.game_color">{{live.game_name}}</span>
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
@@ -77,7 +77,7 @@
                             <div class="m-cover">
                                 <img v-bind:src="live.icon" alt="" class="screen" v-if="live.screen">
                                 <img v-bind:src="live.icon" alt="" v-else>
-                                <span><i>·</i>{{live.game_name}}</span>
+                                <span v-bind:style="'background:'+live.tag_color">{{live.game_name}}</span>
                             </div>
                             <div class="m-info f-cb">
                                 <div class="m-head f-fl">
