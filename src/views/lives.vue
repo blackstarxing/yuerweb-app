@@ -17,7 +17,7 @@
                               <div class="m-cover">
                                   <img v-bind:src="item.icon" alt="" class="screen" v-if="item.screen">
                                   <img v-bind:src="item.icon" alt="" v-else>
-                                  <span v-bind:style="'background:'+item.tag_color">{{item.game_name}}</span>
+                                  <span v-bind:style="'background:'+item.game_color">{{item.game_name}}</span>
                               </div>
                               <div class="m-info f-cb">
                                   <div class="m-head f-fl">
