@@ -71,7 +71,7 @@
                     <div><router-link to="/lives" class="u-more">全部直播<img src="../../static/images/more_icon.png" alt=""></router-link></div>
                 </div>
                 <div class="m-live f-cb" v-for="game in index.game_live" v-show="game.lives.length>=4">
-                    <h3><i class="icon iconfont icon-game"></i>{{game.game_name}}</h3>
+                    <h3><img v-bind:src="'http://img.wangyuhudong.com/'+game.index_sort_icon" alt="">{{game.game_name}}</h3>
                     <div class="m-lst" v-for="live in game.lives">
                         <router-link :to="{path:'liveDetail',query: {id:live.id}}" class="m-livelink">
                             <div class="m-cover">
@@ -92,7 +92,7 @@
                             <div class="m-title">{{live.title}}</div>
                         </router-link>
                     </div>
-                    <router-link :to="{path:'liveArea',query: {id:game.id}}" class="u-more">进入专区<img src="../../static/images/more_icon.png" alt=""></router-link>
+                    <router-link :to="{path:'liveArea',query: {id:game.game_id}}" class="u-more">进入专区<img src="../../static/images/more_icon.png" alt=""></router-link>
                 </div>
                 <!-- <div class="m-video">
                     <h3><i class="icon iconfont icon-video"></i>精彩视频<router-link to="/videos" class="u-more">更多&gt;</router-link></h3>
