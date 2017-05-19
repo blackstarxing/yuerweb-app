@@ -79,8 +79,8 @@
         var _this=this;
         _this.newpage = 1;
         _this.hotpage = 1;
-        _this.hotislast = '';
-        _this.newislast = '';
+        _this.hotislast = 1;
+        _this.newislast = 1;
         _this.videototal(0);
         $(window).scroll(function(){ 
             var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
@@ -98,8 +98,8 @@
         })
       },
       beforeDestroy:function(){
-          this.hotislast = null;
-          this.newislast = null;
+          this.hotislast = 1;
+          this.newislast = 1;
           this.page = 1;
           $(window).unbind('scroll');
       },

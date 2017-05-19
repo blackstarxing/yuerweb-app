@@ -30,9 +30,9 @@
                               </div>
                               <div class="m-title">{{item.title}}</div>
                           </router-link>
-                        </div>
-                        <div v-show="!islast" class="paging" @click="vedios">加载更多</div>
+                        </div>  
                     </div>
+                    <div v-show="!islast" class="paging" @click="vedios">加载更多</div>
                 </div>  
             </div>
             <div class="g-false" v-else>
@@ -51,7 +51,7 @@
             return {
                 liveshow:'',
                 liveshowlist:[],
-                islast:'',
+                islast:1,
                 page : 1,
                 pageSize : 20,
                 liveId:'',
@@ -63,7 +63,7 @@
                 var _this = this;
                 _this.page = 1;
                 _this.liveshowlist=[];
-                _this.islast = '';
+                // _this.islast = '';
                 _this.vedios(_this.page);
                 $(window).scroll(function(){ 
                     var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop()); 
@@ -78,7 +78,7 @@
             })
         },
         beforeDestroy:function(){
-            this.islast = null;
+            this.islast = 1;
             this.page = 1;
             $(window).unbind('scroll');
         },
@@ -93,6 +93,8 @@
             },
             vedios:function(page) {
                 var parm = {};
+                // this.islast = 0;
+                // this.page = 1;
                 this.$http.get('/api/mobile/liveList', {params:{liveId:this.$route.query.id,page:page,pageSize:this.pageSize}}).then(function(response) {
                     this.liveshow=response.data.object;
                     // this.liveshowlist=this.liveshow.list;
@@ -100,7 +102,7 @@
                         this.liveshowlist=this.liveshowlist.concat(response.data.object.list);
                         this.tagname=this.liveshowlist[0].game_name;
                     // }
-                    this.islast=this.liveshow.isLast;
+                    // this.islast=this.liveshow.isLast;
                 }, function(response) {
                     console.log(response);
                 });
