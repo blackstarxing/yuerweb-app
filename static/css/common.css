@@ -331,12 +331,17 @@ a,a:hover{color:#fff;}
 }
 .u-desc{
     height:1.5rem;
-    width:96%;
+    width:100%;
     margin-top:2%;
     font-size:1.5rem;
     color:#666;
-    margin-bottom:55%;
     text-align:center;
+}
+.u-imgs-empty{
+	display:block;
+	width:200px;
+	height:200px;
+	margin:5px auto;
 }
 .u-switch{
 	display:block;

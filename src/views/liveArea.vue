@@ -37,6 +37,7 @@
             </div>
             <div class="g-false" v-else>
                 <p class="u-desc">当前没有主播开播，查看更多主播精彩视频</p>
+                <img src="../../static/images/empty_icon.png" alt="" class="u-imgs-empty">
                 <router-link  to="/videos" class="u-switch">查看更多精彩视频</router-link>
             </div>
 		</div>
