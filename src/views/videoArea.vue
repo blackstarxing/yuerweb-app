@@ -13,7 +13,7 @@
                 <div class="m-cover">
                     <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
                     <img v-bind:src="currvideo.icon" alt="" v-else>
-                    <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.game_name}}</span>
+                    <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.tag_name}}</span>
                 </div>
                 <div class="m-info m-video-info f-cb">
                     <div class="m-nickname f-fl">{{currvideo.nickname}}</div>
@@ -34,7 +34,7 @@
                 <div class="m-cover">
                     <img v-bind:src="currvideo.icon" alt="" class="screen" v-if="currvideo.screen">
                     <img v-bind:src="currvideo.icon" alt="" v-else>
-                    <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.game_name}}</span>
+                    <span v-bind:style="'background:'+currvideo.tag_color">{{currvideo.tag_name}}</span>
                 </div>
                 <div class="m-info m-video-info f-cb">
                     <div class="m-nickname f-fl">{{currvideo.nickname}}</div>
